@@ -1,0 +1,176 @@
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.jumbotron-mainPage {
+  background-image: url("./images/fcm.jpg");
+  background-size: cover;
+}
+
+.bg-dark-mode {
+  background-color: #343b40;
+}
+
+.bg-light-mode {
+  background-color: whitesmoke;
+}
+
+/*! Base colors */
+.mbr-white {
+  color: #ffffff;
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.mbr-black {
+  color: #000000;
+}
+
+.mbr-bg-white {
+  background-color: #ffffff;
+}
+
+.mbr-bg-black {
+  background-color: #000000;
+}
+
+/*! Text-aligns */
+.align-left {
+  text-align: left;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-right {
+  text-align: right;
+}
+
+/*! Font-weight  */
+.mbr-light {
+  font-weight: 300;
+}
+
+.mbr-regular {
+  font-weight: 400;
+}
+
+.mbr-semibold {
+  font-weight: 500;
+}
+
+.mbr-bold {
+  font-weight: 700;
+}
+  .article .lead p,
+  .article .lead ul,
+  .article .lead ol,
+  .article .lead pre,
+  .article .lead blockquote {
+    margin-bottom: 0;
+  }
+  
+  ul,
+  ol,
+  pre,
+  blockquote {
+    margin-bottom: 2.3125rem;
+  }
+  
+
+  a, a:hover {
+    text-decoration: none;
+  }
+  
+    body {
+    color: #232323;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .h1,
+  .h2,
+  .h3,
+  .h4,
+  .h5,
+  .h6,
+  .display-1,
+  .display-2,
+  .display-3,
+  .display-4 {
+    line-height: 1.25;
+    word-break: break-word;
+    word-wrap: break-word;
+  }
+
+  .modal {
+    display: flex !important;
+    text-align: center;
+  }
+  .modal:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: left;
+    margin-right: -4px;
+  }
+  .modal-dialog {
+    margin: auto;
+  }
+
+  .card {
+    margin: 0 auto; /* Added */
+    float: none; /* Added */
+    margin-bottom: 10px; /* Added */
+    border-style:none
+}
+
+ .center{
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   width: 50%;
+ }
+
+ 
+ .accordion > .card, .alice-blue{   
+  background-color:aliceblue;
+   border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    
+ }
+
+ 
+
+
+ .why {
+   /* Layout breaks without it */
+  width: 100%;
+  height: 100%;
+  position: absolute;
+ }
