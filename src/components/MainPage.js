@@ -20,8 +20,9 @@ export default function MainPage() {
             <h1 className='text-center p-4 display-4 mbr-white mbr-bold align-center'>Welcome to The First Cleveland Mosque</h1>
             <h4  className="m-5 p-4 mbr-white mbr-semibold align-center">The mission of the First Cleveland Mosque is to embrace and propagate the fundamental teachings of Islam through service to our community according to the Quran and the Sunnah of Prophet Muhammad (s.a.w.) -Salla Allahu Alaihi Wa Sallam</h4>
             <p className="lead align-center">
-                <Button color="success" className="mx-5" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4LH7ELGSGAKYU&source=url" target="_blank">Donate to First Cleveland</Button>
-                <Button color="primary" className="mx-1" onClick={toggle} target="_blank">Watch Latest Live Stream (Fridays 1:30p ET)</Button> 
+                <Button color="success" className="mx-3" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4LH7ELGSGAKYU&source=url" target="_blank">Donate to First Cleveland</Button>
+                </p><p className="lead align-center">
+                <Button color="primary" className="mx-3" onClick={toggle} target="_blank">Watch Latest Live Stream (Fridays 1:30p ET)</Button> 
             </p>
             
         </Jumbotron>
