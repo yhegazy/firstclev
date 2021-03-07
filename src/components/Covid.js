@@ -19,7 +19,7 @@ function Covid() {
                     <li>Are you immunocompromised or have any preexisting conditions</li>
                 </ol>
                 </li>
-                <li>You may be asked to leave if you exhibit any symptoms or act agitated while on the premises.</li>
+                <li>Be prepared to have your temperature checked and interviewed. You may be asked to leave if you exhibit any symptoms or act agitated while on the premises.</li>
                 <li>Only the <u><strong>first 30 male and 10 female congregants</strong></u> will be allowed in the Mosque for prayers.</li>
             </List>
                 
