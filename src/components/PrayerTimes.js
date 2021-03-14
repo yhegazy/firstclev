@@ -6,7 +6,7 @@ const PrayerTimes = () => {
 
     return (
         <article >
-        <Jumbotron className="jumbotron bg-dark-mode why">
+        <Jumbotron className="bg-dark-mode why">
             <h1 className='text-center p-4 display-4 mbr-white mbr-bold align-center'>Prayer Times Updated Daily</h1>
             <h4 className="m-5 p-4 mbr-white mbr-semibold text-center text-capitalize">
                 {dpt.rows[0].split("/\r?\n/").map((item) => item.split("\n")[1].split(" ")[1])}day, {dpt.header[0].split("/\r?\n/").map((item) => item.split("\n")[0])} {dpt.rows[0].split("/\r?\n/").map((item) => item.split("\n")[1].split(" ")[0])}

@@ -6,19 +6,21 @@ export default function MainPage() {
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
     const embedLink = "https://www.youtube.com/embed/" 
+    const ytLink = "https://youtube.com/watch?v="
     const videoID = 'TG2poH0QL-g'
 
-    // This is so nasty, I like it. Now we can use the videoID to edit on the fly.
+    // This is so nasty, I like it. Now we can use the videoID to edit on the fly. 
     // How to edit videoID without being a security risk. (authentication?)
-    const  videoURL = embedLink + videoID
+    const embedURL = embedLink + videoID
+    const videoURL = ytLink + videoID
 
     
     return <>
     <article>
         
-        <Jumbotron className="jumbotron jumbotron-mainPage why" >
-            <h1 className='text-center p-4 display-4 mbr-white mbr-bold align-center'>Welcome to The First Cleveland Mosque</h1>
-            <h4  className="m-5 p-4 mbr-white mbr-semibold align-center">The mission of the First Cleveland Mosque is to embrace and propagate the fundamental teachings of Islam through service to our community according to the Quran and the Sunnah of Prophet Muhammad (s.a.w.) -Salla Allahu Alaihi Wa Sallam</h4>
+        <Jumbotron className="mobile-tablet-image-position why" >
+            <h1 className='text-center p-5 display-4  mbr-white mbr-bold align-center'>Welcome to The First Cleveland Mosque</h1>
+            <h4  className="p-5  mbr-semibold  mbr-white align-center">The mission of the First Cleveland Mosque is to embrace and propagate the fundamental teachings of Islam through service to our community according to the Quran and the Sunnah of Prophet Muhammad (s.a.w.) -Salla Allahu Alaihi Wa Sallam</h4>
             <p className="lead align-center">
                 <Button color="success" className="mx-3" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4LH7ELGSGAKYU&source=url" target="_blank">Donate to First Cleveland</Button>
                 </p><p className="lead align-center">
@@ -29,9 +31,9 @@ export default function MainPage() {
         <Modal isOpen={modal} toggle={toggle} size="xl" >
             <ModalHeader toggle={toggle}>Jummah Services Live Stream 1:30p ET</ModalHeader>
              <ModalBody >
-                <div style={{ width: 720, height: 480 }}>
+                <div>
                     <ResponsiveEmbed aspectRatio="16by9" >
-                        <embed  src={videoURL} allowfullscreen />
+                        <embed allowfullscreen src={embedURL}/>
                     </ResponsiveEmbed>
                 </div>
             </ModalBody>
