@@ -4,8 +4,8 @@ import {CardImg, Jumbotron} from 'reactstrap'
 const AboutUs = () => {
     return <>
     <article >
-    <Jumbotron className="bg-dark-mode mbr-white mbr-bold">
-        <h1 className='text-center p-4 display-4 mbr-bold align-center'>About Us</h1>    
+    <Jumbotron className="bg-dark-mode mbr-white">
+    <h1 className='text-center p-5 display-4 mbr-bold align-center'>About Us</h1>    
         <CardImg className="center" src={require('../images/FCMLogo_orig.png').default} alt="fcm logo" />
         
         <h5 className="pb-3">The First Cleveland Mosque is one of the oldest Muslim institutions in the U.S. Founded in 1937 by Al Hajj Imam Wali Akram, an African American. The First Cleveland Mosque remains a testimony of the powerful attraction that Americans have towards the beliefs and culture of Islam.</h5>

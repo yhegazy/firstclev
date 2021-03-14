@@ -10,7 +10,7 @@ const NavMenu = () => {
 
     return (
         <header>
-            <Navbar className="navbar fixed-top navbar-expand-md navbar-dark bg-dark" expand="lg">
+            <Navbar className="navbar fixed-top navbar-dark bg-dark" expand={'sm' | 'md' | 'lg' | 'xl'}>
                 <NavLink className="navbar-brand mx-auto" to="/">The First Cleveland Mosque</NavLink>
             
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />

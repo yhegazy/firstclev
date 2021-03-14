@@ -177,33 +177,67 @@ code {
  }
 
  /* Media Queries */
-  
-@media (max-width:411px){
-  .pixel-2, .display-3, .display-4{
-    font-size:x-large;
+@media(max-width:768px){
+  .max-width-768px, .display-4{
+    font-size: xx-large;
   }
-  .mobile-tablet-image-position {
+
+  .max-width-768px, h5 {
+    font-size: large;
+  }
+}
+
+@media(max-width:720px){
+  .max-width-720px, .display-4{
+    font-size: xx-large;
+  }
+  .max-width-720px, h5 {
+    font-size: large;
+  }
+  .max-width-720px, .navbar-brand, .nav-link {
+    font-size: 4vw
+  }
+
+  .max-width-720px, .mobile-tablet-image-position {
+    position:static;
+  }
+}
+
+ @media(max-width:540px){
+  .max-width-540px, .display-4{
+    font-size: xx-large;
+  }
+
+  .max-width-540px, .mobile-tablet-image-position {
     position:static;
   }
 }
 
 @media(max-width:414px){
-  .iphone-6-7-8, .display-3, .display-4{
-    margin-top: 2vh;
-    font-size: x-large;
+  .max-width-414px, .display-4{
+   font-size: x-large;
   }
   .mobile-tablet-image-position {
     position:static;
   }
 }
 
-@media(max-width:540px){
-  .surface-duo, .display-3, .display-4{
-    margin-top: 2vh;
-    font-size: xx-large;
-  }
+
+@media (max-width:411px){
   .mobile-tablet-image-position {
     position:static;
+  }
+
+  .max-width-411px, .h4 {
+    font-size:small;
+  }
+
+  .max-width-411px, .display-3, .display-4{
+    font-size:x-large;
+  }
+  
+  .max-width-411px, .navbar-brand, .nav-link {
+    font-size: 5vw
   }
 }
 
@@ -222,7 +256,6 @@ code {
   .max-width-360px, .navbar-brand, .nav-link {
     font-size: 5vw
   }
-
   
 }
 
@@ -246,29 +279,20 @@ code {
 
 
 
+
+
 /* Notes:
 
 
 20210314:: Happy Pi Day! Also, today is DST. What should be 5:50a, is 6:50a. Ugh.
 
-I need some advice. Maybe some code improvement. 
 
-Noticed a breaking 
+20210314-1600:: Finally fixed the css. I need to spruce up the menu, but Thank God it is cleaner.  
 
-
-
-
-
-Thirdly, for my Muslim brothers and sisters out there, I need some critique on functionality. I consider myself an amauteur in the DevOps scene. My goal is to have it minimalistically beatiful and appeal at the same time, serve it's basic functionality. 
-
-I wrote 2 python scripts  to extract the salah times and youtube videos for archival. 
-
-I run the masjid's website and I am looking to automate this 
-
-
-Finally, shout out to these references:
-
-https://deviceatlas.com/blog/most-popular-smartphones#us
-
+Add: Contact/Map
+Janazah Rules
+Authentication
+Permanent Edit Video page
+Menu show on right hand side, push pages to left.
 */
 
