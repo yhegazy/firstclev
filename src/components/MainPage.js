@@ -7,10 +7,11 @@ export default function MainPage() {
     const toggle = () => setModal(!modal);
     const embedLink = "https://www.youtube.com/embed/" 
     const ytLink = "https://youtube.com/watch?v="
-    const videoID = 'TG2poH0QL-g'
+    const videoID = 'Ym84r4QAG_4'
 
     // This is so nasty, I like it. Now we can use the videoID to edit on the fly. 
-    // How to edit videoID without being a security risk. (authentication?)
+    // How to edit videoID without being a security risk. (authentication ?)
+    // TODO: Flask or Django backend for authentication -> Permanent Edit Video page.
     const embedURL = embedLink + videoID
     const videoURL = ytLink + videoID
 

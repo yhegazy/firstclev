@@ -14,7 +14,7 @@ const NavMenu = () => {
     return (
         <header>
             <Navbar 
-                className="navbar fixed-top navbar-dark bg-dark" 
+                className="navbar fixed-top navbar-dark mbr-white bg-dark" 
                 expand={'sm'}
                 onClick={() => toggle()}
                 aria-controls="basic-navbar-nav"
@@ -23,7 +23,7 @@ const NavMenu = () => {
              
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav" in={isOpen}>
-                <NavLink className="navbar-brand mr-auto" to="/">The First Cleveland Mosque</NavLink>
+                <NavLink className="navbar-brand mr-auto pl-2" to="/">The First Cleveland Mosque</NavLink>
                     
                     <Nav className="mx-5">
                         
