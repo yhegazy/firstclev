@@ -5,17 +5,28 @@ import {Navbar, Nav, Form} from 'react-bootstrap'
 
 
 const NavMenu = () => {
-    // const [isOpen, setIsOpen] = React.useState(false)
+    const [isOpen, setIsOpen] = React.useState(false)
 
+    const toggle = () => {
+        setIsOpen(!isOpen)
+    }
 
     return (
         <header>
-            <Navbar className="navbar fixed-top navbar-dark bg-dark" expand={'sm' | 'md' | 'lg' | 'xl'}>
-                <NavLink className="navbar-brand mx-auto" to="/">The First Cleveland Mosque</NavLink>
-            
+            <Navbar 
+                className="navbar fixed-top navbar-dark bg-dark" 
+                expand={'sm'}
+                onClick={() => toggle()}
+                aria-controls="basic-navbar-nav"
+                aria-expanded={isOpen}
+            >
+             
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
+                <Navbar.Collapse id="basic-navbar-nav" in={isOpen}>
+                <NavLink className="navbar-brand mr-auto" to="/">The First Cleveland Mosque</NavLink>
+                    
                     <Nav className="mx-5">
+                        
                         <NavLink className="nav-link" to="/salah">Prayer Times</NavLink>
                         <NavLink className="nav-link" to="/archives">YouTube Archives</NavLink>
                         <NavLink className="nav-link" to="/annoucements">Annoucements</NavLink>

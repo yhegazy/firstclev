@@ -17,22 +17,6 @@ code {
     monospace;
 }
 
-.mobile-tablet-image-position {
-  background-image: url("./images/fcm.jpg");
-  background-size: cover;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-}
-
-.bg-dark-mode {
-  background-color: #343b40;
-}
-
-.bg-light-mode {
-  background-color: whitesmoke;
-}
-
 /*! Base colors */
 .mbr-white {
   color: #ffffff;
@@ -169,6 +153,22 @@ code {
  }
 
  
+.mobile-tablet-image-position {
+  background-image: url("./images/fcm.jpg");
+  background-size: cover;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+.bg-dark-mode {
+  background-color: #343b40;
+}
+
+.bg-light-mode {
+  background-color: whitesmoke;
+}
+ 
  .why {
    /* A: Layout breaks without it */
   width: 100%;
@@ -176,8 +176,13 @@ code {
   position: absolute;
  }
 
+
  /* Media Queries */
 @media(max-width:768px){
+  .flex-sm-column {
+    visibility: visible;
+  }
+
   .max-width-768px, .display-4{
     font-size: xx-large;
   }
@@ -289,10 +294,15 @@ code {
 
 20210314-1600:: Finally fixed the css. I need to spruce up the menu, but Thank God it is cleaner.  
 
+20210320-0535:: Auto-collapse navbar - Done
+
 Add: Contact/Map
 Janazah Rules
 Authentication
 Permanent Edit Video page
-Menu show on right hand side, push pages to left.
+Day/Night time switch (bg-light-mode/bg-dark-mode)
+
+
+
 */
 
