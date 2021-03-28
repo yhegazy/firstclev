@@ -15,19 +15,19 @@ const PrayerTimes = () => {
             <Table borderless hover dark size="sm" className="container">
                 <thead>
                     <tr>
-                        {dpt.header[0].split("/\r?\n/").map((item) => <th className="text-center display-4">{item.split("\n")[3]}</th>)}
+                        <th className="text-center display-4">Fajr</th>
                         {dpt.rows[0].split("/\r?\n/").map((item) => <td className="text-center display-4">{item.split("\n")[4]}</td>)}
                     </tr><tr>
-                        {dpt.header[0].split("/\r?\n/").map((item) => <th className="text-center display-4">{item.split("\n")[5]}</th>)}
+                    <th className="text-center display-4">Dhuhr</th>
                         {dpt.rows[0].split("/\r?\n/").map((item) =>  <td className="text-center display-4">{item.split("\n")[6]}</td>)}
                     </tr><tr>
-                        {dpt.header[0].split("/\r?\n/").map((item) => <th className="text-center display-4">{item.split("\n")[6]}</th>)}
+                        <th className="text-center display-4">Asr</th>
                         {dpt.rows[0].split("/\r?\n/").map((item) =>  <td className="text-center display-4">{item.split("\n")[7]}</td>)}
                     </tr><tr>
-                        {dpt.header[0].split("/\r?\n/").map((item) => <th className="text-center display-4">{item.split("\n")[7]}</th>)}
+                    <th className="text-center display-4">Maghrib</th>
                         {dpt.rows[0].split("/\r?\n/").map((item) =>  <td className="text-center display-4">{item.split("\n")[8]}</td>)}
                     </tr><tr>
-                        {dpt.header[0].split("/\r?\n/").map((item) => <th className="text-center display-4">{item.split("\n")[8]}</th>)}   
+                        <th className="text-center display-4">Isha</th>
                         {dpt.rows[0].split("/\r?\n/").map((item) =>  <td className="text-center display-4">{item.split("\n")[9]}</td>)}                 
                     </tr>
                 </thead>
