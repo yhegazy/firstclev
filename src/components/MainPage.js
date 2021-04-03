@@ -5,11 +5,13 @@ import ResponsiveEmbed from 'react-bootstrap/ResponsiveEmbed'
 export default function MainPage() { 
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
-    const ytURL = "https://youtube.com/watch?v="
+    const embedLink = "https://www.youtube.com/embed/" 
+    const ytLink = "https://youtube.com/watch?v="
     const videoID = 'XP9P8jWep4g'
 
     // TODO: Flask or Django backend for authentication -> Permanent Edit Video page.
-    const videoURL = ytURL + videoID
+    const embedURL = embedLink + videoID
+    const videoURL = ytLink + videoID
 
     
     return <>
