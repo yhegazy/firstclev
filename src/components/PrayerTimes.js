@@ -4,15 +4,26 @@ import dpt from '../data/dailyPrayerTimes.json'
 
 const PrayerTimes = () => {   
 
+    const currentTime = new Date().getHours();
+    const [darkMode, setDarkMode] = React.useState(false)
+
+    React.useEffect(() => {
+        if(currentTime > 20 && currentTime < 7) {
+            setDarkMode(!darkMode)
+        }
+    },[])
+
     return (
-        <article >
-        <Jumbotron className="bg-dark-mode why">
-            <h1 className='text-center p-4 display-4 mbr-white mbr-bold align-center'>Prayer Times Updated Daily</h1>
-            {/* Weekday (Shortened Name), Month Day */}
-            <h4 className="m-5 p-4 mbr-white mbr-semibold text-center text-uppercase">
+        <article>
+        <Jumbotron className={`${darkMode ? "bg-dark-mode " : "bg-light-mode"} why`}>
+
+            <h1 className={`text-center p-4 display-4 mbr-bold ${darkMode ? "mbr-white" : "mbr-black" } align-center`}>Prayer Times Updated Daily</h1>   
+            
+            <h4 className={`m-5 p-4 ${darkMode ? "mbr-white" : "mbr-black" } mbr-semibold text-center text-uppercase`}>
                 {dpt.rows[0].split("/\r?\n/").map((item) => item.split("\n")[1].split(" ")[1])}, {dpt.header[0].split("/\r?\n/").map((item) => item.split("\n")[0])} {dpt.rows[0].split("/\r?\n/").map((item) => item.split("\n")[1].split(" ")[0])}
             </h4>
-            <Table borderless hover dark size="sm" className="container">
+            
+            <Table borderless hover size="sm" className={`container ${darkMode ? "mbr-white bg-dark-mode" : "mbr-black"}`} >
                 <thead>
                     <tr>
                         <th className="text-center display-4">Fajr</th>

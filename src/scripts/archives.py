@@ -1,7 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from webdriver_manager.chrome import ChromeDriverManager
@@ -28,7 +24,7 @@ for _ in range(10):
 html = browser.page_source
 soup = BeautifulSoup(html, 'html.parser')
 
-videos = soup.find_all("div", {"id": "dismissable"})
+videos = soup.find_all("div", {"id": "dismissible"})
 
 master_list = []
 i = 0
@@ -53,7 +49,3 @@ for video in videos:
     
 df = pd.DataFrame(master_list)
 df.to_csv('archives.csv')
-
-
-
-

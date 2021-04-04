@@ -2,9 +2,18 @@ import React from 'react'
 import {Jumbotron, List} from 'reactstrap'
 
 function Covid() {
+    const currentTime = new Date().getHours();
+    const [darkMode, setDarkMode] = React.useState(true)
+   
+    React.useEffect(() => {
+        if(currentTime >= 7 && currentTime < 20) {
+            setDarkMode(!darkMode)
+        }
+    },darkMode)
+
     return (
         <article>
-        <Jumbotron className="bg-dark-mode mbr-white">
+        <Jumbotron className={`${darkMode ? "bg-dark-mode mbr-white" : "bg-light-mode why"}`}>
         <h1 className='text-center p-5 display-4  mbr-bold align-center'>COVID-19 Guidelines</h1>
         <h4>Follow social distancing norms and <u><strong>pray only on NON-MARKED places</strong></u> maintaining 6 feet separation.</h4>
         <h4>Please bring your <u><strong>own prayer rug</strong></u> and <u><strong>wear a face mask</strong></u> at all times.</h4>

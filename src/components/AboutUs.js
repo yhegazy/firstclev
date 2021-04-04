@@ -2,9 +2,19 @@ import React from 'react'
 import {CardImg, Jumbotron} from 'reactstrap'
 
 const AboutUs = () => {
+    const currentTime = new Date().getHours();
+    const [darkMode, setDarkMode] = React.useState(true)
+   
+    React.useEffect(() => {
+        if(currentTime >= 7 && currentTime < 20) {
+            setDarkMode(!darkMode)
+        }
+    },darkMode)
+
+    
     return <>
     <article >
-    <Jumbotron className="bg-dark-mode mbr-white">
+        <Jumbotron className={`${darkMode ? "bg-dark-mode mbr-white" : "bg-light-mode"}`}>
         <h1 className='text-center p-5 display-4 mbr-bold align-center'>About Us</h1>    
         <CardImg className="center" src={require('../images/FCMLogo_orig.png').default} alt="fcm logo" />
         
@@ -30,7 +40,7 @@ const AboutUs = () => {
                         Address:
                     </h5>
                     <p className="mbr-text align-left mbr-fonts-style display-7">
-                        <a className="mbr-white" href="https://goo.gl/maps/anxPPT6498WTaFE38" target="_blank">
+                        <a className={`${darkMode ? "mbr-white" : "mbr-black"}`} href="https://goo.gl/maps/anxPPT6498WTaFE38" target="_blank">
                             3613 East 131st St<br />Cleveland, OH 44120
                         </a>
                     </p>
@@ -38,14 +48,14 @@ const AboutUs = () => {
                         Phone:
                     </h5>
                     <p className="mbr-text align-left mbr-fonts-style display-7">
-                        <a className="mbr-white" href="tel:216-404-8635">(216) 404 8635
+                        <a className={`${darkMode ? "mbr-white" : "mbr-black"}`} href="tel:216-404-8635">(216) 404 8635
                         </a>
                     </p>
                     <h5 className="align-left mbr-fonts-style m-0 display-5">
                         E-mail:
                     </h5>
                     <p className="mbr-text align-left mbr-fonts-style display-7">
-                        <a className="mbr-white" href="mailto:1stclevelandmosque@gmail.com">1stclevelandmosque@gmail.com
+                        <a className={`${darkMode ? "mbr-white" : "mbr-black"}`} href="mailto:1stclevelandmosque@gmail.com">1stclevelandmosque@gmail.com
                         </a>
                     </p>
               

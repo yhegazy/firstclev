@@ -1,38 +1,47 @@
 import React from 'react'
-import {Button, Jumbotron} from 'reactstrap';
+import {Jumbotron} from 'reactstrap';
 import Accordion from 'react-bootstrap/Accordion'
 import Card from 'react-bootstrap/Card'
-
-//Create json file for annoucements. Populate automatically.
+import {annoucements} from './Annoucement'
 
 function AnnoucementPage() {
-    return <>
+
+    const currentTime = new Date().getHours();
+    const [darkMode, setDarkMode] = React.useState(true)
+    const [annoucement] = React.useState(annoucements)
+
+    React.useEffect(() => {
+        if(currentTime >= 7 && currentTime < 20) {
+            setDarkMode(!darkMode)
+        }
+    },darkMode)
+
+
+return <>
     <article >
-        
-        
-    <Jumbotron className="bg-dark-mode" >
-    <h1 className='text-center p-5 display-4 mbr-white mbr-bold align-center'>Annoucements Page</h1> 
+                
+    <Jumbotron className={`${darkMode ? "bg-dark-mode" : "bg-light-mode"}`}>
+    
+    <h1 className={`text-center p-5 display-4 mbr-bold align-center ${darkMode ? "mbr-white" : "mbr-black" }`}>Annoucements Page</h1>   
+    
         <Accordion defaultActiveKey="0">
-          {/* Is it possible to edit/create new entries in react? */}
-            <Card> 
-                <Accordion.Toggle as={Card.Header} eventKey="0">
-                <h4 className="mbr-black mbr-semibold">Seeking Talented Individuals (NEW!!!)</h4>
+          {annoucement.map((item) => {
+              return <>
+                <Card  key={item.id}> 
+                <Accordion.Toggle as={Card.Header} eventKey={item.id}>
+                <h4 className={`mbr-semibold ${darkMode} ? "mbr-white" : "mbr-black"`}>{item.subject} </h4>
                 </Accordion.Toggle>
-                <Accordion.Collapse eventKey="0">
-                <Card.Body><h5>As-Salamu Aalikum, ٱلسَّلَامُ عَلَيْكُمْ‎<br/>
-                    The First Cleveland Mosque's devops admin is looking for individuals to help propagate the message of Islam through technology. You must be dedicated, have an open mind, and the willingness to learn. Drop us a line at 1stclevelandmosque@gmail.com with a subject line of (to know you're serious): DevOps Department </h5></Card.Body>
-                </Accordion.Collapse>
-            </Card>
-            <Card className=".alice-blue">
-                <Accordion.Toggle as={Card.Header} eventKey="1">
-                <h4 className="mbr-black mbr-semibold">Cleveland Muslim Volunteer (NEW!!!)</h4>
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="1">
-                <Card.Body><h5> Cleveland Muslim Volunteers has been formed to serve the elderly, sick, and underprivileged individuals and families during the COVID-19 pandemic in the Greater Cleveland Area.</h5>
-                <Button color="primary"  href="https://clevelandmuslimvolunteers.com/" target="_blank">Learn More</Button> 
+                <Card.Body className="">
+                    <h5>{item.greeting}</h5>
+                    {item.image ? <img className="align-center" style={{width:'50%'}} src={item.image}></img>  : ""}
+                    <p className="p-1">{item.body}</p>
+                    {item.hrefURL ? <a href={item.hrefURL}>Visit Us</a>: ""}
+                    <p><a href={item.email}>{item.email}</a>
+                    </p>
                 </Card.Body>
-                </Accordion.Collapse>
             </Card>
+              </>
+          })}
         
         </Accordion>
     </Jumbotron>

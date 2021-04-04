@@ -1,3 +1,11 @@
+/*
+  https://github.com/yhegazy
+  Yahia Hegazy
+  Production Date: 20210410
+  Supports most mobile & tablet views
+
+*/
+
 html, body {
   width: 100%;
   height: 100%;
@@ -142,13 +150,12 @@ code {
    width: 50%;
  }
 
- 
- .accordion > .card, .alice-blue{   
-  background-color:aliceblue;
-   border-left-width: 1px;
-    border-right-width: 1px;
-    border-top-width: 1px;
-    border-bottom-width: 1px;
+
+ .accordion > .card{   
+  border-left-width: 1px;
+  border-right-width: 1px;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
     
  }
 
@@ -166,7 +173,7 @@ code {
 }
 
 .bg-light-mode {
-  background-color: whitesmoke;
+  background-color: white;
 }
  
  .why {
@@ -175,6 +182,11 @@ code {
   height: 100%;
   position: absolute;
  }
+
+
+
+
+
 
  /* Media Queries */
 @media(max-width:768px){
@@ -205,6 +217,7 @@ code {
     font-size: medium;
   }
 }
+
 
  @media(max-width:540px){
   .max-width-540px, .display-4{
@@ -289,27 +302,5 @@ code {
 
 
 
-  /* Notes:
   
-  
-  20210314:: Happy Pi Day! Also, today is DST. What should be 5:50a, is 6:50a. Ugh.
-  
-  
-  20210314-1600:: Finally fixed the css. I need to spruce up the menu, but Thank God it is cleaner.  
-  
-  20210320-0535:: 
-    Auto-collapse navbar - Done
-    Contact/Map - Done
-    Authentication - OnHold (This part requires a backend as the client-side functionality can be bypassed. For now, manually edit videoID here.)
-  
-  Janazah Rules
-  
-  TODO: Flask or Django backend for authentication -> Permanent Edit Video page
-  
-  Day/Night time switch (bg-light-mode/bg-dark-mode)
-  
-  Salah and Video Bots automated
-  
-  
-  */
 
