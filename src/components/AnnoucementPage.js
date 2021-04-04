@@ -36,7 +36,7 @@ return <>
                     {item.image ? <img className="align-center" style={{width:'50%'}} src={item.image}></img>  : ""}
                     <p className="p-1">{item.body}</p>
                     {item.hrefURL ? <a href={item.hrefURL}>Visit Us</a>: ""}
-                    <p><a href={item.email}>{item.email}</a>
+                    <p><a href={`mailto:${item.email}`}>{item.email}</a>
                     </p>
                 </Card.Body>
             </Card>
