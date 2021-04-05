@@ -5,13 +5,13 @@ import dpt from '../data/dailyPrayerTimes.json'
 const PrayerTimes = () => {   
 
     const currentTime = new Date().getHours();
-    const [darkMode, setDarkMode] = React.useState(false)
+    const [darkMode, setDarkMode] = React.useState(true)
 
     React.useEffect(() => {
-        if(currentTime > 20 && currentTime < 7) {
+        if(currentTime >= 7 && currentTime < 20) {
             setDarkMode(!darkMode)
         }
-    },[])
+    },darkMode)
 
     return (
         <article>
