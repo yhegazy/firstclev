@@ -15,6 +15,8 @@ for prayer in prayerTable:
     trActive = tBody.find("tr", {"class": "tr-active"})
     data_dict['rows'] = trActive.text
     data_dict['header'] = prayer.find("th", {"scope": "col"}).text.strip()
+    data_dict['hijra'] = prayer.find("th", {"scope": "col"}).parent.find_all('th')[1].text
+
     master_data.append(data_dict)
 
 df = pd.DataFrame(master_data)
