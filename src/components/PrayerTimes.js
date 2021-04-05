@@ -31,6 +31,10 @@ const PrayerTimes = () => {
             <Table borderless hover size="sm" className={`container ${darkMode ? "mbr-white bg-dark-mode" : "mbr-black"}`} >
                 <thead>
                     <tr>
+                        <th className="text-center display-4">Qiyam</th>
+                        {dpt.rows[0].split("/\r?\n/").map((item) =>  <td className="text-center display-4">{item.split("\n")[10]}</td>)}                 
+                    </tr>
+                    <tr>
                         <th className="text-center display-4">Fajr</th>
                         {dpt.rows[0].split("/\r?\n/").map((item) => <td className="text-center display-4">{item.split("\n")[4]}</td>)}
                     </tr><tr>
@@ -45,10 +49,6 @@ const PrayerTimes = () => {
                     </tr><tr>
                         <th className="text-center display-4">Isha</th>
                         {dpt.rows[0].split("/\r?\n/").map((item) =>  <td className="text-center display-4">{item.split("\n")[9]}</td>)}                 
-                    </tr>
-                    <tr>
-                        <th className="text-center display-4">Qiyam</th>
-                        {dpt.rows[0].split("/\r?\n/").map((item) =>  <td className="text-center display-4">{item.split("\n")[10]}</td>)}                 
                     </tr>
                 </thead>
                 
