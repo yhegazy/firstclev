@@ -22,3 +22,5 @@ for prayer in prayerTable:
 df = pd.DataFrame(master_data)
 df.to_json('dailyPrayerTimes.json')
 
+# Dates and times are scraped from https://www.islamicfinder.org 
+

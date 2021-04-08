@@ -12,11 +12,6 @@ import Covid from './components/Covid'
 import Admin from './components/Admin'
 
 function App() {
-  const [token, setToken] = useState()
-
-  // if(!token) {
-  //   return <Admin setToken={setToken} />
-  // }
 
   return (
     <section className="why">
