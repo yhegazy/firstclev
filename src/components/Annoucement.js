@@ -4,7 +4,7 @@ export const annoucements = [
     subject: "Ramadan Kareem",
     image: "",
     greeting: "As-Salamu Aalikum, ٱلسَّلَامُ عَلَيْكُمْ‎",
-    body: "The first day of fast is on April 13th. The 1st reading will be held, live streamed, on April 12th, in sha Allah. There will be taraweeh prayers as well.",
+    body: "The first day of fast is on April 13th. The 1st reading of the Qur'an will start at 7:10p, live streamed, on April 12th until 8:13p, in sha Allah. Taraweeh prayers will be held immediately after isha prayer. Isha starts at 9:15p.",
     hrefURL: "" ,
     email: "",
     telephone: "",
