@@ -22,7 +22,7 @@ const PrayerTimes = () => {
             <h4 className={`m-5 p-4 ${darkMode ? "mbr-white" : "mbr-black" } mbr-semibold text-center text-uppercase`}>
                 {dpt.rows[0].split("/\r?\n/").map((item) => item.split("\n")[1].split(" ")[1])}, {dpt.header[0].split("/\r?\n/").map((item) => item.split("\n")[0])} {dpt.rows[0].split("/\r?\n/").map((item) => item.split("\n")[1].split(" ")[0])}
                 <br/>
-                {dpt.hijra[0]} {dpt.rows[0].split("/\r?\n/").map((item) => item.split("\n")[2].split(" ")[0])}
+                {/* {dpt.hijra[0]}  */} Ramadan {dpt.rows[0].split("/\r?\n/").map((item) => item.split("\n")[2].split(" ")[0])}
             </h4>
             <h5 className={`${darkMode ? "mbr-white" : "mbr-black" } mbr-semibold text-center text-uppercase`}>
                 
