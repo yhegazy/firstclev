@@ -7,7 +7,7 @@ export default function MainPage() {
     const toggle = () => setModal(!modal);
     const embedLink = "https://www.youtube.com/embed/" 
     const ytLink = "https://youtube.com/watch?v="
-    const videoID = 'STsb9GpQzj4'
+    const videoID = 'FSYDDK0Jv7M'
 
     // TODO: Flask or Django backend for authentication -> Permanent Edit Video page.
     const embedURL = embedLink + videoID
