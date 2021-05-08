@@ -1,11 +1,11 @@
 export const annoucements = [
   {
     id: 0,
-    subject: "Ramadan Kareem",
-    image: "",
+    subject: "Eid Mubarak",
+    image: require('../images/2021 Eid Prayer.png').default,
     greeting: "As-Salamu Aalikum, ٱلسَّلَامُ عَلَيْكُمْ‎",
-    body: "The first day of fast is on April 13th. The 1st reading of the Qur'an will start at 7:10p, live streamed, on April 12th until 8:13p, in sha Allah. Taraweeh prayers will be held immediately after isha prayer. Isha starts at 9:15p.",
-    hrefURL: "" ,
+    body: "",
+    hrefURL: "",
     email: "",
     telephone: "",
   },
@@ -49,6 +49,17 @@ export const annoucements = [
     email: "",
     telephone: "",
   },
+  {
+    id: 5,
+    subject: "Ramadan Kareem",
+    image: "",
+    greeting: "As-Salamu Aalikum, ٱلسَّلَامُ عَلَيْكُمْ‎",
+    body: "The first day of fast is on April 13th. The 1st reading of the Qur'an will start at 7:10p, live streamed, on April 12th until 8:13p, in sha Allah. Taraweeh prayers will be held immediately after isha prayer. Isha starts at 9:15p.",
+    hrefURL: "" ,
+    email: "",
+    telephone: "",
+  },
+  
   
   {
     id: 99,
