@@ -36,6 +36,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "onandroid": "node node_modules/react-scripts/scripts/start.js",
     "build:css": "postcss src/css/tailwind.css -o src/css/general.css",
     "build:watch": "postcss src/css/tailwind.css -o src/css/general.css --watch"
   },
