@@ -1,61 +1,61 @@
-import React from 'react'
-import {Jumbotron, Table} from 'reactstrap'
-import dpt from '../data/dailyPrayerTimes.json'
+import {useState, useEffect} from 'react'
+import adhan from 'adhan'
+import Moment from 'react-moment'
+import 'moment-timezone'
 
 const PrayerTimes = () => {   
 
-    const currentTime = new Date().getHours();
-    const [darkMode, setDarkMode] = React.useState(true)
+    let date = new Date();
+    let coordinates = new adhan.Coordinates(41.4932, -81.4609);
+    let params = adhan.CalculationMethod.NorthAmerica();
+    params.madhab = adhan.Madhab.Shafi;
     
-    React.useEffect(() => {
-        if(currentTime >= 7 && currentTime < 20 ) {
-            setDarkMode(!darkMode)
-        }
-    },darkMode)
+    let prayerTimes = new adhan.PrayerTimes(coordinates, date, params);
 
-    return (
-        <article>
-        <Jumbotron className={`${darkMode ? "bg-dark-mode " : "bg-light-mode"} why`}>
-
-            <h1 className={`text-center p-4 display-4 mbr-bold ${darkMode ? "mbr-white" : "mbr-black" } align-center`}>Prayer Times Updated Daily</h1>   
+    let hijraMonth = new Intl.DateTimeFormat('ar-TN-u-ca-islamic', {day: 'numeric', month: 'long'}).format(Date.now());
+    let hijraYear = new Intl.DateTimeFormat('ar-TN-u-ca-islamic', {year : 'numeric'}).format(Date.now());
+        
+    return <>
+       <div className="w-2/3 ml-auto mr-auto bg-white text-2xl p-5">
+        
+            {/* Gregorian Calendar */}
+            <div className="flex justify-start py-5">
+                <Moment tz="America/New_York" format="MMMM D, YYYY">{prayerTimes.fajr}</Moment>
+            </div>
+        
+            {/* Hijra Calendar */}
+            <div className="flex justify-start pt-1 text-2xl"><p>{hijraMonth}<span className="flex">{hijraYear}</span></p></div>
             
-            <h4 className={`m-5 p-4 ${darkMode ? "mbr-white" : "mbr-black" } mbr-semibold text-center text-uppercase`}>
-                {dpt.rows[0].split("/\r?\n/").map((item) => item.split("\n")[1].split(" ")[1])}, {dpt.header[0].split("/\r?\n/").map((item) => item.split("\n")[0])} {dpt.rows[0].split("/\r?\n/").map((item) => item.split("\n")[1].split(" ")[0])}
-                <br/>
-                {/* {dpt.hijra[0]}  */} Ramadan {dpt.rows[0].split("/\r?\n/").map((item) => item.split("\n")[2].split(" ")[0])}
-            </h4>
-            <h5 className={`${darkMode ? "mbr-white" : "mbr-black" } mbr-semibold text-center text-uppercase`}>
-                
-            </h5>
+            <div className="flex justify-end pb-5"></div>
             
-            <Table borderless hover size="sm" className={`container ${darkMode ? "mbr-white bg-dark-mode" : "mbr-black"}`} >
-                <thead>
-                    <tr>
-                        <th className="text-center display-4">Qiyam</th>
-                        {dpt.rows[0].split("/\r?\n/").map((item) =>  <td className="text-center display-4">{item.split("\n")[10]}</td>)}                 
-                    </tr>
-                    <tr>
-                        <th className="text-center display-4">Fajr</th>
-                        {dpt.rows[0].split("/\r?\n/").map((item) => <td className="text-center display-4">{item.split("\n")[4]}</td>)}
-                    </tr><tr>
-                    <th className="text-center display-4">Dhuhr</th>
-                        {dpt.rows[0].split("/\r?\n/").map((item) =>  <td className="text-center display-4">{item.split("\n")[6]}</td>)}
-                    </tr><tr>
-                        <th className="text-center display-4">Asr</th>
-                        {dpt.rows[0].split("/\r?\n/").map((item) =>  <td className="text-center display-4">{item.split("\n")[7]}</td>)}
-                    </tr><tr>
-                    <th className="text-center display-4">Maghrib</th>
-                        {dpt.rows[0].split("/\r?\n/").map((item) =>  <td className="text-center display-4">{item.split("\n")[8]}</td>)}
-                    </tr><tr>
-                        <th className="text-center display-4">Isha</th>
-                        {dpt.rows[0].split("/\r?\n/").map((item) =>  <td className="text-center display-4">{item.split("\n")[9]}</td>)}                 
-                    </tr>
-                </thead>
-                
-            </Table>     
-        </Jumbotron>
-        </article>
-    )
+            {/* Salat Times */}
+            <p className="flex flex-wrap justify-between">Fajr: 
+                <span>
+                    <Moment tz="America/New_York" format="h:mm A">{prayerTimes.fajr}</Moment>
+                </span>
+            </p>
+            <p className="flex flex-wrap justify-between">Dhuhr: 
+                <span>
+                    <Moment tz="America/New_York" format="h:mm A">{prayerTimes.dhuhr}</Moment>
+                </span>
+            </p>
+            <p className="flex flex-wrap justify-between">Asr:
+                <span>
+                    <Moment tz="America/New_York" format="h:mm A">{prayerTimes.asr}</Moment>
+                </span>
+            </p>
+            <p className="flex flex-wrap justify-between">Maghrib:
+                <span>
+                    <Moment tz="America/New_York" format="h:mm A">{prayerTimes.maghrib}</Moment>
+                </span>
+            </p>
+            <p className="flex flex-wrap justify-between">Isha:
+                <span>
+                    <Moment tz="America/New_York" format="h:mm A">{prayerTimes.isha}</Moment>
+                </span>
+        </p>
+        </div>
+    </>
 }
 
 export default PrayerTimes

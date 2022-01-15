@@ -1,42 +1,37 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import {Navbar, Nav, Form} from 'react-bootstrap'
-
-
+import {useState} from 'react'
+import { Link } from 'react-router-dom'
 
 const NavMenu = () => {
-    const [isOpen, setIsOpen] = React.useState(false)
+    const [isOpen, setIsOpen] = useState(false)
 
     const toggle = () => {
         setIsOpen(!isOpen)
     }
 
-    return (
-        <header>
-            <Navbar 
-                className="navbar fixed-top navbar-dark mbr-white bg-dark" 
-                expand={'sm'}
-                onClick={() => toggle()}
-                aria-controls="basic-navbar-nav"
-                aria-expanded={isOpen}
-            >
-             
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav" in={isOpen}>
-                <NavLink className="navbar-brand mr-auto pl-2" to="/">The First Cleveland Mosque</NavLink>
+    return <>
+        <nav 
+            className="navbar" 
+            expand={'sm'}
+            onClick={() => toggle()}
+            aria-controls="basic-navbar-nav"
+            aria-expanded={isOpen}
+        >
+            
+            <div aria-controls="basic-navbar-nav" />
+            <div id="basic-navbar-nav" in={isOpen}>
+            <Link className="navbar-brand mr-auto pl-2" to="/">The First Cleveland Mosque</Link>
+                
+                <div className="mx-5">
                     
-                    <Nav className="mx-5">
-                        
-                        <NavLink className="nav-link" to="/salah">Prayer Times</NavLink>
-                        <NavLink className="nav-link" to="/archives">YouTube Archives</NavLink>
-                        <NavLink className="nav-link" to="/annoucements">Annoucements</NavLink>
-                        <NavLink className="nav-link" to="/about">About Us</NavLink>
-                        <NavLink className="nav-link" to="/covid">COVID-19</NavLink>
-                    </Nav>
-            </Navbar.Collapse>
-        </Navbar>
-    </header>
-    )
+                    <Link className="nav-link" to="/salah">Prayer Times</Link>
+                    <Link className="nav-link" to="/archives">YouTube Archives</Link>
+                    <Link className="nav-link" to="/annoucements">Annoucements</Link>
+                    <Link className="nav-link" to="/about">About Us</Link>
+                    <Link className="nav-link" to="/covid">COVID-19</Link>
+                </div>
+        </div>
+    </nav>
+    </>
 }
 
 export default NavMenu;

@@ -1,5 +1,4 @@
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
-import {useState} from 'react'
 
 //Components
 import NavMenu from './components/Navbar'
@@ -11,10 +10,12 @@ import PrayerTimes from './components/PrayerTimes'
 import Covid from './components/Covid'
 import Admin from './components/Admin'
 
+import './css/general.css'
+
 function App() {
 
   return (
-    <section className="why">
+    <section>
       <BrowserRouter>
         <NavMenu />   
 
