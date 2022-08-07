@@ -11,7 +11,7 @@ const NavMenu = () => {
 
     return <>
         <Navbar className="navbar fixed-top navbar-expand-md navbar-dark bg-dark" expand="lg">
-                <NavLink className="navbar-brand mx-auto" to="/">The First Cleveland Mosque</NavLink>
+                <NavLink className="mx-auto navbar-brand" to="/">The First Cleveland Mosque</NavLink>
 
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -20,7 +20,7 @@ const NavMenu = () => {
                         <NavLink className="nav-link" to="/archives">YouTube Archives</NavLink>
                         <NavLink className="nav-link" to="/annoucements">Annoucements</NavLink>
                         <NavLink className="nav-link" to="/about">About Us</NavLink>
-                        <NavLink className="nav-link" to="/covid">COVID-19</NavLink>
+                        {/* <NavLink className="nav-link" to="/admin"></NavLink> */}
                     </Nav>
             </Navbar.Collapse>
         </Navbar>

@@ -1,22 +1,35 @@
-import React from 'react'
-import {Jumbotron, Button, Form, FormGroup, Label, Input} from 'reactstrap'
+import {useState} from 'react'
+import useFetch from './hooks/useFetch';
 
 
 const Admin = () => {
+    const {post} = useFetch("https://firebasestorage.googleapis.com/v0/b/sandbox-ca2f2.appspot.com/o/video.json?alt=media&token=0ab664b9-0e7a-442f-9bb4-ee194b5ff8eb")
+    const [vID, setVID] = useState(null)
+    // const [data, setData] = useState()
+    
+
+    const handleTest = () => {
+        try {
+            post("video.json", [{id: vID}])
+        }
+        catch(error){
+            return console.log(error)
+        }
+
+        alert("Saved!")
+        setVID("")
+    }
+    
     return (
-        <article >
-        <Jumbotron className="jumbotron bg-dark-mode mbr-white why">
-            <Form inline className="m-5">
-                <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                    <Input type="text" name="username" placeholder="username" />
-                </FormGroup>
-                <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                    <Input type="password" name="password" placeholder="password" />
-                </FormGroup>
-                <Button color="danger">Submit</Button>
-            </Form>
-        </Jumbotron>
-        </article>
+        <div className="w-1/2 px-2 py-5 my-10 ml-auto mr-auto rounded shadow bg-green-50 ">
+            <h1 className="flex justify-center text-3xl "> Administrator Mode</h1>
+            <div className="flex justify-between py-4">
+                <label className="px-2 font-semibold" htmlFor="youtube" >YouTube Video ID: </label>
+                <input className="border" id="youtube" value={vID} onChange={e => setVID(e.target.value)} ></input>
+                <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" onClick={() => handleTest()}>Update</button>
+            </div>
+        </div>
+        
     )
 }
 

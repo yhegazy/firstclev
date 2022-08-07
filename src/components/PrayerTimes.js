@@ -1,16 +1,17 @@
 import {useState, useEffect} from 'react'
-import adhan from 'adhan'
+import { Coordinates, CalculationMethod, PrayerTimes, Madhab } from 'adhan';
 import Moment from 'react-moment'
 import 'moment-timezone'
 
-const PrayerTimes = () => {   
+
+const FirstClevelandPrayerTimes = () => {   
 
     let date = new Date();
-    let coordinates = new adhan.Coordinates(41.4932, -81.4609);
-    let params = adhan.CalculationMethod.NorthAmerica();
-    params.madhab = adhan.Madhab.Shafi;
+    let coordinates = new Coordinates(41.4932, -81.4609);
+    let params = CalculationMethod.NorthAmerica();
+    params.madhab = Madhab.Shafi;
     
-    let prayerTimes = new adhan.PrayerTimes(coordinates, date, params);
+    let prayerTimes = new PrayerTimes(coordinates, date, params);
 
     let hijraMonth = new Intl.DateTimeFormat('ar-TN-u-ca-islamic', {day: 'numeric', month: 'long'}).format(Date.now());
     let hijraYear = new Intl.DateTimeFormat('ar-TN-u-ca-islamic', {year : 'numeric'}).format(Date.now());
@@ -58,4 +59,4 @@ const PrayerTimes = () => {
     </>
 }
 
-export default PrayerTimes
+export default FirstClevelandPrayerTimes
