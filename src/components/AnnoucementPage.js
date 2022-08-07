@@ -1,20 +1,20 @@
-import React from 'react'
+import {useEffect, useState} from 'react'
 import {Jumbotron} from 'reactstrap';
 import Accordion from 'react-bootstrap/Accordion'
 import Card from 'react-bootstrap/Card'
 import {annoucements} from './Annoucement'
+import useFetch from './hooks/useFetch';
 
-function AnnoucementPage() {
+function AnnoucementPage(props) {
+    const {global} = props
+    const {post} = useFetch("https://firebasestorage.googleapis.com/v0/b/sandbox-ca2f2.appspot.com/o/video.json?alt=media&token=0ab664b9-0e7a-442f-9bb4-ee194b5ff8eb")
+    // const [vID, setVID] = useState(null)
 
     const currentTime = new Date().getHours();
-    const [darkMode, setDarkMode] = React.useState(true)
-    const [annoucement] = React.useState(annoucements)
+    const [darkMode, setDarkMode] = useState(true)
+    const [annoucement] = useState(annoucements)
 
-    React.useEffect(() => {
-        if(currentTime >= 7 && currentTime < 20) {
-            setDarkMode(!darkMode)
-        }
-    },darkMode)
+    
 
 
 return <>

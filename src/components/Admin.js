@@ -2,7 +2,8 @@ import {useState} from 'react'
 import useFetch from './hooks/useFetch';
 
 
-const Admin = () => {
+const Admin = (props) => {
+    const {global} = props
     const {post} = useFetch("https://firebasestorage.googleapis.com/v0/b/sandbox-ca2f2.appspot.com/o/video.json?alt=media&token=0ab664b9-0e7a-442f-9bb4-ee194b5ff8eb")
     const [vID, setVID] = useState(null)
     // const [data, setData] = useState()
@@ -20,8 +21,9 @@ const Admin = () => {
         setVID("")
     }
     
+    
     return (
-        <div className="w-1/2 px-2 py-5 my-10 ml-auto mr-auto rounded shadow bg-green-50 ">
+        <div className={`w-1/2 px-2 py-5 my-10 ml-auto mr-auto ${global.darkMode ? 'bg-gray-700 text-white': 'rounded shadow  bg-green-50'}`}>
             <h1 className="flex justify-center text-3xl "> Administrator Mode</h1>
             <div className="flex justify-between py-4">
                 <label className="px-2 font-semibold" htmlFor="youtube" >YouTube Video ID: </label>

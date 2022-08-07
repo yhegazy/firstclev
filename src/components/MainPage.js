@@ -16,14 +16,14 @@ export default function MainPage(props) {
     },[])
 
         return <>
-        <div className="">
-            <h1 className='p-5 text-center display-4 mbr-white mbr-bold align-center'>Welcome to The First Cleveland Mosque</h1>
-            <h4  className="p-5 mbr-semibold mbr-white align-center">The mission of the First Cleveland Mosque is to embrace and propagate the fundamental teachings of Islam through service to our community according to the Quran and the Sunnah of Prophet Muhammad (s.a.w.) -Salla Allahu Alaihi Wa Sallam</h4>
-            <div className="w-1/2 ml-auto mr-auto">
+        <div className="w-1/2 ml-auto mr-auto text-center">
+            <img src={process.env.PUBLIC_URL + `/fcmLogo.png`} alt="Welcome"/>
+            <p  className="pb-2 text-lg">
+                The mission of the First Cleveland Mosque is to embrace and propagate the fundamental teachings of Islam through service to our community according to the Quran and the Sunnah of Prophet Muhammad (ﷺ)</p>
+            <div className="p-1 space-x-3">
                 <NavLink activeClassName='active' to={{pathname:"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4LH7ELGSGAKYU&source=url"}} target="_blank"><button className="p-2 text-white bg-green-500 rounded shadow">Donate to First Cleveland</button></NavLink>
-            </div>
-            <div className="w-1/2 ml-auto mr-auto">
-                {data && data.map((video) => <a href={`https://youtube.com/watch?v=${video.id}`} ><button color="primary" className="p-2 text-white bg-indigo-500 rounded shadow" target="_blank">Watch Latest Live Stream (Fridays 1:30p ET)</button> </a> )}
+
+                {data && data.map((video) => <a href={`https://youtube.com/watch?v=${video.id}`}  rel="noreferrer" target="_blank"><button color="primary" className="p-2 text-white bg-indigo-500 rounded shadow" target="_blank">Watch Latest Live Stream (Fridays 1:30p ET)</button> </a> )}
             </div>
         </div>        
 
