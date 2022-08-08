@@ -1,10 +1,10 @@
-import {useState, useEffect} from 'react'
 import { Coordinates, CalculationMethod, PrayerTimes, Madhab } from 'adhan';
 import Moment from 'react-moment'
 import 'moment-timezone'
 
 
-const FirstClevelandPrayerTimes = () => {   
+const FirstClevelandPrayerTimes = (props) => {   
+    const {global} = props
 
     let date = new Date();
     let coordinates = new Coordinates(41.4932, -81.4609);
@@ -17,8 +17,8 @@ const FirstClevelandPrayerTimes = () => {
     let hijraYear = new Intl.DateTimeFormat('ar-TN-u-ca-islamic', {year : 'numeric'}).format(Date.now());
         
     return <>
-       <div className="w-2/3 ml-auto mr-auto bg-white text-2xl p-5">
-        
+       <div className={`w-2/3 ml-auto mr-auto text-2xl p-5 space-y-2 ${global.darkMode && 'bg-gray-700 text-white'}`}>
+            <h1 className="flex justify-center w-1/2 ml-auto mr-auto text-3xl">Salah Times</h1>
             {/* Gregorian Calendar */}
             <div className="flex justify-start py-5">
                 <Moment tz="America/New_York" format="MMMM D, YYYY">{prayerTimes.fajr}</Moment>

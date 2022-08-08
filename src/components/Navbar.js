@@ -11,7 +11,7 @@ const menuItems = [
     },
     {
         id: 2,
-        title: 'Salah Times',
+        title: 'Salah',
         to: '/salah',
         icon: 'fa-solid fa-person-praying',
     },
@@ -24,14 +24,10 @@ const menuItems = [
     },
     {
         id: 4,
-        title: 'Annoucement',
+        title: 'Annoucements',
         exact: true,
-        to: '/contact',
+        to: '/annoucements',
         icon: 'fa-regular fa-calendar',
-        subMenus: [
-        { title: "Classes", to: "/classes" }, 
-        { title: "Events", to: "/events" },
-        ],
     },
     {
         id: 5,
@@ -49,7 +45,9 @@ const menuItems = [
     },
 ];
 
-const Navbar = () => {
+const Navbar = (props) => {
+    const {global} = props
+   
     return <>
         <nav className={`sidebar close`}>
             <ul className="menu-items">
@@ -57,22 +55,20 @@ const Navbar = () => {
                     <li key={item.id}>
                         <div className="block">
                             <Link to={item.to}>
-                            <p className="flex items-center no-underline">
-                                <i className={item.icon} ></i>
-                            </p>
-                             </Link>
+                                <i className={`${item.icon}`} style={!global.darkMode ? {color:"#243c64"} : null}></i>
+                            </Link>
                         </div>
                         
                         <ul className="hidden sub-menu">
                             <Link to={item.to}>
                                 <li key={item.id}>
-                                   <p className="text-lg text-white transition-all duration-500 ease-linear ">{item.title}</p>
+                                   <p className={`text-lg transition-all duration-500 ease-linear ${global.darkMode ? 'text-white': 'text-black'}`}>{item.title}</p>
                                 </li>
                             </Link>
 
                             {item.subMenus && item.subMenus.map((subItem, index) => <Link to={subItem.to}>
                                 <li id={index} key={index}>
-                                    <p className="py-1 text-white transition-all duration-300 ease-linear cursor-pointer whitespace-nowrap hover:opacity-100 hover:text-gray-400">{subItem.title}</p>
+                                    <p className={`py-1 transition-all duration-300 ease-linear cursor-pointer whitespace-nowrap hover:opacity-100 hover:text-gray-400 ${global.darkMode ? 'text-white': 'text-black'}`}>{subItem.title}</p>
                                 </li> 
                             </Link>)}
                         </ul>

@@ -34,31 +34,17 @@ html, body {
   position: relative;
   list-style: none;
   transition: all 0.4s ease;
-}
-
-.sidebar .menu-items li:hover{
-  background: #323049;
+  
 }
 
 .sidebar .menu-items li i{
   height: 50px;
-  min-width: 78px;
-  text-align: center;
+  min-width: 48px;
+  text-align: end ;
   line-height: 50px;
-  color: #fff;
   font-size: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
-}
-
-.sidebar .menu-items li .sub-menu{
-  padding: 6px 6px 14px 80px;
-  margin-top: -10px;
-  background: #323049;
-  display: none;
-}
-.sidebar .menu-items li.showMenu .sub-menu{
-  display: block;
 }
 
 .sidebar.close .menu-items li .sub-menu{

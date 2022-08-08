@@ -16,21 +16,19 @@ import './index.css'
 
 function App() {
   const [darkMode, setDarkMode] = useState(false)
-  // const handleDarkMode = (boolean) => setDarkMode(boolean)
-
-  let date = new Date();
-  let coordinates = new Coordinates(41.4932, -81.4609);
-  let params = CalculationMethod.NorthAmerica();
-  params.madhab = Madhab.Shafi;
   
-  let prayerTimes = new PrayerTimes(coordinates, date, params);
-
-  const currentTime = new Date().getHours();
   useEffect(() => {
-        if(currentTime >= prayerTimes.fajr.getHours() && currentTime < prayerTimes.maghrib.getHours()) {
-            setDarkMode(!darkMode)
-        }
-  },[])
+    let currentTime = new Date().getHours();
+    let date = new Date();
+    let coordinates = new Coordinates(41.4932, -81.4609);
+    let params = CalculationMethod.NorthAmerica();
+    params.madhab = Madhab.Shafi;
+    
+    let prayerTimes = new PrayerTimes(coordinates, date, params);
+  
+    if(currentTime <= prayerTimes.fajr.getHours() || currentTime > prayerTimes.maghrib.getHours()) setDarkMode(!darkMode)
+  
+  },[/**renders once! */]) 
 
   const global = {
     darkMode: darkMode,
@@ -41,7 +39,7 @@ function App() {
   return (
     <div className={darkMode && 'bg-gray-700 text-white'} style={{height: '100vh'}}>
       <BrowserRouter>
-        <Navbar />   
+        <Navbar global={global} />   
         <Routes> 
           <Route path="/" element={ <MainPage global={global}/>} />
           <Route path="/annoucements" element={ <AnnoucementPage global={global}/>} />
