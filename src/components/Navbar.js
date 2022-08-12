@@ -24,9 +24,9 @@ const menuItems = [
     },
     {
         id: 4,
-        title: 'Annoucements',
+        title: 'Announcements',
         exact: true,
-        to: '/annoucements',
+        to: '/announcements',
         icon: 'fa-regular fa-calendar',
     },
     {

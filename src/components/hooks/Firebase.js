@@ -1,5 +1,5 @@
 import {initializeApp} from 'firebase/app'
-import {getFirestore, collection, getDocs} from 'firebase/firestore'
+import {getFirestore, collection, getDocs, addDoc} from 'firebase/firestore'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -29,4 +29,23 @@ getDocs(colRef)
   })
   .catch(error => console.log(error))
 
-export { entry};
+
+const addDocument = async(req, res) => {
+  
+   try {
+    addDoc(collection(db, 'posts'), {
+      greeting:'As-Salamu Aalikum, ٱلسَّلَامُ عَلَيْكُمْ‎',
+      body: document.getElementById('body').value,
+      subject: document.getElementById('subject').value,
+      email: document.getElementById('email').value,
+      telephone: document.getElementById('telephone').value,
+      image: document.getElementById('image').value,
+      hrefURL: document.getElementById('hrefURL').value,
+      
+    })
+
+    
+  } catch (error) {console.log("Error: ", error)} 
+}
+
+export { entry, addDocument, colRef};
