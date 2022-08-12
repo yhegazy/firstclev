@@ -15,8 +15,8 @@ const AboutUs = () => {
     return <>
     <article >
         <Jumbotron className={`${darkMode ? "bg-dark-mode mbr-white" : "bg-light-mode"}`}>
-        <h1 className='text-center p-5 display-4 mbr-bold align-center'>About Us</h1>    
-        <CardImg className="center" src={require('../images/FCMLogo_orig.png').default} alt="fcm logo" />
+        <h1 className='p-5 text-center display-4 mbr-bold align-center'>About Us</h1>    
+        {/* <CardImg className="center" src={require('../images/FCMLogo_orig.png').default} alt="fcm logo" /> */}
         
         <h5 className="pb-3">The First Cleveland Mosque is one of the oldest Muslim institutions in the U.S. Founded in 1937 by Al Hajj Imam Wali Akram, an African American. The First Cleveland Mosque remains a testimony of the powerful attraction that Americans have towards the beliefs and culture of Islam.</h5>
                     
@@ -34,9 +34,9 @@ const AboutUs = () => {
         <h5 className="pb-3">In 1984, the leadership was passed on to Al Hajj Imam Mahmoud A. Akram who served as the Imam of the First Cleveland Mosque until 1989. During his tenure, Imam Mahmoud continued to teach the community the value of unity, harmony and love which has been promulgated by the leadership of The First Cleveland Mosque since its inception.</h5>
             
         <h5 className="pb-5">Imam Abbas Ahmad, the grandson of Imam Wali Akram assumed the leadership of the First Cleveland Mosque in 1989 and is currently leading the congregation of over 200 members. Today, The First Cleveland Mosque actively promotes interfaith dialogue to enhance the understanding of Islam. This celebrated cornerstone continues to encourage a positive image of American Muslims.</h5>
-        <h1 className='text-center p-5 display-4 mbr-bold align-center'>Contact Us</h1>
+        <h1 className='p-5 text-center display-4 mbr-bold align-center'>Contact Us</h1>
         <div className="col-12 col-md-6">
-                    <h5 className="align-left mbr-fonts-style m-0 display-5">
+                    <h5 className="m-0 align-left mbr-fonts-style display-5">
                         Address:
                     </h5>
                     <p className="mbr-text align-left mbr-fonts-style display-7">
@@ -44,14 +44,14 @@ const AboutUs = () => {
                             3613 East 131st St<br />Cleveland, OH 44120
                         </a>
                     </p>
-                    <h5 className="align-left mbr-fonts-style m-0 display-5">
+                    <h5 className="m-0 align-left mbr-fonts-style display-5">
                         Phone:
                     </h5>
                     <p className="mbr-text align-left mbr-fonts-style display-7">
                         <a className={`${darkMode ? "mbr-white" : "mbr-black"}`} href="tel:216-404-8635">(216) 404 8635
                         </a>
                     </p>
-                    <h5 className="align-left mbr-fonts-style m-0 display-5">
+                    <h5 className="m-0 align-left mbr-fonts-style display-5">
                         E-mail:
                     </h5>
                     <p className="mbr-text align-left mbr-fonts-style display-7">

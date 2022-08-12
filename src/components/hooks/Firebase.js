@@ -3,14 +3,13 @@ import {getFirestore, collection, getDocs} from 'firebase/firestore'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCkPFI92O_bORCOH1Ty-yhHxRCV5b_t1P0",
-  authDomain: "annoucementdb.firebaseapp.com",
-  projectId: "annoucementdb",
-  storageBucket: "annoucementdb.appspot.com",
-  messagingSenderId: "1078788514134",
-  appId: "1:1078788514134:web:4418d66ac64887854eb6f7"
+  apiKey: "AIzaSyBh4_2OzLdAPnv0dNnOmTnSNDVvJAiV9Bc",
+  authDomain: "fcmdb-a8ff4.firebaseapp.com",
+  projectId: "fcmdb-a8ff4",
+  storageBucket: "fcmdb-a8ff4.appspot.com",
+  messagingSenderId: "1032479093788",
+  appId: "1:1032479093788:web:9a7559d0a6a4d7a5889bd9"
 };
-
 // Initialize Firebase
 initializeApp(firebaseConfig)
 
@@ -18,7 +17,7 @@ initializeApp(firebaseConfig)
 const db = getFirestore()
 
 //collection ref
-const colRef = collection(db, 'annoucements')
+const colRef = collection(db, 'posts')
 
 //get collection docs
 let entry = []

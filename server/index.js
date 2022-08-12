@@ -12,7 +12,7 @@ app.use(function (req, res, next) {
 
 // Step 2 - Import Firebase & Credentials
 const fs = require('firebase-admin')
-const serviceAccount = require('./annoucementdb-firebase-adminsdk-2bpm8-0e184cb71d.json')
+const serviceAccount = require('./fcmdb-a8ff4-firebase-adminsdk-u5y93-591957a5d9.json')
 
 // Step 3 - Initialize
 fs.initializeApp({
@@ -36,11 +36,11 @@ const db = fs.firestore();
 // })
 
 const allDocs = []
-app.get('/annoucementsDB', (req, res) => {
+app.get('/fcmDB', (req, res) => {
     (async () => {
         try{
-            const annoucementDB = db.collection('annoucements');
-            const snapshot = await annoucementDB.get();
+            const fcmDB = db.collection('posts');
+            const snapshot = await fcmDB.get();
             
             snapshot.forEach(doc =>  allDocs.push(doc.data()))
 

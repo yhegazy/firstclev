@@ -4,7 +4,7 @@ import {useEffect, useState} from 'react'
 //Components
 import Navbar from './components/Navbar'
 import AnnoucementPage from './components/AnnoucementPage'
-import NewPost from './components/NewPost'
+// import NewPost from './components/NewPost'
 import MainPage from './components/MainPage'
 import AboutUs from './components/AboutUs';
 import YouTubeArchives from './components/YouTubeArchives'
@@ -21,7 +21,7 @@ function App() {
   
   const makeAPICall = async() => {
     try {
-      const response = await fetch('http://localhost:8080/annoucementsDB');
+      const response = await fetch('http://localhost:8080/fcmDB');
       const data = await response.text();
       setGetDB(data)
     }
@@ -60,7 +60,7 @@ function App() {
         <Routes> 
           <Route path="/" element={ <MainPage global={global} id="main"/>} />
           <Route path="/annoucements" element={ <AnnoucementPage global={global} />} />
-            <Route path="/annoucements/edit" element={ <NewPost global={global}/>} />
+            {/* <Route path="/annoucements/edit" element={ <NewPost global={global}/>} /> */}
           <Route path="/about" element={ <AboutUs />} global={global}/>
           <Route path="/archives" element={ <YouTubeArchives global={global}/>} />
           <Route path="/salah" element={ <FirstClevelandPrayerTimes global={global}/>} />
