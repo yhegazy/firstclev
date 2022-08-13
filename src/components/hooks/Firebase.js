@@ -1,5 +1,7 @@
 import {initializeApp} from 'firebase/app'
-import {getFirestore, collection, getDocs, addDoc} from 'firebase/firestore'
+import {getFirestore, collection, getDocs, addDoc, setDoc, doc} from 'firebase/firestore'
+
+// Detect if Firebase connection is lost/regained - Stack Overflow
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -18,6 +20,7 @@ const db = getFirestore()
 
 //collection ref
 const colRef = collection(db, 'posts')
+const videoID = collection(db, 'vID')
 
 //get collection docs
 let entry = []
@@ -29,11 +32,19 @@ getDocs(colRef)
   })
   .catch(error => console.log(error))
 
+let vID = []
+getDocs(videoID)
+  .then((snapshot) => {
+    snapshot.docs.forEach((doc) => {
+      vID.push({...doc.data(), id: doc.id})
+    })
+  })
+  .catch(error => console.log(error))
 
-const addDocument = async(req, res) => {
-  
+
+const addDocument = async(req, res) => {  
    try {
-    addDoc(collection(db, 'posts'), {
+    addDoc(colRef, {
       greeting:'As-Salamu Aalikum, ٱلسَّلَامُ عَلَيْكُمْ‎',
       body: document.getElementById('body').value,
       subject: document.getElementById('subject').value,
@@ -48,4 +59,12 @@ const addDocument = async(req, res) => {
   } catch (error) {console.log("Error: ", error)} 
 }
 
-export { entry, addDocument, colRef};
+const updateVideoID = async(req, res) => {
+   try {
+      await setDoc(doc(videoID, 'SlIILXXbqNbRhy09ac3D' ), {
+        ID: document.getElementById('youtube').value
+      });    
+  } catch (error) {console.log("Error: ", error)} 
+}
+
+export { entry, addDocument, colRef, vID, updateVideoID,};

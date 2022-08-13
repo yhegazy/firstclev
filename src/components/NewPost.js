@@ -2,6 +2,9 @@ import {useState} from 'react'
 import {colRef, addDocument} from './hooks/Firebase'
 import 'firebase/compat/firestore';
 
+// NewPost should revert back to the home page to refresh and retrieve the data.
+//telephone #s & emails need validation 
+
 const NewPost = (props) => {
     const {global} = props
     const [subject, setSubject] = useState("")

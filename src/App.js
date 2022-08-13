@@ -32,9 +32,7 @@ function App() {
   useEffect(() => {
      makeAPICall();
   },[])
-  console.log(getDB)
-
-  
+    
   useEffect(() => {
     let currentTime = new Date().getHours();
     let date = new Date();

@@ -52,6 +52,23 @@ app.get('/fcmDB', (req, res) => {
     })()
 })
 
+const videoID = []
+app.get('/fcmDB', (req, res) => {
+    (async () => {
+        try{
+            const fcmDB = db.collection('vID');
+            const snapshot = await fcmDB.get();
+            
+            snapshot.forEach(doc =>  videoID.push(doc.data()))
+
+            res.send(videoID)
+
+        } catch (error) {
+            console.log(error);
+        }
+    })()
+})
+
 
 // Step 5 - Post document to test
 app.listen(8080, () => {
