@@ -2,7 +2,7 @@
   https://github.com/yhegazy
   Yahia Hegazy
   Production Date: 20210410
-  Updated: 20220807
+  Updated: 20220814
   Supports most mobile & tablet views
 
 */
@@ -12,59 +12,32 @@ html, body {
   height: 100%;
 }
 
-/* Navbar */
-.sidebar{
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  transition: all 0.5s ease;
-}
-
-.sidebar .menu-items{
-  height: 100%;
-  padding: 30px 0 150px 0;
-  overflow: auto;
-}
-.sidebar.close .menu-items{
-  overflow: visible;
-}
-
-.sidebar .menu-items li{
-  position: relative;
-  list-style: none;
-  transition: all 0.4s ease;
-  
-}
-
-.sidebar .menu-items li i{
-  height: 50px;
-  min-width: 48px;
-  text-align: end ;
-  line-height: 50px;
-  font-size: 20px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.sidebar.close .menu-items li .sub-menu{
-  position: absolute;
-  left: 100%;
-  top: -10px;
-  margin-top: 0;
-  padding: 10px 20px;
-  border-radius: 0 6px 6px 0;
-  opacity: 0;
-  display: block;
-  pointer-events: none;
-  transition: 0s;
-}
-.sidebar.close .menu-items li:hover .sub-menu{
-  top: 0;
-  opacity: 1;
-  pointer-events: auto;
-  transition: all 0.4s ease;
-}
+ul{
+        padding: 0;
+        list-style: none;
+    }
+    ul li{
+        display: inline-block;
+        position: relative;
+        text-align: left;
+    }
+    ul li a{
+        display: block;
+        padding: 8px 25px;
+        
+        text-decoration: none;
+    }
+    
+    ul li ul.dropdown{
+        
+        display: none;
+        position: absolute;
+        z-index: 999;
+        left: 0;
+    }
+    ul li:hover ul.dropdown{
+        display: block;	/* Display the dropdown */
+    }
 
  /* Media Queries */
 @media(max-width:768px){

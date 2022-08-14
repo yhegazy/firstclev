@@ -5,7 +5,9 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      display: ['hover', 'focus', 'group-hover']
+    },
   },
   variants: {
     extend: {},
