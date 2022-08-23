@@ -10,6 +10,7 @@ import AboutUs from './components/AboutUs';
 import YouTubeArchives from './components/YouTubeArchives'
 import FirstClevelandPrayerTimes from './components/PrayerTimes'
 import Admin from './components/Admin'
+import CEC from './components/CEC'
 import { Coordinates, CalculationMethod, PrayerTimes, Madhab } from 'adhan';
 
 import './css/general.css'
@@ -62,6 +63,7 @@ function App() {
           <Route path="/about" element={ <AboutUs />} global={global}/>
           <Route path="/archives" element={ <YouTubeArchives global={global}/>} />
           <Route path="/salah" element={ <FirstClevelandPrayerTimes global={global}/>} />
+          <Route path="/cec" element={ <CEC global={global}/>} />
           <Route path="/admin" element={ <Admin global={global}/>} />
            
         </Routes>

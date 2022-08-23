@@ -1,0 +1,24 @@
+mainpage - italics font, bold
+mainpage - weekly events -> click on "more events" gives a separate events page
+have events changed in real time
+mainpage - carousel of pictures (5 at most)
+
+
+
+
+Services - New NavLink --> Drop Down list with the following - Funeral Info, Marriage, Family counseling, pre-marital counseling, Dawah, Divorce Counseling, Classes 
+
+announcements - move classes to separate page -> 
+events - move events to separate page -> 
+Community Engagement Collaborative (CEC) (CEC image)
+
+
+about -> Mission Statement.  -> DONE
+         move contact us to about page -> DONE
+
+In PayPal -> add Maintenance in drop down section. 
+"Inquire within" for maintenance 
+
+
+
+
