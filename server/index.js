@@ -69,6 +69,23 @@ app.get('/fcmDB', (req, res) => {
     })()
 })
 
+const events = []
+app.get('/fcmDB', (req, res) => {
+    (async () => {
+        try{
+            const fcmDB = db.collection('events');
+            const snapshot = await fcmDB.get();
+            
+            snapshot.forEach(doc =>  events.push(doc.data()))
+
+            res.send(events)
+
+        } catch (error) {
+            console.log(error);
+        }
+    })()
+})
+
 
 // Step 5 - Post document to test
 app.listen(8080, () => {

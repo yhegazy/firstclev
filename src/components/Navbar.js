@@ -38,12 +38,12 @@ const menuItems = [
         exact: true,
         to: '/classes',
     },
-    {
-        id: 6,
-        title: 'Announcements',
-        exact: true,
-        to: '/announcements',
-    },
+    // {
+    //     id: 6,
+    //     title: 'Announcements',
+    //     exact: true,
+    //     to: '/announcements',
+    // },
     {
         id: 7,
         title: 'Upcoming Events',
@@ -89,7 +89,7 @@ const Navbar = (props) => {
                         <Link to={item.to}>
                             <li key={item.id} onClick={() => handleSubToggle(item.id)} className={item.subMenus && 'text-center'}>
                                 <p className={`text-lg ${global.darkMode ? 'text-white': 'text-black'}`}> {item.title}{item.subMenus && <span>&#9662;</span> } </p>
-                                <ul className="dropdown bg-gray-200 rounded-2xl shadow-2xl">
+                                <ul className="bg-gray-200 shadow-2xl dropdown rounded-2xl">
                                     {item.subMenus && item.subMenus.map((subItem, index) => subToggle === item.id && 
                                         <li key={index} className={` ${global.darkMode ? 'text-white': 'text-black'}`}>
                                            <Link to={subItem.to} className="min-w-max">{subItem.title}
