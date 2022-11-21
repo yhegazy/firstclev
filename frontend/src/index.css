@@ -1,0 +1,157 @@
+/*
+  https://github.com/yhegazy
+  Yahia Hegazy
+  Production Date: 20210410
+  Updated: 20220814
+  Supports most mobile & tablet views
+
+*/
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+ul{
+        padding: 0;
+        list-style: none;
+    }
+    ul li{
+        display: inline-block;
+        position: relative;
+        text-align: left;
+    }
+    ul li a{
+        display: block;
+        padding: 8px 25px;
+        
+        text-decoration: none;
+    }
+    
+    ul li ul.dropdown{
+        
+        display: none;
+        position: absolute;
+        z-index: 999;
+        left: 0;
+    }
+    ul li:hover ul.dropdown{
+        display: block;	/* Display the dropdown */
+    }
+
+ /* Media Queries */
+@media(max-width:768px){
+  .max-width-768px, .display-4{
+    font-size: xx-large;
+  }
+
+  .max-width-768px, h5 {
+    font-size: large;
+  }
+}
+
+@media(max-width:720px){
+  .max-width-720px, .display-4{
+    font-size: xx-large;
+  }
+  .max-width-720px, h5 {
+    font-size: large;
+  }
+  .max-width-720px, .navbar-brand, .nav-link { 
+    font-size: medium
+  }
+  .max-width-720px, .mobile-tablet-image-position {
+    position:static;
+  }
+
+  .max-width-720px, .container, tbody, .table-bordered, .h4, td {
+    font-size: medium;
+  }
+}
+
+
+ @media(max-width:540px){
+  .max-width-540px, .display-4{
+    font-size: xx-large;
+  }
+
+  .max-width-540px, .mobile-tablet-image-position {
+    position:static;
+  }
+}
+
+@media(max-width:414px){
+  .max-width-414px, .display-4{
+   font-size: x-large;
+  }
+  .mobile-tablet-image-position {
+    position:static;
+  }
+}
+
+
+@media (max-width:411px){
+  .mobile-tablet-image-position {
+    position:static;
+  }
+
+  .max-width-411px, .h4 {
+    font-size:small;
+  }
+
+  .max-width-411px, .display-3, .display-4{
+    font-size:x-large;
+  }
+  
+  .max-width-411px, .navbar-brand, .nav-link {
+    font-size: 5vw
+  }
+}
+
+@media (max-width:360px){
+  .max-width-360px, h4{
+    font-size: medium;
+  }
+
+  .max-width-360px, .h4{
+    font-size: x-small;
+  }
+
+  .max-width-360px, .display-4{
+    font-size:x-large;
+  }
+  .max-width-360px, .navbar-brand, .nav-link {
+    font-size: 5vw
+  }
+  
+}
+
+@media (max-width:320px){
+  .max-width-320px, h4{
+    font-size: medium;
+  }
+
+  .max-width-320px, .h4{
+    font-size: x-small;
+  }
+
+  .max-width-320px, .navbar-brand {
+    font-size: 5vw
+  }
+
+  .max-width-320px, .display-4{
+    font-size:x-large;
+  } 
+
+  .max-width-320px, .display-7{
+    font-size: medium
+  }
+}
+
+
+
+
+
+
+  
+
