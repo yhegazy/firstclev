@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useState} from 'react'
 import { Coordinates, CalculationMethod, PrayerTimes, Madhab } from 'adhan';
 import moment from 'moment'
-import PrayTimes from '../hooks/PrayTimes'
+import PrayTimes from '../hooks/PrayTimes' 
 
 
 const FirstClevelandPrayerTimes = (props) => {   
