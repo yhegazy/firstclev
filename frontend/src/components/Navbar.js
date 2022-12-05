@@ -19,25 +19,25 @@ const menuItems = [
         exact: true,
         to: '/archives',
     },
-    {
-        id: 4,
-        title: 'Service',
-        exact: true,
-        to: '#',
-        subMenus: [
-        { title: "Funeral Information", to: "/funeral" },
-        { title: "Marriage Ceremonies", to: "/marriage",},
-        { title: "Family Counseling", to: "/family",},
-        { title: "Divorce Counseling", to: "/divorce",},
-        { title: "Dawah Program", to: "/dawah",},
-        ]
-    },
-    {
-        id: 5,
-        title: 'Classes',
-        exact: true,
-        to: '/classes',
-    },
+    // {
+    //     id: 4,
+    //     title: 'Service',
+    //     exact: true,
+    //     to: '#',
+    //     subMenus: [
+    //     { title: "Funeral Information", to: "/funeral" },
+    //     { title: "Marriage Ceremonies", to: "/marriage",},
+    //     { title: "Family Counseling", to: "/family",},
+    //     { title: "Divorce Counseling", to: "/divorce",},
+    //     { title: "Dawah Program", to: "/dawah",},
+    //     ]
+    // },
+    // {
+    //     id: 5,
+    //     title: 'Classes',
+    //     exact: true,
+    //     to: '/classes',
+    // },
     {
         id: 6,
         title: 'Announcements',
@@ -57,7 +57,7 @@ const menuItems = [
         to: '#',
         subMenus: [
         { title: "About Us", to: "/about" },
-        { title: "Mission Statement", to: "/message" },
+        // { title: "Mission Statement", to: "/message" },
         { title: "Contact Us", to: "/contact",},
         ],
     },

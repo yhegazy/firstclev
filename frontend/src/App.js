@@ -10,12 +10,16 @@ import UpcomingEvents from './components/UpcomingEvents'
 import Edit from './components/Edit'
 import MainPage from './components/MainPage'
 import AboutUs from './components/AboutUs';
+import Contact from './components/Contact'
 import YouTubeArchives from './components/YouTubeArchives'
 import FirstClevelandPrayerTimes from './components/PrayerTimes'
 import Login from './components/Login'
 import Galleries from './components/Gallery'
+
+//DB
 import { storage } from './appwrite/appwriteConfig'
 
+//CSS
 import './css/general.css'
 import './index.css'
 
@@ -24,9 +28,6 @@ function App() {
 
   const handleLoggedIn = (value) => setGlobal({...global, loggedIn: value})
   
-  const control = {
-    onLoggedIn: handleLoggedIn,
-  }
      
   useEffect(() => {
     let currentTime = new Date().getHours();
@@ -51,17 +52,18 @@ function App() {
     <div className={global.darkMode && 'bg-gray-700 text-white'} style={{height: '100vh'}}>
       
       <BrowserRouter>
-        <Navbar global={global} control={control} id="nav" />   
+        <Navbar global={global} control={handleLoggedIn} id="nav" />   
         <Routes> 
-          <Route path="/" element={ <MainPage global={global} control={control}  id="main"/>} />
-          <Route path="/posts" element={ <Annoucements global={global} control={control}/>} />
-          <Route path="/events" element={ <UpcomingEvents global={global} control={control} />} />
-          <Route path="/about" element={ <AboutUs />} global={global} control={control}/>
-          <Route path="/archives" element={ <YouTubeArchives global={global} control={control}/>} />
-          <Route path="/salah" element={ <FirstClevelandPrayerTimes global={global} control={control}/>} />
-          <Route path="/gallery" element={ <Galleries global={global} control={control}/>} />
-          <Route path="/admin" element={ <Login global={global} control={control}/>} />
-            <Route path="/edit" element={ <Edit global={global} control={control}/>} />
+          <Route path="/" element={ <MainPage global={global} control={handleLoggedIn}  id="main"/>} />
+          <Route path="/posts" element={ <Annoucements global={global} control={handleLoggedIn}/>} />
+          <Route path="/events" element={ <UpcomingEvents global={global} control={handleLoggedIn} />} />
+          <Route path="/about" element={ <AboutUs />}/>
+          <Route path="/contact" element={ <Contact />} />
+          <Route path="/archives" element={ <YouTubeArchives global={global} control={handleLoggedIn}/>} />
+          <Route path="/salah" element={ <FirstClevelandPrayerTimes global={global} />} />
+          <Route path="/gallery" element={ <Galleries global={global} />} />
+          <Route path="/admin" element={ <Login global={global} control={handleLoggedIn}/>} />
+            <Route path="/edit" element={ <Edit global={global} control={handleLoggedIn}/>} />
            
         </Routes>
       </BrowserRouter>
