@@ -1,8 +1,5 @@
 import {useCallback, useEffect, useState} from 'react'
 import { Coordinates, CalculationMethod, PrayerTimes, Madhab } from 'adhan';
-import moment from 'moment'
-import PrayTimes from '../hooks/PrayTimes' 
-
 
 const FirstClevelandPrayerTimes = (props) => {   
     const {global} = props
@@ -38,15 +35,13 @@ const FirstClevelandPrayerTimes = (props) => {
     }, [])
    
     const MonthlyCalendar = () => {
-        PrayTimes().setMethod('ISNA')
-        PrayTimes().getTimes(date, [41.4932, -81.4609], -5)
         let arr = []
         for(let i = 0; i < 30; i++) {
-            let temp = new Date(date.getFullYear(), date.getMonth() , date.getDate() + i)
-            arr.push(temp)
+            let temp = new Date(prayerTimes.fajr.getFullYear(), prayerTimes.fajr.getMonth(), prayerTimes.fajr.getDate() + i) 
+            arr.push(temp) 
         }
-
-        let day = arr.map((date) => [(date.getMonth() + 1)+ "/" + date.getDate(), PrayTimes().getTimes(date, [41.4932, -81.4609], -5)])  
+       
+        let day = arr.map((date) => [(date.getMonth() + 1)+ "/" + date.getDate(), new PrayerTimes(coordinates, date, params)])  
 
         return <div className="overflow-x-auto relative border-r-2 border-l-2 border-gray-50">
             <table className="w-full text-xs text-left text-gray-500 dark:text-gray-400">
@@ -61,13 +56,20 @@ const FirstClevelandPrayerTimes = (props) => {
                     </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
+                    
                     {day.map((prayer) => <tr>
                         <td className="px-6 py-1 whitespace-nowrap">{prayer[0]}</td>
-                        <td className="px-6 py-1 whitespace-nowrap">{prayer[1].fajr} </td>
-                        <td className="px-6 py-1 whitespace-nowrap">{prayer[1].dhuhr}</td>
-                        <td className="px-6 py-1 whitespace-nowrap"> {prayer[1].asr} </td>
-                        <td className="px-6 py-1 whitespace-nowrap"> {prayer[1].maghrib}</td>
-                        <td className="px-6 py-1 whitespace-nowrap">{prayer[1].isha}</td> 
+                        
+                        <td className="px-6 py-1 whitespace-nowrap">{new Date(prayer[1].fajr).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})} </td>
+                        
+                        <td className="px-6 py-1 whitespace-nowrap">{new Date(prayer[1].dhuhr).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</td>
+                       
+                        <td className="px-6 py-1 whitespace-nowrap"> {new Date(prayer[1].asr).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}
+                        </td>
+                        
+                        <td className="px-6 py-1 whitespace-nowrap"> {new Date(prayer[1].maghrib).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</td>
+                        
+                        <td className="px-6 py-1 whitespace-nowrap">{new Date(prayer[1].isha).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</td> 
                     </tr>)}
                 </tbody>
             </table> 
@@ -86,23 +88,23 @@ const FirstClevelandPrayerTimes = (props) => {
             {/* Salat Times */}
             <div className="flex flex-wrap justify-between">
                 <p>Fajr</p>
-                <p>{moment(prayerTimes.fajr).format('h:mm A')}</p>
+                <p>{new Date(prayerTimes.fajr).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</p>
             </div>
             <div className="flex flex-wrap justify-between">
                 <p>Dhuhr</p>
-                <p>{moment(prayerTimes.dhuhr).format('h:mm A')}</p>
+                <p>{new Date(prayerTimes.dhuhr).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</p>
             </div>
             <div className="flex flex-wrap justify-between">
                 <p>Asr</p>
-                <p>{moment(prayerTimes.asr).format('h:mm A')}</p>
+                <p>{new Date(prayerTimes.asr).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</p>
             </div>
             <div className="flex flex-wrap justify-between">
                 <p>Maghrib</p>
-                <p>{moment(prayerTimes.maghrib).format('h:mm A')}</p>
+                <p>{new Date(prayerTimes.maghrib).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</p>
             </div>
             <div className="flex flex-wrap justify-between">
                 <p>Isha</p>
-                <p>{moment(prayerTimes.isha).format('h:mm A')}</p>
+                <p>{new Date(prayerTimes.isha).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</p>
             </div>
             
             <div className={`fixed w-1/2 ml-auto mr-auto px-2 ${toggle ? 'bottom-2 bg-gray-100 pt-1' : 'bottom-0'}`}>
