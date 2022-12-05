@@ -79,7 +79,7 @@ const FirstClevelandPrayerTimes = (props) => {
             <h1 className="flex justify-center w-1/2 ml-auto mr-auto text-3xl py-5">Salah Times</h1>
             {/* Gregorian & Hijra Calendar */}
             <div className="flex justify-between py-5">
-                <p className=''>{monthName} {prayerTimes.fajr.getDate()}</p>
+                <p className=''>{monthName} {prayerTimes.fajr.getDate()}, {prayerTimes.fajr.getFullYear()}</p>
                 <p>{hijraYear} {hijraMonth}</p>
             </div>
 

@@ -1,15 +1,19 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { account, db, storage } from '../appwrite/appwriteConfig'
 import {v4 as uuidv4} from 'uuid' //to auto-generate unique ids
 
 const TABS = "bg-white hover:bg-gray-100 inline-block border-l border-t border-r rounded-t py-2 px-4 text-red-700 font-semibold shadow"
+const ORDER_CHOICE = ['date', 'rating', 'viewCount', 'videoCount', 'title', 'relevance']
+const API_KEY = 'AIzaSyD_Ldqg5txrqvQYnRthvpKfkpbGWhLxa0A'
+
 
 const Edit = (props) => {
     const navigate = useNavigate();
     const {global} = props
-    const [save, setSave] = useState({vID:"", subMenu:"", title: "", body:"", email:"noreply@firstcleveland.org", telephone:"216-404-8635", hrefURL:"firstCleveland.org", start: new Date(), end: new Date(), allDay: false, imageName:""}) 
+    const [save, setSave] = useState({vID:"", subMenu:"", title: "", body:"", email:"noreply@firstcleveland.org", telephone:"216-404-8635", hrefURL:"firstCleveland.org", start: new Date(), end: new Date(), allDay: false, imageName:"", orderBy: 'date', results: 25}) 
     const [selectedImage, setSelectedImage] = useState(null);
+    
     
     const handleLogin = () => {navigate('/admin')}
     const handleLogout = async() => {
@@ -26,8 +30,17 @@ const Edit = (props) => {
         else setSave({...save, allDay: false})
     }
 
+    useEffect(async() => {
+        fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UCYYBYUfJwI3YjmQt_qigTmQ&maxResults=${save.results}&order=${save.orderBy}&key=${API_KEY}`)
+            .then((result) => {return result.json()})
+            .then((data) => {
+                setSave({...save, id: data.items.map((item) => item.id['videoId']), title: data.items.map((item) => item.snippet['title'])
+            })})
+            .catch((error) => console.log(error))
+    }, []);
+
     const handleSaveButton = async() => {     
-        if(save.subMenu === 'YouTube') await db.updateDocument("637278aa811fb8962b16","637281a5a4ef8b18ff46", '637281cdc2f22d321e13', {vID: save.vID})
+        if(save.subMenu === 'YouTube') await db.updateDocument("637278aa811fb8962b16","637281a5a4ef8b18ff46", '637281cdc2f22d321e13', {vID: save.vID, orderBy: save.orderBy, results: save.results, id: save.id, title: save.title})
 
         else if(save.subMenu === 'Gallery') {
             if(selectedImage){
@@ -74,13 +87,22 @@ const Edit = (props) => {
             { global.loggedIn ? 
                 save.subMenu === 'YouTube' ? 
                 [<div className="flex justify-center py-4">
-                    <div className="flex justify-between py-4">
-                        <label className="px-2 font-semibold" htmlFor="youtube" >YouTube Video URL: </label>
-                        <input className="border border-black" id="youtube" onChange={e => setSave({...save, vID: e.target.value})} />
-                    </div>
+                    <label className="px-2 font-semibold" htmlFor="youtube" >YouTube Video URL: </label>
+                    <input className="border border-black" id="youtube" onChange={e => setSave({...save, vID: e.target.value})} />
+                </div>,
+               <div className="flex justify-center py-4">
+                    <label className="px-2 font-semibold" htmlFor="orderBy" >Order By: </label>
+                    <select className="border-black border" id="orderBy" name="type" onChange={e => setSave({...save, orderBy: e.target.value}) }>
+                        <option>Select One</option>
+                        {ORDER_CHOICE.map((name) => <option key={name}>{name}</option>)}
+                    </select>
                 </div>,
                 <div className="flex justify-center py-4">
-                    <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" onClick={handleSaveButton}>Save!</button>
+                    <label className="px-2 font-semibold" htmlFor="results" >Retrieve how many results back?</label>
+                    <input className="border border-black" id="results"  type="text" size="5" onChange={e => setSave({...save, results: e.target.value})} ></input>
+                </div>,
+                <div className="flex justify-center py-4">
+                    <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" onClick={handleSaveButton}>Retrieve &amp; Save!</button>
                 </div> ]
                 : save.subMenu === 'Gallery' ? 
                 [<div className="flex justify-center py-4">
@@ -172,7 +194,7 @@ const Edit = (props) => {
             }
 
                           
-            </div>
+        </div>
     </>
 }
 
