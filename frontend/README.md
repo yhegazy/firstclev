@@ -1,4 +1,4 @@
-# First Cleveland Mosque (ReactJS)
+# First Cleveland Masjid (ReactJS)
 
 ##Mobile Resolution Supported
 320px, 360px, 
