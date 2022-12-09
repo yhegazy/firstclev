@@ -3,8 +3,6 @@ import {useNavigate} from 'react-router-dom'
 import { db } from '../appwrite/appwriteConfig';
 
 import { Coordinates, CalculationMethod, PrayerTimes, Madhab } from 'adhan';
-import Moment from 'react-moment'
-import 'moment-timezone'
 
 export default function MainPage(props) { 
     const {global} = props
@@ -40,12 +38,12 @@ export default function MainPage(props) {
 
     return <>
         <div className="h-full flex flex-wrap" style={{ backgroundImage: `url(${global.image})`, backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed', backgroundSize: 'cover'}}>
-            <div className="my-10 w-2/3 px-2 text-center">
+            <div className="xl:my-10 my-5 xl:w-2/3 xl:px-2 text-center">
                 <p  className="p-3 text-2xl bg-gray-200 italic font-semibold shadow-md rounded-2xl">
                     The mission of the First Cleveland Mosque is to embrace and propagate the fundamental teachings of Islam through service to our community according to the Quran and the Sunnah of Prophet Muhammad (ﷺ)
                 </p>
             </div>   
-            <div className="my-3 w-1/3 ml-auto mr-auto">
+            <div className="xl:my-3 xl:w-1/3 xl:ml-auto xl:mr-auto xl:inline hidden">
                 <div className="bg-gray-200 w-2/3 ml-auto mr-auto rounded text-center">
                     <p className="p-2 text-lg underline">Upcoming Events</p>
                     {isLoading ? <p>Loading...</p> : <ul>
@@ -60,14 +58,14 @@ export default function MainPage(props) {
                     <button className={`bg-transparent text-blue-700 font-semibold py-2 px-4 rounded ${global.darkMode ? 'hover:text-white': 'hover:text-black'}`} onClick={handleClickMoreButton} > Click for more...</button>
                 </div>
             </div>  
-            <div className="p-1 space-x-3 ml-auto mr-auto">
-                    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4LH7ELGSGAKYU&source=url" target="_blank" rel="noreferrer"><button className="p-2 text-white bg-green-500 rounded shadow">Donate to First Cleveland</button></a>
+            <div className="xl:p-1 xl:space-x-3 xl:ml-auto xl:mr-auto text-center p-5 ">
+                    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4LH7ELGSGAKYU&source=url" target="_blank" rel="noreferrer"><button className="p-2 my-5 text-white bg-green-500 rounded shadow">Donate to First Cleveland</button></a>
 
                     <a href={data.ytLinks}  rel="noreferrer" target="_blank"><button color="primary" className="p-2 text-white bg-indigo-500 rounded shadow">Watch Latest Live Stream (Fridays 1:30p ET)</button> </a>
 
                     <button className="p-2 my-5 text-white bg-yellow-500 rounded shadow">
                         <span>Next Prayer: </span>
-                        <Moment tz="America/New_York" format="h:mm A">{nextPrayer}</Moment> 
+                        <p>{new Date(nextPrayer).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</p>
                     </button>
                 </div>
 

@@ -7,17 +7,20 @@ const menuItems = [
         title: 'Home',
         exact: true,
         to: '/',        
+        icon: 'fa-solid fa-home'
     },
     {
         id: 2,
         title: 'Salah',
         to: '/salah',
+        icon: 'fa-solid fa-person-praying',
     },
     {
         id: 3,
         title: 'Archives',
         exact: true,
         to: '/archives',
+        icon: "fa-brands fa-youtube",
     },
     // {
     //     id: 4,
@@ -30,7 +33,8 @@ const menuItems = [
     //     { title: "Family Counseling", to: "/family",},
     //     { title: "Divorce Counseling", to: "/divorce",},
     //     { title: "Dawah Program", to: "/dawah",},
-    //     ]
+    //     ],
+    //     icon: 'fa-regular fa-calendar',
     // },
     // {
     //     id: 5,
@@ -49,6 +53,7 @@ const menuItems = [
         title: 'Upcoming Events',
         exact: true,
         to: '/events',
+        icon: 'fa-regular fa-calendar',
     },
     {
         id: 8,
@@ -58,14 +63,16 @@ const menuItems = [
         subMenus: [
         { title: "About Us", to: "/about" },
         // { title: "Mission Statement", to: "/message" },
-        { title: "Contact Us", to: "/contact",},
+        { title: "Contact Us", to: "/contact"},
         ],
+        icon: 'fa-solid fa-circle-info',
     },
     {
         id: 9,
         title: 'Gallery',
         exact: true,
         to: '/gallery',
+        icon: "fa-regular fa-at",
     },
     
 ];
@@ -73,6 +80,7 @@ const menuItems = [
 const Navbar = (props) => {
     const {global} = props
     const [subToggle, setSubToggle] = useState(-1)
+    const [toggle, setToggle] = useState(false)
 
     const handleSubToggle = (id) => {
         if(id === subToggle) setSubToggle(-1)
@@ -80,22 +88,21 @@ const Navbar = (props) => {
     }
 
     return <>
-        <nav className={`flex justify-evenly pb-1 pt-2 `}>
+        <nav className="xl:flex xl:justify-evenly xl:pb-1 xl:pt-2 ">
             <img src={process.env.PUBLIC_URL + `/logo194.png`} className="w-12" alt="Welcome"/>
-            <ul className="space-x-5">
+            <ul className="xl:space-x-5 xl:space-x-0 space-x-3 px-1">
                  
                 {menuItems.map((item) => {
                     return <>
                         <Link to={item.to}>
                             <li key={item.id} onClick={() => handleSubToggle(item.id)} className={item.subMenus && 'text-center'}>
-                                <p className={`text-lg ${global.darkMode ? 'text-white': 'text-black'}`}> {item.title}{item.subMenus && <span>&#9662;</span> } </p>
+                                <p className="text-lg"> {item.title}{item.subMenus && <span>&#9662;</span> } </p>
                                 <ul className="bg-gray-200 shadow-2xl dropdown rounded-2xl">
                                     {item.subMenus && item.subMenus.map((subItem, index) => subToggle === item.id && 
                                         <li key={index} className={` ${global.darkMode ? 'text-white': 'text-black'}`}>
                                            <Link to={subItem.to} className="min-w-max">{subItem.title}
                                            </Link>
                                         </li> 
-                                    
                                     )}
                                 </ul>
                             </li>
@@ -108,3 +115,4 @@ const Navbar = (props) => {
 }
 
 export default Navbar
+

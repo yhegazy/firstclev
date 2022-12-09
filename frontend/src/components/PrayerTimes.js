@@ -1,8 +1,7 @@
-import {useCallback, useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import { Coordinates, CalculationMethod, PrayerTimes, Madhab } from 'adhan';
 
-const FirstClevelandPrayerTimes = (props) => {   
-    const {global} = props
+const FirstClevelandPrayerTimes = () => {   
     const [toggle, setToggle] = useState(false)
 
     let date = new Date();
@@ -16,7 +15,7 @@ const FirstClevelandPrayerTimes = (props) => {
     let hijraYear = new Intl.DateTimeFormat('ar-TN-u-ca-islamic', {year : 'numeric'}).format(Date.now());
 
     const [monthName, setMonthName] = useState(null)
-    const handleGregorianMonthName = useCallback((number) => {
+    const handleGregorianMonthName = (number) => {
         if(number === 1) setMonthName('January') 
         else if(number === 2) setMonthName('February')
         else if(number === 3) setMonthName('March')
@@ -29,7 +28,7 @@ const FirstClevelandPrayerTimes = (props) => {
         else if(number === 10) setMonthName('October')
         else if(number === 11) setMonthName('November')
         else if(number === 12) setMonthName('December')
-    },[])
+    }
     useEffect(() => {
         handleGregorianMonthName(date.getMonth() + 1)
     }, [])
@@ -77,7 +76,7 @@ const FirstClevelandPrayerTimes = (props) => {
     }
 
     return <>
-       <div className={`w-1/2 ml-auto mr-auto text-2xl p-5 space-y-2 ${global.darkMode && 'bg-gray-700 text-white'}`}>
+       <div className={`w-1/2 ml-auto mr-auto text-2xl p-5 space-y-2`}>
             <h1 className="flex justify-center w-1/2 ml-auto mr-auto text-3xl py-5">Salah Times</h1>
             {/* Gregorian & Hijra Calendar */}
             <div className="flex justify-between py-5">
