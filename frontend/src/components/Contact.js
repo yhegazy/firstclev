@@ -1,6 +1,6 @@
 const Contact = () => {
 
-  return <div className={`w-1/2 ml-auto mr-auto p-5 space-y-2 text-xl`}>
+  return <div className={`xl:w-1/2 w-full ml-auto mr-auto xl:p-5 p-10 space-y-2 text-xl`}>
         <h1 className="flex justify-center w-1/2 ml-auto mr-auto text-3xl">Contact</h1>
 
         <hr />

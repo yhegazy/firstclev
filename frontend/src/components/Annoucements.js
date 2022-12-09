@@ -14,10 +14,10 @@ function Annoucements(props) {
     },[])
 
     return <>
-        <div className={`w-3/4 ml-auto mr-auto text-2xl p-5 space-y-2 ${global.darkMode && 'bg-gray-700 text-white'}`}>
-            <h1 className="flex justify-center w-1/2 ml-auto mr-auto text-3xl">Annoucements</h1>
-
-            <div className='grid grid-flow-col grid-cols-4 space-x-5 space-y-3'>
+        <div className={`xl:w-3/4 xl:ml-auto xl:mr-auto text-2xl xl:p-5 p-2 xl:space-y-2 }`}>
+            <h1 className="flex justify-center w-1/2 ml-auto mr-auto xl:text-3xl text-2xl">Annoucements</h1>
+            <hr className='xl:hidden xl:py-0 py-3' />
+            <div className='xl:grid xl:grid-flow-col xl:grid-cols-4 xl:space-x-5 xl:space-y-3'>
                 {posts.posts.slice(0,20).map((item, id) =>     
                     <div className="max-w-sm rounded shadow-lg">
                         <img className="w-full" src={storage.getFileView("6377974dd959ac782a05", item.image)} alt={item.subject} />

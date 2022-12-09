@@ -16,11 +16,11 @@ const Galleries = (props) => {
     },[])
 
     return <>
-        <div className={`w-3/4 ml-auto mr-auto text-2xl p-5 space-y-2  ${global.darkMode && 'bg-gray-700 text-white'}`}>
+        <div className={`xl:w-3/4 w-full ml-auto mr-auto text-2xl p-5 space-y-2  ${global.darkMode && 'bg-gray-700 text-white'}`}>
             <h1 className="flex justify-center w-1/2 ml-auto mr-auto text-3xl">Gallery</h1>
            
                 {isLoading ? <p>Loading...</p>
-                : <Carousel wrapAround={true} slidesToShow={2} cellSpacing={5}>
+                : <Carousel wrapAround={true} slidesToShow={1} cellSpacing={10}>
                       {gallery.images.map((item) =>  <img src={storage.getFilePreview("6377974dd959ac782a05", item.$id)}/> )}
                 </Carousel>}
             

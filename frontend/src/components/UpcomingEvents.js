@@ -23,8 +23,9 @@ const UpcomingEvents = (props) => {
     },[])
  
     return <>
-        <div className={`w-full ml-auto mr-auto text-2xl p-5 space-y-2 ${global.darkMode && 'bg-gray-700 text-white'}`}>
-            <h1 className="flex justify-center w-1/2 ml-auto mr-auto text-3xl">Upcoming Events</h1>
+        <div className="w-full ml-auto mr-auto xl:text-2xl text-lg p-1 xl:p-5 xl:space-y-2">
+            <h1 className="flex justify-center xl:w-1/2 xl:ml-auto xl:mr-auto xl:text-3xl text-2xl">Upcoming Events</h1>
+            <hr className='xl:hidden xl:py-0 py-2' />
             {isLoading ?  <p>Loading...</p> : 
                 <Calendar
                     localizer={localizer}

@@ -76,37 +76,37 @@ const FirstClevelandPrayerTimes = () => {
     }
 
     return <>
-       <div className={`w-1/2 ml-auto mr-auto text-2xl p-5 space-y-2`}>
+       <div className={`xl:w-1/2 xl:ml-auto xl:mr-auto xl:text-2xl xl:p-5 xl:space-y-2 px-1`}>
             <h1 className="flex justify-center w-1/2 ml-auto mr-auto text-3xl py-5">Salah Times</h1>
             {/* Gregorian & Hijra Calendar */}
-            <div className="flex justify-between py-5">
+            <div className="xl:flex xl:justify-between py-5">
                 <p className=''>{monthName} {prayerTimes.fajr.getDate()}, {prayerTimes.fajr.getFullYear()}</p>
                 <p>{hijraYear} {hijraMonth}</p>
             </div>
 
             {/* Salat Times */}
-            <div className="flex flex-wrap justify-between">
+            <div className="flex flex-wrap xl:justify-between justify-around ">
                 <p>Fajr</p>
                 <p>{new Date(prayerTimes.fajr).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</p>
             </div>
-            <div className="flex flex-wrap justify-between">
+            <div className="flex flex-wrap xl:justify-between justify-around">
                 <p>Dhuhr</p>
                 <p>{new Date(prayerTimes.dhuhr).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</p>
             </div>
-            <div className="flex flex-wrap justify-between">
+            <div className="flex flex-wrap xl:justify-between justify-around">
                 <p>Asr</p>
                 <p>{new Date(prayerTimes.asr).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</p>
             </div>
-            <div className="flex flex-wrap justify-between">
+            <div className="flex flex-wrap xl:justify-between justify-around">
                 <p>Maghrib</p>
                 <p>{new Date(prayerTimes.maghrib).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</p>
             </div>
-            <div className="flex flex-wrap justify-between">
+            <div className="flex flex-wrap xl:justify-between justify-around">
                 <p>Isha</p>
                 <p>{new Date(prayerTimes.isha).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</p>
             </div>
             
-            <div className={`fixed w-1/2 ml-auto mr-auto px-2 ${toggle ? 'bottom-2 bg-gray-100 pt-1' : 'bottom-0'}`}>
+            <div className={`fixed xl:w-1/2 w-full ml-auto mr-auto xl:px-2 pr-2 ${toggle ? 'bottom-2 top-10 overflow-y-scroll bg-gray-100 pt-1' : 'bottom-0'}`}>
                 <p className='text-center bg-blue-500 text-white font-semibold hover:bg-blue-700 py-2 px-4 border rounded' onClick={() => setToggle(!toggle)}>30 Day Calendar</p>
                 {toggle && <MonthlyCalendar />}
             </div>
