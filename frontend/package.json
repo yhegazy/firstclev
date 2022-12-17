@@ -33,6 +33,10 @@
     "build:watch": "postcss src/css/tailwind.css -o src/css/general.css --watch"
   },
   "eslintConfig": {
+    "parserOptions": {
+			"parser": "babel-eslint",
+			"sourceType": "module"
+		},
     "extends": [
       "react-app",
       "react-app/jest"
