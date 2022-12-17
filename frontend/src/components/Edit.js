@@ -29,7 +29,7 @@ const Edit = (props) => {
         if (e.target.value === 'Yes') setSave({...save, allDay: true})
         else setSave({...save, allDay: false})
     }
-
+     
     useEffect(async() => {
         fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UCYYBYUfJwI3YjmQt_qigTmQ&maxResults=${save.results}&order=${save.orderBy}&key=${API_KEY}`)
             .then((result) => {return result.json()})
@@ -40,22 +40,22 @@ const Edit = (props) => {
     }, []);
 
     const handleSaveButton = async() => {     
-        if(save.subMenu === 'YouTube') await db.updateDocument("637278aa811fb8962b16","637281a5a4ef8b18ff46", '637281cdc2f22d321e13', {vID: save.vID, orderBy: save.orderBy, results: save.results, id: save.id, title: save.title})
+        if(save.subMenu === 'YouTube') await db.updateDocument("firstClevelandMasjidDB","youtube-api-link", '639dec6df3b68774a78d', {vID: save.vID, orderBy: save.orderBy, results: save.results, id: save.id, title: save.title})
 
         else if(save.subMenu === 'Gallery') {
             if(selectedImage){
-                await storage.createFile('6377974dd959ac782a05', selectedImage.name, selectedImage)
-                await db.createDocument("637278aa811fb8962b16","637281e5c3afb43718cc", uuidv4(), {imageName: selectedImage.name, submenu: "mainpage"})
+                await storage.createFile('images', selectedImage.name, selectedImage)
+                await db.createDocument("firstClevelandMasjidDB","gallery", uuidv4(), {imageName: selectedImage.name, submenu: "gallery"})
             }
         }
             
-        else if (save.subMenu === 'Events') await db.createDocument("637278aa811fb8962b16","63727c039087bffba695", uuidv4(), {subMenu: save.subMenu, start: save.start, end: save.end, title: save.title, allDay: save.allDay})
+        else if (save.subMenu === 'Events') await db.createDocument("firstClevelandMasjidDB","upcomingEvents", uuidv4(), {subMenu: save.subMenu, start: save.start, end: save.end, title: save.title, allDay: save.allDay})
         
         else if (save.subMenu === 'Posts') {
             if(selectedImage) {
-                await storage.createFile('6377974dd959ac782a05', selectedImage.name, selectedImage);
+                await storage.createFile('images', selectedImage.name, selectedImage);
 
-                await db.createDocument("637278aa811fb8962b16","637278b17505ad9eea21", uuidv4(), {greeting: "As-Salamu Aalikum, ٱلسَّلَامُ عَلَيْكُمْ‎", subject: save.title, body: save.body, email: save.email, telephone: save.telephone, hrefURL: save.hrefURL, image: selectedImage.name})
+                await db.createDocument("firstClevelandMasjidDB","posts", uuidv4(), {greeting: "As-Salamu Aalikum, ٱلسَّلَامُ عَلَيْكُمْ‎", subject: save.title, body: save.body, email: save.email, telephone: save.telephone, hrefURL: save.hrefURL, image: selectedImage.name})
             }
         }
 

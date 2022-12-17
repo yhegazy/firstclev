@@ -10,7 +10,7 @@ const Galleries = (props) => {
 
     useEffect(async() => {
         setIsLoading(true)
-        const getGallery = await storage.listFiles("6377974dd959ac782a05")
+        const getGallery = await storage.listFiles("images")
         setGallery({...gallery, images: getGallery.files})
         setIsLoading(false)
     },[])
@@ -21,7 +21,7 @@ const Galleries = (props) => {
            
                 {isLoading ? <p>Loading...</p>
                 : <Carousel wrapAround={true} slidesToShow={1} cellSpacing={10}>
-                      {gallery.images.map((item) =>  <img src={storage.getFilePreview("6377974dd959ac782a05", item.$id)}/> )}
+                      {gallery.images.map((item) =>  <img src={storage.getFilePreview("images", item.$id)}/> )}
                 </Carousel>}
             
         </div>

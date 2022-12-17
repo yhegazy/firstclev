@@ -2,12 +2,14 @@ import {Client, Account, Databases, Storage} from 'appwrite'
 
 const client = new Client()
 
-client.setEndpoint('http://localhost:8081/v1').setProject('63727265943de07bc770')
+client.setEndpoint('http://206.189.255.163/v1').setProject('firstClevelandMasjidDB')
 
 export const account = new Account(client)
 
+
 //Database
-export const db = new Databases(client, '637278aa811fb8962b16')
+export const db = new Databases(client, 'firstClevelandMasjidDB')
+
 
 //Storage
 export const storage = new Storage(client)

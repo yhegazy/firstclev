@@ -44,7 +44,7 @@ function App() {
   },[]) 
 
   useEffect(async() => {
-    const mainpage = await storage.getFilePreview("6377a56fbc65a7a7a17f", "6378cf91209a0c1a7217")
+    const mainpage = await storage.getFilePreview("images", "639deaea6ac3076bbd45")
     setGlobal({...global, image: mainpage})
   },[])
 
@@ -52,18 +52,18 @@ function App() {
     <div className={global.darkMode && 'bg-gray-700 text-white'} style={{height: '100vh'}}>
       
       <BrowserRouter>
-        <Navbar global={global} control={handleLoggedIn} id="nav" />   
+        <Navbar global={global} onLoggedIn={handleLoggedIn} id="nav" />   
         <Routes> 
-          <Route path="/" element={ <MainPage global={global} control={handleLoggedIn}  id="main"/>} />
-          <Route path="/posts" element={ <Annoucements global={global} control={handleLoggedIn}/>} />
-          <Route path="/events" element={ <UpcomingEvents global={global} control={handleLoggedIn} />} />
+          <Route path="/" element={ <MainPage global={global}  onLoggedIn={handleLoggedIn}  id="main"/>} />
+          <Route path="/posts" element={ <Annoucements global={global}  onLoggedIn={handleLoggedIn}/>} />
+          <Route path="/events" element={ <UpcomingEvents global={global}  onLoggedIn={handleLoggedIn} />} />
           <Route path="/about" element={ <AboutUs />}/>
           <Route path="/contact" element={ <Contact />} />
-          <Route path="/archives" element={ <YouTubeArchives global={global} control={handleLoggedIn}/>} />
+          <Route path="/archives" element={ <YouTubeArchives global={global}  onLoggedIn={handleLoggedIn}/>} />
           <Route path="/salah" element={ <FirstClevelandPrayerTimes global={global} />} />
           <Route path="/gallery" element={ <Galleries global={global} />} />
-          <Route path="/admin" element={ <Login global={global} control={handleLoggedIn}/>} />
-            <Route path="/edit" element={ <Edit global={global} control={handleLoggedIn}/>} />
+          <Route path="/admin" element={ <Login global={global}  onLoggedIn={handleLoggedIn}/>} />
+            <Route path="/edit" element={ <Edit global={global}  onLoggedIn={handleLoggedIn}/>} />
            
         </Routes>
       </BrowserRouter>

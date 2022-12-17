@@ -8,7 +8,7 @@ function Annoucements(props) {
 
     useEffect(async() => {
         setIsLoading(true)
-        const getPosts = await db.listDocuments("637278aa811fb8962b16", "637278b17505ad9eea21")
+        const getPosts = await db.listDocuments("firstClevelandMasjidDB", "posts")
         setPosts({...posts, posts: getPosts.documents})
         setIsLoading(false)
     },[])
@@ -20,7 +20,7 @@ function Annoucements(props) {
             <div className='xl:grid xl:grid-flow-col xl:grid-cols-4 xl:space-x-5 xl:space-y-3'>
                 {posts.posts.slice(0,20).map((item, id) =>     
                     <div className="max-w-sm rounded shadow-lg">
-                        <img className="w-full" src={storage.getFileView("6377974dd959ac782a05", item.image)} alt={item.subject} />
+                        <img className="w-full" src={storage.getFileView("images", item.image)} alt={item.subject} />
                         
                         <div className="px-6 py-4">
                             <div className="font-bold text-xl mb-2">{item.subject}</div>

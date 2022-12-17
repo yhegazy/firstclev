@@ -4,7 +4,7 @@ import {account} from '../appwrite/appwriteConfig'
 
 const Login = (props) => {
     const navigate = useNavigate()
-    const {global, control} = props
+    const {global, onLoggedIn} = props
     const [user, setUser] = useState({email:"", password:""})
 
     const loginUser = async(e) => {
@@ -12,14 +12,13 @@ const Login = (props) => {
         try {
             await account.createEmailSession(user.email, user.password)
             
-            control.onLoggedIn(true)
+            onLoggedIn(true)
             navigate("/edit")
         } catch (error) {
             console.log(error)
-            control.onLoggedIn(false)
+            onLoggedIn(false)
         }
     }
-
 
     return <>
         <div className={`w-1/2 px-2 py-5 my-10 ml-auto mr-auto ${global.darkMode ? 'bg-gray-700 text-white': 'rounded shadow  bg-green-50'}`}>

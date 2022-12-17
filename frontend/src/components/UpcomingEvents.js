@@ -14,7 +14,7 @@ const UpcomingEvents = (props) => {
 
     useEffect(() => {
         setIsLoading(true)
-        const getEvents = db.listDocuments("637278aa811fb8962b16", "63727c039087bffba695")
+        const getEvents = db.listDocuments("firstClevelandMasjidDB", "upcomingEvents")
         getEvents.then(
             function(response) {setEvents({...events, event:response.documents})}, function(error) {console.log(error)}
         )
