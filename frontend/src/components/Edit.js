@@ -11,7 +11,8 @@ const API_KEY = 'AIzaSyD_Ldqg5txrqvQYnRthvpKfkpbGWhLxa0A'
 const Edit = (props) => {
     const navigate = useNavigate();
     const {global} = props
-    const [save, setSave] = useState({vID:"", subMenu:"", title: "", body:"", email:"noreply@firstcleveland.org", telephone:"216-404-8635", hrefURL:"firstCleveland.org", start: new Date(), end: new Date(), allDay: false, imageName:"", orderBy: 'date', results: 25}) 
+    const [save, setSave] = useState({vID:"", subMenu:"", title: "", body:"", email:"noreply@firstcleveland.org", telephone:"216-404-8635", 
+    hrefURL:"firstCleveland.org", start: new Date(), end: new Date(), allDay: false, imageName:"", orderBy: 'date', results: 25}) 
     const [selectedImage, setSelectedImage] = useState(null);
     
     
@@ -40,7 +41,7 @@ const Edit = (props) => {
     }, []);
 
     const handleSaveButton = async() => {     
-        if(save.subMenu === 'YouTube') await db.updateDocument("firstClevelandMasjidDB","youtube-api-link", '63a0c5d9a54a5c33c046', 
+        if(save.subMenu === 'Archives') await db.updateDocument("firstClevelandMasjidDB","youtube-api-link", '63a0c5d9a54a5c33c046', 
             {vID: save.vID, orderBy: save.orderBy, results: save.results, id: save.id, title: save.title})
 
         else if(save.subMenu === 'Gallery') {
@@ -69,14 +70,16 @@ const Edit = (props) => {
         setSelectedImage(null)
     }    
     return <>
-        <div className={`w-3/4 px-2 py-5 my-10 ml-auto mr-auto ${global.darkMode ? 'bg-gray-700 text-white': 'rounded shadow  bg-gray-200'}`}>
+        <div className={`xl:w-3/4 xl:px-2 xl:py-5 my-10 xl:ml-auto xl:mr-auto space-x-3 xl:space-x-0 
+            ${global.darkMode ? 'bg-gray-700 text-white': 'rounded shadow  bg-gray-200'}`}>
             <div className="flex flex-wrap">
-                <div className="w-3/5 ml-auto mr-auto">
-                    {global.loggedIn && <div className="flex justify-center py-4"><button className="px-4 py-2 font-semibold text-white 
+                <div className="ml-auto mr-auto ">
+                    {global.loggedIn && 
+                        <div className="flex justify-center py-4"><button className="px-4 py-2 font-semibold text-white 
                         bg-yellow-500 rounded shadow hover:bg-yellow-700" onClick={handleLogout}>Logout</button></div>}
                     {/* Header Menu */}
-                    <div className="mx-2 my-2 flex flex-wrap justify-around">
-                        <button key="yt" onClick={e => setSave({...save, subMenu: e.currentTarget.name})} className={TABS} name="YouTube">YouTube</button>
+                    <div className="m-2 flex sm:flex-wrap justify-around">
+                        <button key="yt" onClick={e => setSave({...save, subMenu: e.currentTarget.name})} className={TABS} name="Archives">Archives</button>
                         
                         <button key="ga" onClick={e => setSave({...save, subMenu: e.currentTarget.name})} className={TABS} name="Gallery">Gallery</button>
                         
@@ -87,31 +90,31 @@ const Edit = (props) => {
             </div>
 
             { global.loggedIn ? 
-                save.subMenu === 'YouTube' ? 
-                [<div className="flex justify-center py-4">
-                    <label className="px-2 font-semibold" htmlFor="youtube" >YouTube Video URL: </label>
+                save.subMenu === 'Archives' ? 
+                [<div className="flex sm:justify-center justify-between p-4">
+                    <label className="sm:px-2 font-semibold" htmlFor="archive" >YouTube URL : </label>
                     <input className="border border-black" id="youtube" onChange={e => setSave({...save, vID: e.target.value})} />
                 </div>,
-               <div className="flex justify-center py-4">
-                    <label className="px-2 font-semibold" htmlFor="orderBy" >Order By: </label>
+               <div className="flex sm:justify-center justify-between p-4">
+               <label className="sm:px-2 font-semibold" htmlFor="orderBy" >Order By: </label>
                     <select className="border-black border" id="orderBy" name="type" onChange={e => setSave({...save, orderBy: e.target.value}) }>
                         <option>Select One</option>
                         {ORDER_CHOICE.map((name) => <option key={name}>{name}</option>)}
                     </select>
                 </div>,
-                <div className="flex justify-center py-4">
-                    <label className="px-2 font-semibold" htmlFor="results" >Retrieve how many results back?</label>
+                <div className="flex sm:justify-center justify-between p-4">
+                <label className="sm:px-2 font-semibold" htmlFor="results" >Retrieve how many results back?</label>
                     <input className="border border-black" id="results"  type="text" size="5" onChange={e => setSave({...save, results: e.target.value})} />
                 </div>,
-                <div className="flex justify-center py-4">
+                <div className="flex sm:justify-center justify-between p-4">
                     <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" onClick={handleSaveButton}>
                         Retrieve &amp; Save!
                     </button>
                 </div> ]
                 : save.subMenu === 'Gallery' ? 
                 [<div className="flex justify-center py-4">
-                    <label className="px-2 font-semibold" htmlFor="youtube" >Add images to gallery: </label>
-                    <input type="file" name="image" onChange={(event) => setSelectedImage(event.target.files[0])}/>
+                    <label className="px-2 font-semibold" htmlFor="gallery" >Add images to gallery: </label>
+                    <input type="file" name="image" id="gallery" onChange={(event) => setSelectedImage(event.target.files[0])}/>
                         
                     {selectedImage && (<div>
                         <img alt="not found" src={URL.createObjectURL(selectedImage)} />
@@ -154,9 +157,9 @@ const Edit = (props) => {
                     </div> 
                 
                     ]
-                : <div className="flex justify-center py-4"><p>Select of the options above to edit thy page.</p></div> 
+                : <div className="flex justify-center py-4"><p>Select an option to edit thy page</p></div> 
             : 
-               [ <div className="flex justify-center py-4"><p>You Must Be Logged In To Access This Page!</p></div>,
+               [ <div className="flex justify-center py-4"><p>Login Access Required</p></div>,
                  <div className="flex justify-center py-4"><button className="px-4 py-2 font-semibold text-white bg-yellow-500 rounded shadow 
                     hover:bg-yellow-700" onClick={handleLogin}>Log on</button></div>]
             
