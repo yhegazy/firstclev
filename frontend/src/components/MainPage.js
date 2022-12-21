@@ -11,10 +11,10 @@ export default function MainPage(props) {
     const [isLoading, setIsLoading] = useState(false)
 
     useEffect(async() => {
-        setIsLoading(true)
-        const video = await db.getDocument("firstClevelandMasjidDB", "youtube-api-link", "639dec6df3b68774a78d")
+        setIsLoading(true)                                                                 
+        const video = await db.getDocument("firstClevelandMasjidDB", "youtube-api-link", "63a0c5d9a54a5c33c046")
         const events = await db.listDocuments("firstClevelandMasjidDB", "upcomingEvents")
-        
+
         setData({...data, ytLinks: video.vID, events: events.documents.map((item) => item)})
         
         setIsLoading(false)

@@ -44,7 +44,7 @@ function App() {
   },[]) 
 
   useEffect(async() => {
-    const mainpage = await storage.getFilePreview("images", "639deaea6ac3076bbd45")
+    const mainpage = await storage.getFilePreview("images", "mainpage")
     setGlobal({...global, image: mainpage})
   },[])
 
@@ -55,7 +55,6 @@ function App() {
         <Navbar global={global} onLoggedIn={handleLoggedIn} id="nav" />   
         <Routes> 
           <Route path="/" element={ <MainPage global={global}  onLoggedIn={handleLoggedIn}  id="main"/>} />
-          <Route path="/posts" element={ <Annoucements global={global}  onLoggedIn={handleLoggedIn}/>} />
           <Route path="/events" element={ <UpcomingEvents global={global}  onLoggedIn={handleLoggedIn} />} />
           <Route path="/about" element={ <AboutUs />}/>
           <Route path="/contact" element={ <Contact />} />

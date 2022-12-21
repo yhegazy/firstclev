@@ -40,7 +40,8 @@ const Edit = (props) => {
     }, []);
 
     const handleSaveButton = async() => {     
-        if(save.subMenu === 'YouTube') await db.updateDocument("firstClevelandMasjidDB","youtube-api-link", '639dec6df3b68774a78d', {vID: save.vID, orderBy: save.orderBy, results: save.results, id: save.id, title: save.title})
+        if(save.subMenu === 'YouTube') await db.updateDocument("firstClevelandMasjidDB","youtube-api-link", '63a0c5d9a54a5c33c046', 
+            {vID: save.vID, orderBy: save.orderBy, results: save.results, id: save.id, title: save.title})
 
         else if(save.subMenu === 'Gallery') {
             if(selectedImage){
@@ -49,28 +50,30 @@ const Edit = (props) => {
             }
         }
             
-        else if (save.subMenu === 'Events') await db.createDocument("firstClevelandMasjidDB","upcomingEvents", uuidv4(), {subMenu: save.subMenu, start: save.start, end: save.end, title: save.title, allDay: save.allDay})
+        else if (save.subMenu === 'Events') await db.createDocument("firstClevelandMasjidDB","upcomingEvents", uuidv4(), 
+            {subMenu: save.subMenu, start: save.start, end: save.end, title: save.title, allDay: save.allDay})
         
         else if (save.subMenu === 'Posts') {
             if(selectedImage) {
                 await storage.createFile('images', selectedImage.name, selectedImage);
 
-                await db.createDocument("firstClevelandMasjidDB","posts", uuidv4(), {greeting: "As-Salamu Aalikum, ٱلسَّلَامُ عَلَيْكُمْ‎", subject: save.title, body: save.body, email: save.email, telephone: save.telephone, hrefURL: save.hrefURL, image: selectedImage.name})
+                await db.createDocument("firstClevelandMasjidDB","posts", uuidv4(), {greeting: "As-Salamu Aalikum, ٱلسَّلَامُ عَلَيْكُمْ‎", 
+                    subject: save.title, body: save.body, email: save.email, telephone: save.telephone, hrefURL: save.hrefURL, image: selectedImage.name})
             }
         }
 
         alert('Updated!')
 
-        setSave({vID:"", subMenu:"", title: "", body:"", email:"noreply@firstcleveland.org", telephone:"216-404-8635", hrefURL:"firstCleveland.org", start: "", end: "", allDay: false})
+        setSave({vID:"", subMenu:"", title: "", body:"", email:"noreply@firstcleveland.org", telephone:"216-404-8635", 
+            hrefURL:"firstCleveland.org", start: "", end: "", allDay: false})
         setSelectedImage(null)
-    }
-   
-
+    }    
     return <>
         <div className={`w-3/4 px-2 py-5 my-10 ml-auto mr-auto ${global.darkMode ? 'bg-gray-700 text-white': 'rounded shadow  bg-gray-200'}`}>
             <div className="flex flex-wrap">
                 <div className="w-3/5 ml-auto mr-auto">
-                    {global.loggedIn && <div className="flex justify-center py-4"><button className="px-4 py-2 font-semibold text-white bg-yellow-500 rounded shadow hover:bg-yellow-700" onClick={handleLogout}>Logout</button></div>}
+                    {global.loggedIn && <div className="flex justify-center py-4"><button className="px-4 py-2 font-semibold text-white 
+                        bg-yellow-500 rounded shadow hover:bg-yellow-700" onClick={handleLogout}>Logout</button></div>}
                     {/* Header Menu */}
                     <div className="mx-2 my-2 flex flex-wrap justify-around">
                         <button key="yt" onClick={e => setSave({...save, subMenu: e.currentTarget.name})} className={TABS} name="YouTube">YouTube</button>
@@ -79,7 +82,6 @@ const Edit = (props) => {
                         
                         <button key="cal" onClick={e => setSave({...save, subMenu: e.currentTarget.name})} className={TABS} name="Events">Upcoming Events</button>
                         
-                        <button key="mp" onClick={e => setSave({...save, subMenu: e.currentTarget.name})} className={TABS} name="Posts">Posts</button>
                     </div>
                 </div>
             </div>
@@ -99,10 +101,12 @@ const Edit = (props) => {
                 </div>,
                 <div className="flex justify-center py-4">
                     <label className="px-2 font-semibold" htmlFor="results" >Retrieve how many results back?</label>
-                    <input className="border border-black" id="results"  type="text" size="5" onChange={e => setSave({...save, results: e.target.value})} ></input>
+                    <input className="border border-black" id="results"  type="text" size="5" onChange={e => setSave({...save, results: e.target.value})} />
                 </div>,
                 <div className="flex justify-center py-4">
-                    <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" onClick={handleSaveButton}>Retrieve &amp; Save!</button>
+                    <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" onClick={handleSaveButton}>
+                        Retrieve &amp; Save!
+                    </button>
                 </div> ]
                 : save.subMenu === 'Gallery' ? 
                 [<div className="flex justify-center py-4">
@@ -112,25 +116,30 @@ const Edit = (props) => {
                     {selectedImage && (<div>
                         <img alt="not found" src={URL.createObjectURL(selectedImage)} />
                         <br />
-                        <button className="px-4 py-2 font-semibold text-white bg-red-500 rounded shadow hover:bg-red-700" onClick={()=>setSelectedImage(null)}>Remove</button>
+                        <button className="px-4 py-2 font-semibold text-white bg-red-500 rounded shadow hover:bg-red-700" 
+                            onClick={()=> {selectedImage.length > 0 && setSelectedImage(null)}}>Remove</button>
                     </div>
                     )}
                 </div>,
                 <div className="flex justify-center py-4">
-                    <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" onClick={handleSaveButton}>Update!</button>
+                    <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" 
+                        onClick={handleSaveButton}>Update!</button>
                 </div> ]
                 : save.subMenu === 'Events' ?  
                     [<div className="flex justify-center py-4">
                         <label className="px-2 font-semibold" htmlFor="title" >Title: </label>
-                        <input className="border border-black" id="title" type="text" size="20" onChange={e => setSave({...save, title: e.target.value})} ></input>
+                        <input className="border border-black" id="title" type="text" size="20" 
+                            onChange={e => setSave({...save, title: e.target.value})} />
                     </div>,
                     <div className="flex justify-center py-4">
                         <label className="px-2 font-semibold" htmlFor="start" >Start Date: </label>
-                        <input className="border border-black" id="start" type="datetime-local" onChange={e => setSave({...save, start: e.target.value})} ></input>
+                        <input className="border border-black" id="start" type="datetime-local" 
+                            onChange={e => setSave({...save, start: e.target.value})} />
                     </div>,
                     <div className="flex justify-center py-4">
                         <label className="px-2 font-semibold" htmlFor="end" >End Date: </label>
-                        <input className="border border-black" id="end" type="datetime-local" onChange={e => setSave({...save, end: e.target.value})} ></input>
+                        <input className="border border-black" id="end" type="datetime-local" 
+                            onChange={e => setSave({...save, end: e.target.value})} />
                     </div>,
                     <div className="flex justify-center py-4">
                         <label className="px-2 font-semibold" htmlFor="start" >All Day Event? </label>
@@ -140,56 +149,16 @@ const Edit = (props) => {
                         </select>
                     </div>,
                     <div className="flex justify-center py-4">
-                        <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" onClick={handleSaveButton}>Save!</button>
+                        <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" 
+                            onClick={handleSaveButton}>Save!</button>
                     </div> 
                 
                     ]
-                
-                : save.subMenu === 'Posts' ?  [
-                    <div className="flex justify-between py-4">
-                        <div>
-                            <label className="px-2 font-semibold" htmlFor="title" >Title: </label>
-                            <input className="border border-black" id="title" type="text" size="20" onChange={e => setSave({...save, title: e.target.value})} ></input>
-                        </div>
-                        <label className="px-2 font-semibold" htmlFor="body" >Body: </label>
-                        <textarea className="border border-black" id="body" type="text" cols="30" rows="5" onChange={e => setSave({...save, body: e.target.value})} />
-                        
-                    </div>,
-                    <div className="flex justify-between py-4">
-                        <label className="px-2 font-semibold" htmlFor="email" >Email: </label>
-                        <input className="border border-black" id="email" type="email" onChange={e => setSave({...save, email: e.target.value})} />
-
-                        <label className="px-2 font-semibold" htmlFor="tel" >Telephone: </label>
-                        <input className="border border-black" id="tel" type="tel" onChange={e => setSave({...save, telephone: e.target.value})} />
-                    </div>,
-                   
-                    <div className="flex justify-between py-4">
-                        <label className="px-2 font-semibold" htmlFor="image" >Image: </label>
-                        <input type="file" name="image" onChange={(event) => setSelectedImage(event.target.files[0])}
-                        />
-                        
-                        {selectedImage && (<div>
-                            <img alt="not found" src={URL.createObjectURL(selectedImage)} />
-                            <br />
-                            <button className="px-4 py-2 font-semibold text-white bg-red-500 rounded shadow hover:bg-red-700" onClick={()=>setSelectedImage(null)}>Remove</button>
-                        </div>
-                        )}
-                    </div>,
-                    <div className="flex justify-center py-4">
-                        <label className="px-2 font-semibold" htmlFor="url" >Website Address: </label>
-                        <input className="border border-black" id="url" type="url" onChange={e => setSave({...save, hrefURL: e.target.value})} />
-                    </div>,
-                  
-                    <div className="flex justify-center py-4">
-                        <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" onClick={handleSaveButton}>Save!</button>
-                    </div>          
-                    ]
-                
-                
                 : <div className="flex justify-center py-4"><p>Select of the options above to edit thy page.</p></div> 
             : 
                [ <div className="flex justify-center py-4"><p>You Must Be Logged In To Access This Page!</p></div>,
-                 <div className="flex justify-center py-4"><button className="px-4 py-2 font-semibold text-white bg-yellow-500 rounded shadow hover:bg-yellow-700" onClick={handleLogin}>Log on</button></div>]
+                 <div className="flex justify-center py-4"><button className="px-4 py-2 font-semibold text-white bg-yellow-500 rounded shadow 
+                    hover:bg-yellow-700" onClick={handleLogin}>Log on</button></div>]
             
             }
 

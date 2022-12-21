@@ -42,12 +42,12 @@ const menuItems = [
     //     exact: true,
     //     to: '/classes',
     // },
-    {
-        id: 6,
-        title: 'Announcements',
-        exact: true,
-        to: '/posts',
-    },
+    // {
+    //     id: 6,
+    //     title: 'Announcements',
+    //     exact: true,
+    //     to: '/posts',
+    // },
     {
         id: 7,
         title: 'Upcoming Events',
