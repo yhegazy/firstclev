@@ -54,14 +54,6 @@ const Edit = (props) => {
         else if (save.subMenu === 'Events') await db.createDocument("firstClevelandMasjidDB","upcomingEvents", uuidv4(), 
             {subMenu: save.subMenu, start: save.start, end: save.end, title: save.title, allDay: save.allDay})
         
-        else if (save.subMenu === 'Posts') {
-            if(selectedImage) {
-                await storage.createFile('images', selectedImage.name, selectedImage);
-
-                await db.createDocument("firstClevelandMasjidDB","posts", uuidv4(), {greeting: "As-Salamu Aalikum, ٱلسَّلَامُ عَلَيْكُمْ‎", 
-                    subject: save.title, body: save.body, email: save.email, telephone: save.telephone, hrefURL: save.hrefURL, image: selectedImage.name})
-            }
-        }
 
         alert('Updated!')
 
@@ -103,8 +95,8 @@ const Edit = (props) => {
                     </select>
                 </div>,
                 <div className="flex sm:justify-center justify-between p-4">
-                <label className="sm:px-2 font-semibold" htmlFor="results" >Retrieve how many results back?</label>
-                    <input className="border border-black" id="results"  type="text" size="5" onChange={e => setSave({...save, results: e.target.value})} />
+                <label className="sm:px-2 font-semibold" htmlFor="results" >Number of Results</label>
+                    <input className="border border-black" id="results"  type="number" onChange={e => setSave({...save, results: e.target.value})} />
                 </div>,
                 <div className="flex sm:justify-center justify-between p-4">
                     <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" onClick={handleSaveButton}>

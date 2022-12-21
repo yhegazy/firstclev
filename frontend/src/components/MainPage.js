@@ -38,12 +38,12 @@ export default function MainPage(props) {
 
     return <>
         <div className="h-full flex flex-wrap" style={{ backgroundImage: `url(${global.image})`, backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed', backgroundSize: 'cover'}}>
-            <div className="xl:my-10 my-5 xl:w-2/3 xl:px-2 text-center">
-                <p  className="p-3 text-2xl bg-gray-200 italic font-semibold shadow-md rounded-2xl">
+            <div className="xl:my-10 my-5 xl:w-2/3 px-2 text-center">
+                <p  className="p-3 sm:text-2xl text-base bg-gray-200 italic font-semibold shadow-md rounded-2xl">
                     The mission of the First Cleveland Mosque is to embrace and propagate the fundamental teachings of Islam through service to our community according to the Quran and the Sunnah of Prophet Muhammad (ﷺ)
                 </p>
             </div>   
-            <div className="xl:my-3 xl:w-1/3 xl:ml-auto xl:mr-auto xl:inline hidden">
+            <div className="md:my-3 md:w-1/3 md:ml-auto md:mr-auto md:inline hidden">
                 <div className="bg-gray-200 w-2/3 ml-auto mr-auto rounded text-center">
                     <p className="p-2 text-lg underline">Upcoming Events</p>
                     {isLoading ? <p>Loading...</p> : <ul>

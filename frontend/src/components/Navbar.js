@@ -88,7 +88,7 @@ const Navbar = (props) => {
     }
 
     return <>
-        <nav className="xl:flex xl:justify-evenly xl:pb-1 xl:pt-2 ">
+        <nav className="sm:flex sm:justify-evenly sm:pb-1 sm:pt-2">
             <img src={process.env.PUBLIC_URL + `/logo194.png`} className="w-12" alt="Welcome"/>
             <ul className="xl:space-x-5 xl:space-x-0 space-x-3 px-1">
                  
