@@ -5,7 +5,6 @@ import { Coordinates, CalculationMethod, PrayerTimes, Madhab } from 'adhan';
 
 //Components
 import Navbar from './components/Navbar'
-import Annoucements from './components/Annoucements';
 import UpcomingEvents from './components/UpcomingEvents'
 import Edit from './components/Edit'
 import MainPage from './components/MainPage'

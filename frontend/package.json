@@ -10,6 +10,7 @@
     "appwrite": "^10.1.0",
     "google-auth-library": "^8.7.0",
     "googleapis": "^109.0.1",
+    "moment": "^2.29.4",
     "nuka-carousel": "^5.4.1",
     "postcss-cli": "^8.3.1",
     "react": "^17.0.1",
@@ -34,9 +35,9 @@
   },
   "eslintConfig": {
     "parserOptions": {
-			"parser": "babel-eslint",
-			"sourceType": "module"
-		},
+      "parser": "babel-eslint",
+      "sourceType": "module"
+    },
     "extends": [
       "react-app",
       "react-app/jest",
