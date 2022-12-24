@@ -1,5 +1,6 @@
 {
   "name": "fcm",
+  "homepage": "https://firstcleveland.org",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -26,7 +27,7 @@
   },
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
-    "build": "react-scripts --openssl-legacy-provider build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "onandroid": "node node_modules/react-scripts/scripts/start.js",
@@ -58,6 +59,8 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.3.1",
+    "nodemon": "^2.0.15",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8.3.6",
     "tailwindcss": "^2.2.7"
   }
