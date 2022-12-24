@@ -1,5 +1,5 @@
 # First Cleveland Masjid 
 
-A content management system built in the NEAR stack. 
-(Node, Express, Appwrite, Reactjs)
+A content management system built in the ERA stack. 
+(Express, Reactjs, Appwrite)
 
