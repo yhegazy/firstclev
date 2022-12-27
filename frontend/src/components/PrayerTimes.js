@@ -31,7 +31,7 @@ const FirstClevelandPrayerTimes = () => {
     }
     useEffect(() => {
         handleGregorianMonthName(date.getMonth() + 1)
-    }, [])
+    }, [date])
    
     const MonthlyCalendar = () => {
         let arr = []
@@ -76,7 +76,7 @@ const FirstClevelandPrayerTimes = () => {
     }
 
     return <>
-       <div className={`xl:w-1/2 xl:ml-auto xl:mr-auto xl:text-2xl xl:p-5 xl:space-y-2 px-1`}>
+       <div className="sm:w-1/2 sm:ml-auto sm:mr-auto sm:text-2xl sm:p-5 sm:space-y-2 sm:pt-auto pt-20 ">
             <h1 className="flex justify-center w-1/2 ml-auto mr-auto sm:text-3xl text-lg py-5">Salah Times</h1>
             {/* Gregorian & Hijra Calendar */}
             <div className="flex sm:text-2xl text-base space-x-10 sm:justify-between p-5">
@@ -106,7 +106,7 @@ const FirstClevelandPrayerTimes = () => {
                 <p>{new Date(prayerTimes.isha).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</p>
             </div>
             
-            <div className={`fixed sm:w-1/2 w-full ml-auto mr-auto sm:px-2 pr-2 ${toggle ? 'bottom-2 top-10 overflow-y-scroll bg-gray-100 pt-1' : 'bottom-0'}`}>
+            <div className={`fixed sm:w-1/2 w-full ml-auto mr-auto ${toggle ? 'bottom-2 top-10 overflow-y-scroll bg-gray-100 pt-1' : 'bottom-0'}`}>
                 <p className='text-center bg-blue-500 text-white font-semibold hover:bg-blue-700 py-2 px-4 border rounded' onClick={() => setToggle(!toggle)}>
                     30 Day Calendar</p>
                 {toggle && <MonthlyCalendar />}
