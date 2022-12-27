@@ -104,7 +104,7 @@ const FirstClevelandPrayerTimes = () => {
             <div className="flex flex-wrap sm:justify-between justify-evenly">
                 <p>Isha</p>
                 <p>{new Date(prayerTimes.isha).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</p>
-            </div>
+            </div> 
             
             <div className={`fixed sm:w-1/2 w-full ml-auto mr-auto ${toggle ? 'bottom-2 top-10 overflow-y-scroll bg-gray-100 pt-1' : 'bottom-0'}`}>
                 <p className='text-center bg-blue-500 text-white font-semibold hover:bg-blue-700 py-2 px-4 border rounded' onClick={() => setToggle(!toggle)}>

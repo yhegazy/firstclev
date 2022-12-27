@@ -49,7 +49,7 @@ export default function MainPage(props) {
                         {data && data.events.slice(0, 10).reverse().map((item) => [
                             <li className='flex justify-around px-2 bg-white'>{item.title} - {new Date(item.start).toLocaleDateString()}</li>,<hr/>
                             ])
-                        }</ul>
+                        }</ul> 
                     }
                     <button className={`bg-transparent text-blue-700 font-semibold py-2 px-4 rounded ${global.darkMode ? 'hover:text-white': 'hover:text-black'}`} onClick={handleClickMoreButton} > Click for more...</button>
                 </div>
