@@ -37,38 +37,33 @@ export default function MainPage(props) {
 
 
     return <>
-        <div className="h-full flex flex-wrap" style={{ backgroundImage: `url(${global.image})`, backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed', backgroundSize: 'cover'}}>
-            <div className="xl:my-10 my-5 xl:w-2/3 px-2 text-center">
+        <div className=" h-screen flex flex-wrap" style={{ backgroundImage: `url(${global.image})`, backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed', backgroundSize: 'cover'}}>
+            <div className=" ml-auto mr-auto sm:my-5 my-32 sm:w-2/3 px-2 text-center">
                 <p  className="p-3 sm:text-2xl text-base bg-gray-200 italic font-semibold shadow-md rounded-2xl">
                     The mission of the First Cleveland Mosque is to embrace and propagate the fundamental teachings of Islam through service to our community according to the Quran and the Sunnah of Prophet Muhammad (ﷺ)
                 </p>
-            </div>   
-            <div className="md:my-3 md:w-1/3 md:ml-auto md:mr-auto md:inline hidden">
-                <div className="bg-gray-200 w-2/3 ml-auto mr-auto rounded text-center">
+                <br />
+                <div className="bg-gray-200 w-1/3 ml-auto mr-auto rounded text-center sm:block hidden ">
                     <p className="p-2 text-lg underline">Upcoming Events</p>
                     {isLoading ? <p>Loading...</p> : <ul>
-                        {data && data.events
-                                .slice(0, 20)
-                                .reverse()
-                                .map((item) => [
-                                    <li className='flex justify-around px-2 bg-white'>{item.title} - {new Date(item.start).toLocaleDateString()}</li>,<hr/>
-                                ])
-                        }</ul>
+                        {data && data.events.slice(0, 10).reverse().map((item) => [
+                            <li className='flex justify-around px-2 bg-white'>{item.title} - {new Date(item.start).toLocaleDateString()}</li>,<hr/>
+                            ])
+                        }</ul>  
                     }
                     <button className={`bg-transparent text-blue-700 font-semibold py-2 px-4 rounded ${global.darkMode ? 'hover:text-white': 'hover:text-black'}`} onClick={handleClickMoreButton} > Click for more...</button>
                 </div>
-            </div>  
-            <div className="xl:p-1 xl:space-x-3 xl:ml-auto xl:mr-auto text-center p-5 ">
+                <div className="sm:flex justify-evenly  ">
                     <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4LH7ELGSGAKYU&source=url" target="_blank" rel="noreferrer"><button className="p-2 my-5 text-white bg-green-500 rounded shadow">Donate to First Cleveland</button></a>
 
-                    <a href={data.ytLinks}  rel="noreferrer" target="_blank"><button color="primary" className="p-2 text-white bg-indigo-500 rounded shadow">Watch Latest Live Stream (Fridays 1:30p ET)</button> </a>
-
-                    <button className="p-2 my-5 text-white bg-yellow-500 rounded shadow">
-                        <span>Next Prayer: </span>
-                        <p>{new Date(nextPrayer).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</p>
+                    <a href={data.ytLinks}  rel="noreferrer" target="_blank"><button color="primary" className="p-2 my-5 text-white bg-indigo-500 rounded shadow">Watch Latest Live Stream (Fridays 1:30p ET)</button> </a>
+                    
+                    <button className="p-2 my-5 text-white bg-yellow-500 rounded shadow pointer-events-none">
+                        {/* <span></span> */}
+                        Next Prayer: {new Date(nextPrayer).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}
                     </button>
                 </div>
-
+            </div>  
         </div>
     </>
 }
