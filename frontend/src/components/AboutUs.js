@@ -1,6 +1,6 @@
 const AboutUs = () => {
-    return <div className={`w-5/6 ml-auto mr-auto p-5 space-y-2 text-xl`}>
-        <h1 className="flex justify-center w-1/2 ml-auto mr-auto text-3xl pb-5">About the First Cleveland Masjid</h1>
+    return <div className="w-full ml-auto mr-auto p-5 space-y-2 text-xl sm:py-5 pt-24">
+        <h1 className="text-center text-3xl pb-5">About the First Cleveland Masjid</h1>
         <hr />
 
         <p>The First Cleveland Masjid is one of the oldest Muslim institutions in the U.S. Founded in 1937 by Al Hajj Imam Wali Akram, an African American. The First Cleveland Masjid remains a testimony of the powerful attraction that Americans have towards the beliefs and culture of Islam.</p>

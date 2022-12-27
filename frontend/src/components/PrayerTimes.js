@@ -77,7 +77,7 @@ const FirstClevelandPrayerTimes = () => {
 
     return <>
        <div className="sm:w-1/2 sm:ml-auto sm:mr-auto sm:text-2xl sm:p-5 sm:space-y-2 sm:pt-auto pt-20 ">
-            <h1 className="flex justify-center w-1/2 ml-auto mr-auto sm:text-3xl text-lg py-5">Salah Times</h1>
+            <h1 className="flex justify-center w-1/2 ml-auto mr-auto text-3xl py-5">Salah Times</h1>
             {/* Gregorian & Hijra Calendar */}
             <div className="flex sm:text-2xl text-base space-x-10 sm:justify-between p-5">
                 <p className=''>{monthName} {prayerTimes.fajr.getDate()}, {prayerTimes.fajr.getFullYear()}</p>

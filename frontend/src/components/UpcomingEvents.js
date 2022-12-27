@@ -23,16 +23,16 @@ const UpcomingEvents = (props) => {
     },[])
  
     return <>
-        <div className="w-full ml-auto mr-auto xl:text-2xl text-lg p-1 xl:p-5 xl:space-y-2">
-            <h1 className="flex justify-center xl:w-1/2 xl:ml-auto xl:mr-auto xl:text-3xl text-2xl">Upcoming Events</h1>
-            <hr className='xl:hidden xl:py-0 py-2' />
+        <div className="w-full ml-auto mr-auto sm:text-2xl text-lg p-1 sm:p-5 sm:space-y-2 sm:pt-auto pt-28">
+            <h1 className="flex justify-center sm:w-1/2 sm:ml-auto sm:mr-auto sm:text-3xl text-2xl">Upcoming Events</h1>
+            <hr className='sm:hidden sm:py-0 py-2' />
             {isLoading ?  <p>Loading...</p> : 
                 <Calendar
                     localizer={localizer}
                     events={events.event}
                     startAccessor="start"
                     endAccessor="end"
-                    style={{ height: 650 }}
+                    style={{ height: 600 }}
                     views={['month', 'agenda']}
                 />
             }

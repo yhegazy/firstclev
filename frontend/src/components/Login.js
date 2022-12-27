@@ -21,9 +21,8 @@ const Login = (props) => {
     }
 
     return <>
-        <div className={`xl:w-1/2 xl:px-2 xl:py-5 my-10 xl:ml-auto xl:mr-auto 
-            ${global.darkMode ? 'bg-gray-700 text-white': 'rounded shadow'}`}>
-            <h1 className="flex justify-center xl:text-3xl "> Access required</h1>
+        <div className="sm:w-1/2 sm:px-2 sm:pt-auto sm:ml-auto sm:mr-auto pt-24">
+            <h1 className="flex justify-center sm:text-3xl "> Access required</h1>
             <div className="flex justify-evenly py-4">
                 <label className="px-2 font-semibold" htmlFor="email" >email: </label>
                 <input className="border border-black" id="email" type="email" onChange={e => setUser({...user, email: e.target.value})} />

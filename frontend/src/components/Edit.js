@@ -62,8 +62,7 @@ const Edit = (props) => {
         setSelectedImage(null)
     }    
     return <>
-        <div className={`xl:w-3/4 xl:px-2 xl:py-5 my-10 xl:ml-auto xl:mr-auto space-x-3 xl:space-x-0 
-            ${global.darkMode ? 'bg-gray-700 text-white': 'rounded shadow  bg-gray-200'}`}>
+        <div className="sm:w-3/4 sm:px-2 sm:py-5 my-10 sm:ml-auto sm:mr-auto space-x-3 sm:space-x-0 pt-24 ">
             <div className="flex flex-wrap">
                 <div className="ml-auto mr-auto ">
                     {global.loggedIn && 

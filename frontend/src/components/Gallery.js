@@ -16,7 +16,7 @@ const Galleries = (props) => {
     },[])
 
     return <>
-        <div className={`xl:w-3/4 w-full ml-auto mr-auto text-2xl p-5 space-y-2  ${global.darkMode && 'bg-gray-700 text-white'}`}>
+        <div className="sm:w-3/4 w-full ml-auto mr-auto text-2xl p-5 space-y-2 sm:pt-0 pt-24">
             <h1 className="flex justify-center w-1/2 ml-auto mr-auto text-3xl">Gallery</h1>
            
                 {isLoading ? <p>Loading...</p>
