@@ -88,7 +88,7 @@
 
 <p>Afterwards, <code>docker-compose -f appwrite/docker-compose.override.yml up -d --remove-orphans</code></p>
 
-<p>It is important to get Nginx / Nginx Package Manager active and running first, appwrite second because (at the time of writing this) traefik and nginx are sharing let's encrypt directories and files and none wants to play nice.</p>
+<p>It is important to get Nginx / Nginx Proxy Manager active and running first, appwrite second because (at the time of writing this) traefik and nginx are sharing let's encrypt directories and files and none wants to play nice.</p>
 
 
 <p>Use the appwrite documentation to install.</p>
