@@ -109,7 +109,8 @@
 
 
 <h1>FAQ</h1>
-
+Q: I am having CORS problems. HALP!
+A: Setup CORS in Traefik.
 
 
  
