@@ -57,9 +57,8 @@
  <p>At this point, the frontend directory requires a build and I haven't tested this part yet, so manually build it. Install packages if necessary.</p>
  <p><code>cd ~</code></p> to go back to the root directory. 
  <p>Here we will create the appwrite directory, and we'll build a custom docker-compose.yml file. 
- 
- <p> Next, add this code to the docker-compose.override.yml file before the traefik section under services:</p>
- 
+
+
 ```docker
  ...
  version: '3'
@@ -100,8 +99,6 @@
  docker compose -f appwrite/docker-compose.yml up -d --remove-orphans --renew-anon-volumes
  ```
  
- 
-
 </p>
 
 
