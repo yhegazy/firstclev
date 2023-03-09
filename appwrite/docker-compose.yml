@@ -7,6 +7,24 @@ x-logging: &x-logging
 version: '3'
 
 services:
+  app:
+     image: 'jc21/nginx-proxy-manager:latest'
+     restart: unless-stopped
+     ports:
+       - '80:80'
+       - '81:81'
+       - '443:443'
+     volumes:
+       - ./data:/data
+       - ./letsencrypt:/etc/letsencrypt
+  server:
+     build: ../firstclev/
+     container_name: fcm_server
+     ports:
+       - '4000:4000'
+     volumes:
+       - ~/firstclev/server:/app
+       - /app/node_modules
   traefik:
     image: traefik:2.7
     container_name: appwrite-traefik
@@ -17,12 +35,12 @@ services:
       - --providers.docker=true
       - --providers.docker.exposedByDefault=false
       - --providers.docker.constraints=Label(`traefik.constraint-label-stack`,`appwrite`)
-      - --entrypoints.appwrite_web.address=:80
-      - --entrypoints.appwrite_websecure.address=:443
+      - --entrypoints.appwrite_web.address=:8080
+      - --entrypoints.appwrite_websecure.address=:8443
     restart: unless-stopped
     ports:
-      - 8081:80
-      - 443:443
+      - 8080:8080
+      - 8443:8443
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - appwrite-config:/storage/config:ro

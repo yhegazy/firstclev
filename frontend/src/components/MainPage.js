@@ -46,7 +46,7 @@ export default function MainPage(props) {
                 <div className="bg-gray-200 w-1/3 ml-auto mr-auto rounded text-center sm:block hidden ">
                     <p className="p-2 text-lg underline">Upcoming Events</p>
                     {isLoading ? <p>Loading...</p> : <ul>
-                        {data && data.events.slice(0, 10).reverse().map((item) => [
+                        {data && data.events.slice(0, 5).reverse().map((item) => [
                             <li className='flex justify-around px-2 bg-white'>{item.title} - {new Date(item.start).toLocaleDateString()}</li>,<hr/>
                             ])
                         }</ul>  
