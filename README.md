@@ -15,7 +15,7 @@
 ```
 
 <p><code>nano frontend/src/appwrite/appwriteConfig.js</code> with correct IP address or domain name</p>
-<p><code>nano nano server/index.js</code> PORT to 4000</p>
+<p><code>nano server/index.js</code> and change the PORT to your choosing. Default is set for 4000</p>
 
 <h5>Next, let's install docker:</h5> 
 
@@ -60,7 +60,7 @@
 
 
 ```docker
- ...
+ 
  version: '3'
  services:
    app:
@@ -82,12 +82,12 @@
      volumes:
        - ~/firstclev/server:/app
        - /app/node_modules
-    ...
+ 
 ```
 
-<p>Afterwards, <code>docker-compose -f appwrite/docker-compose.override.yml up -d --remove-orphans</code></p>
+<p>Afterwards, <code>docker-compose -f appwrite/docker-compose.yml up -d --remove-orphans</code></p>
 
-<p>It is important to get Nginx / Nginx Proxy Manager active and running first, appwrite second because (at the time of writing this) traefik and nginx are sharing let's encrypt directories and files and none wants to play nice.(<a href="https://community.traefik.io/t/running-traefik-and-nginx-proxy-manager-on-the-same-server/15573/8">Case in point</a>)</p>
+<p>It is important to get Nginx / Nginx Proxy Manager active and running first, appwrite second because (at the time of writing this) traefik and nginx are sharing let's encrypt directory and files and none wants to play nice.(<a href="https://community.traefik.io/t/running-traefik-and-nginx-proxy-manager-on-the-same-server/15573/8">Case in point</a>)</p>
 
 
 <p>Use the appwrite documentation to install.</p>
@@ -102,7 +102,7 @@
 </p>
 
 
-<p>Make sure appwrite is running before going to the next step.</p>
+<p>Lastly, make sure appwrite is running.</p>
 
 
  
