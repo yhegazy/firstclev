@@ -90,7 +90,7 @@
 <p>It is important to get Nginx / Nginx Proxy Manager active and running first, appwrite second because (at the time of writing this) traefik and nginx are sharing let's encrypt directory and files and none wants to play nice.(<a href="https://community.traefik.io/t/running-traefik-and-nginx-proxy-manager-on-the-same-server/15573/8">Case in point</a>)</p>
 
 
-<p>Use the appwrite documentation to install.</p>
+<p>Append appwrite docker-compose.yml information to your docker-compose.yml file.</p>
 <p>Lastly,
 
  ```bash
