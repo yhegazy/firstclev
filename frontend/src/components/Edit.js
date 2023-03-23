@@ -12,7 +12,7 @@ const Edit = (props) => {
     const navigate = useNavigate();
     const {global} = props
     const [save, setSave] = useState({vID:"", subMenu:"", title: "", body:"", email:"noreply@firstcleveland.org", telephone:"216-404-8635", 
-    hrefURL:"firstCleveland.org", start: new Date(), end: new Date(), allDay: false, imageName:"", orderBy: 'date', results: 25}) 
+    hrefURL:"firstCleveland.org", start: new Date(), end: new Date(), allDay: false, imageName:"", orderBy: 'date', results: 25, buttonName: "Watch Latest Live Stream (Fridays 1:30p ET)", liveBtnOverride: false }) 
     const [selectedImage, setSelectedImage] = useState(null);
     
     
@@ -26,9 +26,16 @@ const Edit = (props) => {
         }
     }
 
-    const handleAllDayEvent = (e) => {
-        if (e.target.value === 'Yes') setSave({...save, allDay: true})
-        else setSave({...save, allDay: false})
+    const handleCheckboxOutcome = (e) => {
+        if(save.subMenu === 'Events'){
+            if (e.target.value === 'Yes') setSave({...save, allDay: true})
+            else setSave({...save, allDay: false})
+        }
+
+        if(save.subMenu === 'Settings') {
+            if (e.target.value === 'Yes') setSave({...save, liveBtnOverride: true})
+            else (setSave({...save, liveBtnOverride: false}))
+        }
     }
      
     useEffect(async() => {
@@ -50,10 +57,12 @@ const Edit = (props) => {
                 await db.createDocument("firstClevelandMasjidDB","gallery", uuidv4(), {imageName: selectedImage.name, submenu: "gallery"})
             }
         }
-            
+       
         else if (save.subMenu === 'Events') await db.createDocument("firstClevelandMasjidDB","upcomingEvents", uuidv4(), 
             {subMenu: save.subMenu, start: save.start, end: save.end, title: save.title, allDay: save.allDay})
-        
+
+        else if (save.subMenu === 'Settings') await db.updateDocument("firstClevelandMasjidDB","settings", "override", 
+        {liveBtnOverride: save.liveBtnOverride, buttonName: save.buttonName})
 
         alert('Updated!')
 
@@ -75,6 +84,8 @@ const Edit = (props) => {
                         <button key="ga" onClick={e => setSave({...save, subMenu: e.currentTarget.name})} className={TABS} name="Gallery">Gallery</button>
                         
                         <button key="cal" onClick={e => setSave({...save, subMenu: e.currentTarget.name})} className={TABS} name="Events">Upcoming Events</button>
+
+                        <button key="set" onClick={e => setSave({...save, subMenu: e.currentTarget.name})} className={TABS} name="Settings">Settings</button>
                         
                     </div>
                 </div>
@@ -137,7 +148,7 @@ const Edit = (props) => {
                     </div>,
                     <div className="flex justify-center py-4">
                         <label className="px-2 font-semibold" htmlFor="start" >All Day Event? </label>
-                        <select onChange={e => handleAllDayEvent(e)} >
+                        <select onChange={e => handleCheckboxOutcome(e)} >
                             <option>No</option>
                             <option>Yes</option>
                         </select>
@@ -147,6 +158,27 @@ const Edit = (props) => {
                             onClick={handleSaveButton}>Save!</button>
                     </div> 
                 
+                    ]
+                : save.subMenu === 'Settings' ?
+                    [<p className='text-center py-5'>This setting controls the Welcome Page's Live Stream Button text</p>,
+                    <div className="flex justify-center py-4">
+                        <label className="px-2 font-semibold" htmlFor="liveBtnOverride" >Override? </label>
+                        <select onChange={e => handleCheckboxOutcome(e)} >
+                            <option>No</option>
+                            <option>Yes</option>
+                        </select>
+                    </div>,
+                    // Is Override enabled? yes, show...no, hide.
+                    save.liveBtnOverride && [<div className="flex justify-center py-4">
+                        <label className="px-2 font-semibold" htmlFor="welcome" >Change To: </label>
+                        <input className="border border-black" id="welcome" type="text" size="20" 
+                            onChange={e => setSave({...save, buttonName: e.target.value})} />
+                    </div>,
+                
+                    <div className="flex justify-center py-4">
+                        <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" 
+                            onClick={handleSaveButton}>Save!</button>
+                    </div> ]
                     ]
                 : <div className="flex justify-center py-4"><p>Select an option to edit thy page</p></div> 
             : 

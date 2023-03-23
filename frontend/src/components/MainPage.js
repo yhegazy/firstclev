@@ -7,21 +7,26 @@ import { Coordinates, CalculationMethod, PrayerTimes, Madhab } from 'adhan';
 export default function MainPage(props) { 
     const {global} = props
     const navigate = useNavigate();
-    const [data, setData] = useState({ytLinks: "", events: [], gallery: []})
+    const [data, setData] = useState({ytLinks: "", events: [], gallery: [], buttonTitle: ""})
     const [isLoading, setIsLoading] = useState(false)
+
+    const handleClickMoreButton = () => navigate("/events")
 
     useEffect(async() => {
         setIsLoading(true)                                                                 
         const video = await db.getDocument("firstClevelandMasjidDB", "youtube-api-link", "63a0c5d9a54a5c33c046")
         const events = await db.listDocuments("firstClevelandMasjidDB", "upcomingEvents")
+        const liveStreamOverride = await db.listDocuments("firstClevelandMasjidDB", "settings")
 
-        setData({...data, ytLinks: video.vID, events: events.documents.map((item) => item)})
-        
+      
+        setData({...data, 
+            ytLinks: video.vID, 
+            buttonTitle: liveStreamOverride.documents.map((item) => item.buttonName), 
+            events: events.documents.map((item) => item).reverse()
+        })
         setIsLoading(false)
       
     },[])
-
-    const handleClickMoreButton = () => navigate("/events")
 
     const [nextPrayer, setNextPrayer] = useState()
     useEffect(() => {
@@ -35,7 +40,7 @@ export default function MainPage(props) {
         setNextPrayer(prayerTimes.timeForPrayer(next))
     },[])   
 
-
+    
     return <>
         <div className=" h-screen flex flex-wrap" style={{ backgroundImage: `url(${global.image})`, backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed', backgroundSize: 'cover'}}>
             <div className=" ml-auto mr-auto sm:my-5 my-32 sm:w-2/3 px-2 text-center">
@@ -56,7 +61,7 @@ export default function MainPage(props) {
                 <div className="sm:flex justify-evenly  ">
                     <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4LH7ELGSGAKYU&source=url" target="_blank" rel="noreferrer"><button className="p-2 my-5 text-white bg-green-500 rounded shadow">Donate to First Cleveland</button></a>
 
-                    <a href={data.ytLinks}  rel="noreferrer" target="_blank"><button color="primary" className="p-2 my-5 text-white bg-indigo-500 rounded shadow">Watch Latest Live Stream (Fridays 1:30p ET)</button> </a>
+                    <a href={data.ytLinks}  rel="noreferrer" target="_blank"><button color="primary" className="p-2 my-5 text-white bg-indigo-500 rounded shadow">{data.buttonTitle}</button> </a>
                     
                     <button className="p-2 my-5 text-white bg-yellow-500 rounded shadow pointer-events-none">
                         {/* <span></span> */}
