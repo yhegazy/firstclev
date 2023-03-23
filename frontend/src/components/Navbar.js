@@ -22,6 +22,39 @@ const menuItems = [
         to: '/archives',
         icon: "fa-brands fa-youtube",
     },
+    {
+        id: 4,
+        title: 'Upcoming Events',
+        exact: true,
+        to: '/events',
+        icon: 'fa-regular fa-calendar',
+    },
+    {
+        id: 5,
+        title: 'About',
+        exact: true,
+        to: '#',
+        subMenus: [
+        { title: "About Us", to: "/about" },
+        // { title: "Mission Statement", to: "/message" },
+        { title: "Contact Us", to: "/contact"},
+        ],
+        icon: 'fa-solid fa-circle-info',
+    },
+    {
+        id: 6,
+        title: 'Gallery',
+        exact: true,
+        to: '/gallery',
+        icon: "fa-regular fa-at",
+    },
+    // {
+    //     id: 7,
+    //     title: 'Dawah Alliance',
+    //     exact: true,
+    //     to: '/dawah',
+    // },
+
     // {
     //     id: 4,
     //     title: 'Service',
@@ -42,38 +75,7 @@ const menuItems = [
     //     exact: true,
     //     to: '/classes',
     // },
-    // {
-    //     id: 6,
-    //     title: 'Announcements',
-    //     exact: true,
-    //     to: '/posts',
-    // },
-    {
-        id: 7,
-        title: 'Upcoming Events',
-        exact: true,
-        to: '/events',
-        icon: 'fa-regular fa-calendar',
-    },
-    {
-        id: 8,
-        title: 'About',
-        exact: true,
-        to: '#',
-        subMenus: [
-        { title: "About Us", to: "/about" },
-        // { title: "Mission Statement", to: "/message" },
-        { title: "Contact Us", to: "/contact"},
-        ],
-        icon: 'fa-solid fa-circle-info',
-    },
-    {
-        id: 9,
-        title: 'Gallery',
-        exact: true,
-        to: '/gallery',
-        icon: "fa-regular fa-at",
-    },
+    
     
 ];
 
