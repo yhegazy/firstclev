@@ -12,18 +12,19 @@
     "google-auth-library": "^8.7.0",
     "googleapis": "^109.0.1",
     "moment": "^2.29.4",
-    "nuka-carousel": "^5.4.1",
     "postcss-cli": "^8.3.1",
     "react": "^17.0.1",
     "react-big-calendar": "^1.5.2",
     "react-dom": "^17.0.1",
+    "react-grid-gallery": "^1.0.0",
     "react-icons": "^4.3.1",
     "react-moment": "^1.1.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
     "sass": "^1.54.8",
     "uuid": "^9.0.0",
-    "web-vitals": "^1.1.0"
+    "web-vitals": "^1.1.0",
+    "yet-another-react-lightbox": "^3.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
