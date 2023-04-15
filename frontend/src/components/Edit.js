@@ -12,7 +12,7 @@ const Edit = (props) => {
     const navigate = useNavigate();
     const {global} = props
     const [save, setSave] = useState({vID:"", subMenu:"", title: "", body:"", email:"noreply@firstcleveland.org", telephone:"216-404-8635", 
-    hrefURL:"firstCleveland.org", start: new Date(), end: new Date(), allDay: false, imageName:"", orderBy: 'date', results: 25, buttonName: "Watch Latest Live Stream (Fridays 1:30p ET)", liveBtnOverride: false }) 
+    hrefURL:"firstCleveland.org", start: new Date(), end: new Date(), allDay: false, imageName:"", orderBy: 'date', results: 30, buttonName: "Watch Latest Live Stream (Fridays 1:30p ET)", liveBtnOverride: false }) 
     const [selectedImage, setSelectedImage] = useState(null);
     
     
@@ -96,17 +96,6 @@ const Edit = (props) => {
                 [<div className="flex sm:justify-center justify-between p-4">
                     <label className="sm:px-2 font-semibold" htmlFor="archive" >YouTube URL : </label>
                     <input className="border border-black" id="youtube" onChange={e => setSave({...save, vID: e.target.value})} />
-                </div>,
-               <div className="flex sm:justify-center justify-between p-4">
-               <label className="sm:px-2 font-semibold" htmlFor="orderBy" >Order By: </label>
-                    <select className="border-black border" id="orderBy" name="type" onChange={e => setSave({...save, orderBy: e.target.value}) }>
-                        <option>Select One</option>
-                        {ORDER_CHOICE.map((name) => <option key={name}>{name}</option>)}
-                    </select>
-                </div>,
-                <div className="flex sm:justify-center justify-between p-4">
-                <label className="sm:px-2 font-semibold" htmlFor="results" >Number of Results</label>
-                    <input className="border border-black" id="results"  type="number" onChange={e => setSave({...save, results: e.target.value})} />
                 </div>,
                 <div className="flex sm:justify-center justify-between p-4">
                     <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" onClick={handleSaveButton}>
