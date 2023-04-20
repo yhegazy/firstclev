@@ -99,7 +99,7 @@ const Edit = (props) => {
                 </div>,
                 <div className="flex sm:justify-center justify-between p-4">
                     <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" onClick={handleSaveButton}>
-                        Retrieve &amp; Save!
+                        Update!
                     </button>
                 </div> ]
                 : save.subMenu === 'Gallery' ? 
