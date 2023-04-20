@@ -64,8 +64,8 @@ export default function MainPage(props) {
                 </div>
             
             <footer className=' space-x-2'>
-            <button className="p-2 my-5 text-center w-1/2 text-white bg-green-600 hover:bg-green-700 rounded shadow"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4LH7ELGSGAKYU&source=url" target="_blank" rel="noreferrer">Donate
-            </a></button>
+            <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4LH7ELGSGAKYU&source=url" target="_blank" rel="noreferrer"><button className="p-2 my-5 text-center w-1/2 text-white bg-green-600 hover:bg-green-700 rounded shadow">Donate</button>
+            </a>
 
                
             </footer>
