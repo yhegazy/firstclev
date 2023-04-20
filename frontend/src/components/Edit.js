@@ -103,15 +103,15 @@ const Edit = (props) => {
                     </button>
                 </div> ]
                 : save.subMenu === 'Gallery' ? 
-                [<div className="flex justify-center py-4">
-                    <label className="px-2 font-semibold" htmlFor="gallery" >Add images to gallery: </label>
+                [<div className=" flex flex-wrap justify-center py-4">
+                    <label className="px-2 font-semibold" htmlFor="gallery" >Add an image to gallery: </label>
                     <input type="file" name="image" id="gallery" onChange={(event) => setSelectedImage(event.target.files[0])}/>
                         
-                    {selectedImage && (<div>
-                        <img alt="not found" src={URL.createObjectURL(selectedImage)} />
+                    {selectedImage && (<div className='py-5'>
+                        <img alt="not found" width="50%" src={URL.createObjectURL(selectedImage)} />
                         <br />
                         <button className="px-4 py-2 font-semibold text-white bg-red-500 rounded shadow hover:bg-red-700" 
-                            onClick={()=> {selectedImage.length > 0 && setSelectedImage(null)}}>Remove</button>
+                            onClick={()=> {setSelectedImage(null)}}>Remove</button>
                     </div>
                     )}
                 </div>,
