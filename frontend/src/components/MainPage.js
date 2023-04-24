@@ -50,9 +50,8 @@ export default function MainPage(props) {
 
     const [flag, setFlag] = useState(false)
     useEffect(() => {
-        if(window.screen.width <= 540 && window.screen.height <= 915) setFlag(true)
-    },[])
-    // console.log(window.screen.height >= 920)
+        (Math.min(window.screen.width, window.screen.height) < 768 || navigator.userAgent.indexOf("Mobi") > -1) && setFlag(true);
+    },[window.screen.width])
 
     return <>
         <div className="flex flex-wrap justify-start bg-gradient-to-t from-gray-300" style={{ backgroundImage: `url(${global.image})`, backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed', backgroundSize: 'cover', height: '100%'}}>
