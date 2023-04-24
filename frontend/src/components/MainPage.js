@@ -52,7 +52,7 @@ export default function MainPage(props) {
     useEffect(() => {
         if(window.screen.width <= 540 && window.screen.height <= 915) setFlag(true)
     },[])
-    console.log(window.screen.height >= 920)
+    // console.log(window.screen.height >= 920)
 
     return <>
         <div className="flex flex-wrap justify-start bg-gradient-to-t from-gray-300" style={{ backgroundImage: `url(${global.image})`, backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed', backgroundSize: 'cover', height: '100%'}}>
@@ -82,7 +82,7 @@ export default function MainPage(props) {
             </div>
             <div className={`sm:max-w-3xl  bg-opacity-50 rounded-md bg-black text-white ${flag && 'hidden'}`}>
                 <h1 className=' underline text-center text-2xl py-4 font-bold text-white'>In the Community</h1>
-                <Carousel adaptiveHeight={true} enableKeyboardControls={true} wrapAround={true} slidesToShow={1} withoutControls={true} speed={3000} autoplay cellSpacing={250}>
+                <Carousel adaptiveHeight={false} enableKeyboardControls={true} wrapAround={true} slidesToShow={1} withoutControls={false} speed={5000}  cellSpacing={250}>
                     {gallery.map((item) =>  <img src={storage.getFilePreview("events", item)} /> )}
                 </Carousel>
             </div>
