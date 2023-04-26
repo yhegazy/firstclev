@@ -41,10 +41,22 @@ function App() {
     else setGlobal({...global, darkMode:false})
   
   },[]) 
-
-  useEffect(async() => {
+  
+  const getMainImage = async () => {
     const mainpage = await storage.getFilePreview("images", "mainpage")
     setGlobal({...global, image: mainpage})
+  }
+
+  useEffect(() => {
+    getMainImage();
+
+    return () => {console.info("This will be logged on unmount")}
+  },[])
+
+  const [flag, setFlag] = useState(false)
+  useEffect(async() => {
+      if(Math.min(window.screen.width, window.screen.height) < 768 || navigator.userAgent.indexOf("Mobi") > -1) setFlag(true);
+      return 
   },[])
 
   return (
@@ -53,7 +65,7 @@ function App() {
       <BrowserRouter>
         <Navbar global={global} onLoggedIn={handleLoggedIn} id="nav" />   
         <Routes> 
-          <Route path="/" element={ <MainPage global={global}  onLoggedIn={handleLoggedIn}  id="main"/>} />
+          <Route path="/" element={ <MainPage global={global}   onLoggedIn={handleLoggedIn}  id="main"/>} />
           <Route path="/events" element={ <UpcomingEvents global={global}  onLoggedIn={handleLoggedIn} />} />
           <Route path="/about" element={ <AboutUs />}/>
           <Route path="/contact" element={ <Contact />} />

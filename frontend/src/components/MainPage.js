@@ -5,6 +5,8 @@ import { db, storage } from '../appwrite/appwriteConfig';
 import Carousel from 'nuka-carousel'
 import { Coordinates, CalculationMethod, PrayerTimes, Madhab } from 'adhan';
 
+//Add edit section for main page to easily add/remove "In the Community" images
+
 export default function MainPage(props) { 
     const {global} = props
     const navigate = useNavigate();
@@ -14,7 +16,7 @@ export default function MainPage(props) {
 
     const handleClickMoreButton = () => navigate("/events")
 
-    useEffect(async() => {
+    const handleGetData = async() => {
         setIsLoading(true)                                                                 
         const video = await db.getDocument("firstClevelandMasjidDB", "youtube-api-link", "63a0c5d9a54a5c33c046")
         const events = await db.listDocuments("firstClevelandMasjidDB", "upcomingEvents")
@@ -22,14 +24,18 @@ export default function MainPage(props) {
         const getGallery = await storage.listFiles("events")
 
         setGallery(getGallery.files.map((img) => img.$id))
-      
+        
         setData({...data, 
             ytLinks: video.vID, 
             buttonTitle: liveStreamOverride.documents.map((item) => item.buttonName), 
             events: events.documents.map((item) => item).reverse(),
         })
         setIsLoading(false)
-      
+    }
+    useEffect(() => {
+      handleGetData() 
+
+      return () => {console.info("this will be logged on unmount")}
     },[])
 
     const [nextPrayer, setNextPrayer] = useState()
