@@ -12,7 +12,7 @@ const UpcomingEvents = (props) => {
     const [events, setEvents] = useState({event: ''})
     const [isLoading, setIsLoading] = useState(false)
 
-    useEffect(() => {
+    const getCalendarData = async() => {
         setIsLoading(true)
         const getEvents = db.listDocuments("firstClevelandMasjidDB", "upcomingEvents")
         getEvents.then(
@@ -20,6 +20,12 @@ const UpcomingEvents = (props) => {
         )
 
         setIsLoading(false)
+    }
+    
+    useEffect(() => {
+        getCalendarData()
+
+        return () => {console.info("This will be logged on unmount")}
     },[])
  
     return <>

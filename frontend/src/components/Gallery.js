@@ -9,12 +9,18 @@ const Galleries = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [index, setIndex] = useState(-1);
 
+
     //Pull gallery from appwrite
-    useEffect(async() => {
+    const getGallery = async() => {
         setIsLoading(true)
         const getGallery = await storage.listFiles("images")
         setGallery({...gallery, images: getGallery.files})
         setIsLoading(false)
+    }
+    useEffect(() => {
+        getGallery()
+
+        return () => {console.info("This will be logged on unmount")}
     },[])
 
     //set gallery so lightbox and react grid gallery can read it.

@@ -10,7 +10,7 @@ const YouTubeArchives = () => {
     const [id, setID] = useState([])
     const [isLoading, setIsLoading] = useState(false)
 
-    useEffect(async() => {
+    const getData = async() => {
         setIsLoading(true)
         const video = await db.getDocument("firstClevelandMasjidDB", "youtube-api-link", "63a0c5d9a54a5c33c046")
 
@@ -18,8 +18,12 @@ const YouTubeArchives = () => {
         setTitle(video.title)
         setID(video.id)
 
-        setIsLoading(false)      
+        setIsLoading(false)    
+    }
 
+    useEffect(() => {  
+        getData();
+        return () => {console.info("this will be logged on unmount")}
     },[])
 
     
