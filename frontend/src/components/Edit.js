@@ -91,7 +91,7 @@ const Edit = (props) => {
             .then(function(res){ console.log(res) })
     }
 
-    const handleSMSButton = (trigger) => {
+    const handleSMSButton = () => {
         fetch('/sms', {method: "POST"})
             .then(function(res){console.log(res)})
     }
@@ -117,7 +117,7 @@ const Edit = (props) => {
                 </div>
             </div>
 
-            { global.loggedIn ? 
+            { global.loggedIn === true ? 
                 // Archives UI Console
                 save.subMenu === 'Archives' ? 
                 [<div className="flex sm:justify-center justify-between p-4">
@@ -132,8 +132,6 @@ const Edit = (props) => {
 
                 //Gallery UI Console
                 : save.subMenu === 'Gallery' ? [<div className=" flex flex-wrap justify-evenly py-4">
-                    <label className="px-2 font-semibold" htmlFor="gallery" >Add an image to the gallery page: </label>
-                    <input type="file" name="image" id="gallery" onChange={(event) => setGalleryImage(event.target.files[0])}/>
                         
                     {galleryImage && <div className='py-5 space-x-3'>
                         <img alt="not found" width="25%" src={URL.createObjectURL(galleryImage)} />

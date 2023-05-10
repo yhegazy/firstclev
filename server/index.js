@@ -54,29 +54,27 @@ app.post('/sms', async() => {
  
   //Filter through notifications to retrieve liveStream Only
   data.push(await db.listDocuments("firstClevelandMasjidDB", "newsletter"))
-  data.filter((person) => person.documents.map((item) => item.notification.includes('liveStream') && tel.push(item.sms)))
+
+  if(data.length > 0) {
+    data[0].documents.map((person) => (person.notification === 'liveStream' || person.notification === 'both') && tel.push(person.sms))
+  }
   
   const sms = {
     to: tel,
     from: 'no-reply@firstcleveland.org', 
     subject: `Assalamualaikum warahmatullahi wabarakatuh everyone. Jummah Live Stream 1:30p ET`, //2nd iteration need to pass drop down values from frontend for backend to determine the subject message
     text: `Please LIKE! and SUBSCRIBE!! to our YouTube channel. 
-    
-          https://youtube.com/live/nyqrIDqdzkU?feature=share  
-          https://firstcleveland.org/
-          
-          Lastly, thank you for being patient as well as part of the journey. 
-          Jazak Allahu Kheiryan -yahia`
+    Live Stream:  https://youtube.com/live/nyqrIDqdzkU?feature=share  
+    Donate to:    https://firstcleveland.org/
+    Lastly, thank you for being patient as well as part of the journey. 
+    Jazak Allahu Kheiryan -yahia`
   }
-
+  
   sgMail
     .send(sms)
-    .then(() => console.log('SMS Sent', sms))
+    .then(() => console.log('SMS Sent'))
     .catch((error) => console.error(error))
-
   
-  //FRONTEND 
-  //if newsletter & liveStream, mark as both, less clutter and space on db.
   //BACKEND
   //we'll need to pass variables to insert to html to pass as an email
   //build newsletter content through html
