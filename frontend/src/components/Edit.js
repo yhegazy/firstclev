@@ -117,7 +117,7 @@ const Edit = (props) => {
                 </div>
             </div>
 
-            { global.loggedIn === true ? 
+            { global.loggedIn ? 
                 // Archives UI Console
                 save.subMenu === 'Archives' ? 
                 [<div className="flex sm:justify-center justify-between p-4">
