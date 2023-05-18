@@ -4,7 +4,6 @@ import { account, db, storage } from '../appwrite/appwriteConfig'
 import {v4 as uuidv4} from 'uuid' //to auto-generate unique ids
 
 const TABS = "bg-white hover:bg-gray-100 inline-block border-l border-t border-r rounded-t py-2 px-4 text-red-700 font-semibold shadow"
-const ORDER_CHOICE = ['date', 'rating', 'viewCount', 'videoCount', 'title', 'relevance']
 const API_KEY = 'AIzaSyD_Ldqg5txrqvQYnRthvpKfkpbGWhLxa0A'
 
 
@@ -13,7 +12,7 @@ const Edit = (props) => {
     const {global} = props
     const [save, setSave] = useState({vID:"", subMenu:"", title: "", body:"", email:"noreply@firstcleveland.org", telephone:"216-404-8635", 
     hrefURL:"firstCleveland.org", start: new Date(), end: new Date(), allDay: false, imageName:"", orderBy: 'date', results: 30, buttonName: "Watch Latest Live Stream (Fridays 1:30p ET)", liveBtnOverride: false }) 
-    const [selectedImage, setSelectedImage] = useState(null);
+    const [galleryImage, setGalleryImage] = useState(null);
     
     
     const handleLogin = () => {navigate('/admin')}
@@ -37,24 +36,40 @@ const Edit = (props) => {
             else (setSave({...save, liveBtnOverride: false}))
         }
     }
-     
-    useEffect(async() => {
-        fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UCYYBYUfJwI3YjmQt_qigTmQ&maxResults=${save.results}&order=${save.orderBy}&key=${API_KEY}`)
-            .then((result) => {return result.json()})
-            .then((data) => {
-                setSave({...save, id: data.items.map((item) => item.id['videoId']), title: data.items.map((item) => item.snippet['title'])
-            })})
-            .catch((error) => console.log(error))
-    }, []);
+
+    //need to set async as separate function or else we get "destroy is not a function" error
+    useEffect(() => {
+        const fetchYoutubeAPI = async() => {
+            fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UCYYBYUfJwI3YjmQt_qigTmQ&maxResults=${save.results}&order=${save.orderBy}&key=${API_KEY}`)
+                .then((result) => {return result.json()})
+                .then((data) => {
+                    setSave({...save, id: data.items.map((item) => item.id['videoId']), title: data.items.map((item) => item.snippet['title'])
+                })})
+                .catch((error) => console.log(error))
+        } 
+        
+        fetchYoutubeAPI()
+
+        return () => {console.info("This will be logged at unmount.")}
+    
+    }, []); 
+
+    //Remove image from gallery
+    const handleRemoveButton = (id) => {
+        if(id === 1) setGalleryImage(null)
+        // else if (id === 2) setMPCaraousel(null) //Caraousel.remove
+    }
+
+    
 
     const handleSaveButton = async() => {     
         if(save.subMenu === 'Archives') await db.updateDocument("firstClevelandMasjidDB","youtube-api-link", '63a0c5d9a54a5c33c046', 
             {vID: save.vID, orderBy: save.orderBy, results: save.results, id: save.id, title: save.title})
 
         else if(save.subMenu === 'Gallery') {
-            if(selectedImage){
-                await storage.createFile('images', selectedImage.name, selectedImage)
-                await db.createDocument("firstClevelandMasjidDB","gallery", uuidv4(), {imageName: selectedImage.name, submenu: "gallery"})
+            if(galleryImage){
+                await storage.createFile('images', galleryImage.name, galleryImage)
+                await db.createDocument("firstClevelandMasjidDB","gallery", uuidv4(), {imageName: galleryImage.name, submenu: "gallery"})
             }
         }
        
@@ -68,8 +83,19 @@ const Edit = (props) => {
 
         setSave({vID:"", subMenu:"", title: "", body:"", email:"noreply@firstcleveland.org", telephone:"216-404-8635", 
             hrefURL:"firstCleveland.org", start: "", end: "", allDay: false})
-        setSelectedImage(null)
-    }    
+        setGalleryImage(null)
+    } 
+
+    const handleEmailButton = () => {
+        fetch('/email', {method: "POST",})
+            .then(function(res){ console.log(res) })
+    }
+
+    const handleSMSButton = () => {
+        fetch('/sms', {method: "POST"})
+            .then(function(res){console.log(res)})
+    }
+
     return <>
         <div className="sm:w-3/4 sm:px-2 sm:py-5 my-10 sm:ml-auto sm:mr-auto space-x-3 sm:space-x-0 pt-24 ">
             <div className="flex flex-wrap">
@@ -92,6 +118,7 @@ const Edit = (props) => {
             </div>
 
             { global.loggedIn ? 
+                // Archives UI Console
                 save.subMenu === 'Archives' ? 
                 [<div className="flex sm:justify-center justify-between p-4">
                     <label className="sm:px-2 font-semibold" htmlFor="archive" >YouTube URL : </label>
@@ -102,23 +129,22 @@ const Edit = (props) => {
                         Update!
                     </button>
                 </div> ]
-                : save.subMenu === 'Gallery' ? 
-                [<div className=" flex flex-wrap justify-center py-4">
-                    <label className="px-2 font-semibold" htmlFor="gallery" >Add an image to gallery: </label>
-                    <input type="file" name="image" id="gallery" onChange={(event) => setSelectedImage(event.target.files[0])}/>
+
+                //Gallery UI Console
+                : save.subMenu === 'Gallery' ? [<div className=" flex flex-wrap justify-evenly py-4">
                         
-                    {selectedImage && (<div className='py-5'>
-                        <img alt="not found" width="50%" src={URL.createObjectURL(selectedImage)} />
+                    {galleryImage && <div className='py-5 space-x-3'>
+                        <img alt="not found" width="25%" src={URL.createObjectURL(galleryImage)} />
                         <br />
                         <button className="px-4 py-2 font-semibold text-white bg-red-500 rounded shadow hover:bg-red-700" 
-                            onClick={()=> {setSelectedImage(null)}}>Remove</button>
-                    </div>
-                    )}
-                </div>,
-                <div className="flex justify-center py-4">
-                    <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" 
-                        onClick={handleSaveButton}>Update!</button>
-                </div> ]
+                            onClick={()=> handleRemoveButton(1)}>Remove</button>
+                         <button className="p-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" 
+                            onClick={handleSaveButton}>Add to Gallery</button>
+                    </div>}
+                </div>,   
+                ]
+
+                // Events UI Console
                 : save.subMenu === 'Events' ?  
                     [<div className="flex justify-center py-4">
                         <label className="px-2 font-semibold" htmlFor="title" >Title: </label>
@@ -147,27 +173,39 @@ const Edit = (props) => {
                             onClick={handleSaveButton}>Save!</button>
                     </div> 
                 
-                    ]
+                ]
+
+                // Settings UI Console
                 : save.subMenu === 'Settings' ?
-                    [<p className='text-center py-5'>This setting controls the Welcome Page's Live Stream Button text</p>,
-                    <div className="flex justify-center py-4">
-                        <label className="px-2 font-semibold" htmlFor="liveBtnOverride" >Override? </label>
-                        <select onChange={e => handleCheckboxOutcome(e)} >
+                    [<div className="grid justify-center py-4">
+                        <label className="px-2 font-semibold" htmlFor="liveBtnOverride" >Override Live Stream Button text? </label>
+                        <select className=' border border-black' onChange={e => handleCheckboxOutcome(e)} >
                             <option>No</option>
                             <option>Yes</option>
                         </select>
                     </div>,
                     // Is Override enabled? yes, show...no, hide.
-                    save.liveBtnOverride && [<div className="flex justify-center py-4">
+                    save.liveBtnOverride && [<div className="grid justify-center py-4">
                         <label className="px-2 font-semibold" htmlFor="welcome" >Change To: </label>
                         <input className="border border-black" id="welcome" type="text" size="20" 
                             onChange={e => setSave({...save, buttonName: e.target.value})} />
                     </div>,
                 
-                    <div className="flex justify-center py-4">
+                    <div className="grid justify-center py-4">
                         <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" 
                             onClick={handleSaveButton}>Save!</button>
-                    </div> ]
+                    </div> ],
+
+                    <div className="py-4 grid justify-center">
+                        <label className="px-2 font-semibold" htmlFor="liveBtnOverride" >Send Email to subscribers?</label>
+                        <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" onClick={handleEmailButton}>Submit</button>
+                    </div>,
+
+                    <div className="py-4 grid justify-center">
+                        <label className="px-2 font-semibold" htmlFor="liveBtnOverride" >Send SMS to subscribers?</label>
+                        <button className="px-4 py-2 font-semibold text-white bg-green-500 rounded shadow hover:bg-green-700" onClick={handleSMSButton}>Submit</button>
+                    </div>
+
                     ]
                 : <div className="flex justify-center py-4"><p>Select an option to edit thy page</p></div> 
             : 

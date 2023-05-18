@@ -54,9 +54,15 @@ function App() {
   },[])
 
   const [flag, setFlag] = useState(false)
-  useEffect(async() => {
+  useEffect(() => {
+    const detectWindow = async() => {
       if(Math.min(window.screen.width, window.screen.height) < 768 || navigator.userAgent.indexOf("Mobi") > -1) setFlag(true);
-      return 
+    }
+
+    detectWindow()
+
+    return () => {console.log("this will be logged to the console.", flag)}
+
   },[])
 
   return (
