@@ -1,5 +1,4 @@
-const {Client} = require('node-appwrite')
-const {Databases} = require('node-appwrite')
+const {Client, Databases} = require('node-appwrite')
 
 const client  = new Client()
   .setEndpoint('https://appwrite.firstcleveland.org/v1').setProject('fcm-appwrite')
@@ -16,8 +15,10 @@ const PORT =  4000;
 
 
 const app = express();
+app.use(express.json())
 app.use(cors());
 app.use(express.static(path.join(__dirname, '../frontend/build')));
+
 
 app.get('*', function (req, res) {
   res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
@@ -25,7 +26,6 @@ app.get('*', function (req, res) {
 
 
 //MAILJECT API
-//If email returns noemail@firstcleveland.org, use sms instead. SMS will have it's own link to newsletter
 const quickyMsg = `Live Stream: https://youtube.com/live/wuNFM6ya1dQ
 Donate at https://firstcleveland.org/
 Received by mistake? Please text 2168006242 w/UNSUBSCRIBE. 
@@ -42,22 +42,9 @@ app.post('/email', async() => {
   let email = []
   
   data.push(await db.listDocuments("firstClevelandMasjidDB", "newsletter"))
-  if(data.length > 0) {
-    //Filter through notifications to retrieve newsletter Only
-    data[0].documents.map((person) => (person.notification === 'newsletter' || person.notification === 'both') && email.push(person.email))
-  }
-
-  const htmlMessage = `<div>
-  <p>Friday's Live Stream:  <a href='https://youtube.com/live/wuNFM6ya1dQ'>https://youtube.com/live/wuNFM6ya1dQ</a></p>
-  <ul>Donate: 
-    <li>CashApp-$FirstCleveland</li>
-    <li>PayPal - <a href='https://firstcleveland.org/'>https://firstcleveland.org/</a></li>
-    <li>Zelle - firstclevelandmosque131@gmail.com</li>
-    <li>Checks/Cash - 3613 East 131st Cleveland, OH 44120</li>
-  </ul>
-  <p>Received by mistake? Please text UNSUBSCRIBE to 2168006242</p> 
-  <p>Lastly, I appreciate your sabr. Jazak Allahu Kheiryan -yahia</p>
-</div> `
+  //add ability in frontend to update dataDump
+  const htmlMessage = await db.getDocument("firstClevelandMasjidDB", 'dataDump', "htmlMessage")
+  if(data.length > 0) data[0].documents.map((person) => email.push(person.email))
   
   email.map((recipient) => {
     mailjet
@@ -66,16 +53,24 @@ app.post('/email', async() => {
         Messages: [{
           From: { Email: "no-reply@firstcleveland.org", Name: "First Cleveland Masjid"},
           To: [{Email: recipient}],
-          Subject: "Assalamualaikum warahmatullahi wabarakatuh everyone. Jummah Live Stream 1:30p ET",
-          HTMLPart: htmlMessage
+          Subject: "First Cleveland Masjid Newsletter ",
+          HTMLPart: htmlMessage.htmlMessage
         }]
       }
     )
   })
+
 });
 
-//If sms comes back with noemail@firstcleveland.org, return email
-//if both are noemail@firstcleveland.org, end; break;
+
+//Retrieve data from frontend SMS DDL
+let option = ''
+app.post('/ddl', async(req) => {
+  const choice = req.body
+  option = choice.option
+})
+
+//Created a new table called sms in appwrite.
 app.post('/sms', async() => {
   const Mailjet = require('node-mailjet');
   const mailjet = new Mailjet({
@@ -86,21 +81,45 @@ app.post('/sms', async() => {
 
   let data = []
   let tel = []
-  // Filter through notifications to retrieve liveStream Only
-  data.push(await db.listDocuments("firstClevelandMasjidDB", "newsletter"))
-  if(data.length > 0) {
-    data[0].documents.map((person) => (person.notification === 'liveStream' || person.notification === 'both') && tel.push(person.sms))
-  }
+  
 
+  //retrieve live stream link 
+  const video = await db.getDocument("firstClevelandMasjidDB", "youtube-api-link", "63a0c5d9a54a5c33c046")
+  
+  // Filter through notifications to retrieve liveStream Only
+  data.push(await db.listDocuments("firstClevelandMasjidDB", "sms"))
+  if(data.length > 0) data[0].documents.map((person) => tel.push(person.sms))
+
+  //Have frontend choose to send liveStream, Eid, Test messages to community. 
+    //Have test only see my, eppal's numbers
+
+  const smsSubject = `Assalamualaikum warahmatullahi wabarakatuh! Jummah Live Stream 1:30p ET`
   const smsMessage = `
-    Friday's Live Stream:  https://youtube.com/live/wuNFM6ya1dQ
+    Jummah Live Stream:  ${video.vID}
     Donate: 
     CashApp - $FirstCleveland
     PayPal  - https://firstcleveland.org/
     Zelle   - firstclevelandmosque131@gmail.com
     Checks/Cash - 3613 East 131st Cleveland, OH 44120 
+    (Make Checks payable to: First Cleveland Mosque)
     Received by mistake? Please text UNSUBSCRIBE to 2168006242
   `
+
+  const eidSubject = `Assalamualaikum warahmatullahi wabarakatuh! Eid Mubarak!`
+  //eventually have the dates changed from the front end instead of manually updating the backend
+  const eidMessage = ` June 28th    Takbir: 8:30a ET     Prayer: 9a ET
+    Donate: 
+    CashApp - $FirstCleveland
+    PayPal  - https://firstcleveland.org/
+    Zelle   - firstclevelandmosque131@gmail.com
+    Checks/Cash - 3613 East 131st Cleveland, OH 44120 
+    (Make Checks payable to: First Cleveland Mosque)
+    Received by mistake? Please text UNSUBSCRIBE to 2168006242
+  `
+
+  const test = `Salaam - This is just a test.`
+
+  console.log(tel)
 
   tel.map((recipient) => {
     mailjet
@@ -110,12 +129,13 @@ app.post('/sms', async() => {
           {
             From: { Email: "no-reply@firstcleveland.org", Name: "First Cleveland Masjid"},
             To: [{Email: recipient}],
-            Subject: "Assalamualaikum warahmatullahi wabarakatuh everyone. Jummah Live Stream 1:30p ET",
-            TextPart: smsMessage
+            Subject: option === 'liveStream' ? smsSubject: option === 'eid' ? eidSubject : test,
+            TextPart: option === 'liveStream' ? smsMessage: option === 'eid' ? eidMessage : test
           }
         ]
     })
   })
+  
 })
 
 

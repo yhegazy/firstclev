@@ -96,6 +96,17 @@ const Edit = (props) => {
             .then(function(res){console.log(res)})
     }
 
+    const handleSMSDDL = (e) => {
+        e.value !== 'select' && fetch('/ddl', {
+            method: "POST", 
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({option: e.value})
+        })
+        .then(function(res){console.log(res)})
+    }
+
+    const handleGetImage = (e) => {setGalleryImage(e.target.files[0])}
+
     return <>
         <div className="sm:w-3/4 sm:px-2 sm:py-5 my-10 sm:ml-auto sm:mr-auto space-x-3 sm:space-x-0 pt-24 ">
             <div className="flex flex-wrap">
@@ -132,15 +143,10 @@ const Edit = (props) => {
 
                 //Gallery UI Console
                 : save.subMenu === 'Gallery' ? [<div className=" flex flex-wrap justify-evenly py-4">
-                        
-                    {galleryImage && <div className='py-5 space-x-3'>
-                        <img alt="not found" width="25%" src={URL.createObjectURL(galleryImage)} />
-                        <br />
-                        <button className="px-4 py-2 font-semibold text-white bg-red-500 rounded shadow hover:bg-red-700" 
-                            onClick={()=> handleRemoveButton(1)}>Remove</button>
-                         <button className="p-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" 
-                            onClick={handleSaveButton}>Add to Gallery</button>
-                    </div>}
+                    <input type="file" onChange={handleGetImage} />
+                    <br />
+                    <button className="px-4 py-2 font-semibold text-white bg-red-500 rounded shadow hover:bg-red-700" onClick={()=> handleRemoveButton(1)}>Remove</button>
+                    <button className="p-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" onClick={handleSaveButton}>Add to Gallery</button>
                 </div>,   
                 ]
 
@@ -201,6 +207,15 @@ const Edit = (props) => {
                         <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" onClick={handleEmailButton}>Submit</button>
                     </div>,
 
+                    <div className="py-4 grid justify-center">
+                        <label className="px-2 font-semibold" htmlFor="liveBtnOverride" >Send SMS to subscribers?</label>
+                        <select className=' border border-black' onChange={e => handleSMSDDL(e.target)} >
+                            <option>select</option>
+                            <option>liveStream</option>
+                            <option>eid</option>
+                            <option>test</option>
+                        </select>    
+                    </div>,
                     <div className="py-4 grid justify-center">
                         <label className="px-2 font-semibold" htmlFor="liveBtnOverride" >Send SMS to subscribers?</label>
                         <button className="px-4 py-2 font-semibold text-white bg-green-500 rounded shadow hover:bg-green-700" onClick={handleSMSButton}>Submit</button>
