@@ -24,7 +24,7 @@ const menuItems = [
     },
     {
         id: 4,
-        title: 'Upcoming Events',
+        title: 'Calendar',
         exact: true,
         to: '/events',
         icon: 'fa-regular fa-calendar',
@@ -33,16 +33,16 @@ const menuItems = [
         id: 5,
         title: 'About',
         exact: true,
-        to: '#',
-        subMenus: [
-        { title: "About Us", to: "/about" },
-        // { title: "Mission Statement", to: "/message" },
-        { title: "Contact Us", to: "/contact"},
-        ],
-        icon: 'fa-solid fa-circle-info',
+        to: '/about',
     },
     {
         id: 6,
+        title: 'Contact',
+        exact: true,
+        to: '/contact'
+    },
+    {
+        id: 7,
         title: 'Gallery',
         exact: true,
         to: '/gallery',
@@ -50,9 +50,13 @@ const menuItems = [
     },
     // {
     //     id: 7,
-    //     title: 'Dawah Alliance',
+    //     title: 'Resources',
     //     exact: true,
-    //     to: '/dawah',
+    //     to: '/resources',
+    //     subMenus: [
+    //         { title: "Where to Pray", to: "/masajid" },
+    //         { title: "Newsletters", to: "/newsletters" },
+    //     ]
     // },
 
     // {
@@ -80,39 +84,80 @@ const menuItems = [
 ];
 
 const Navbar = (props) => {
-    const {global} = props
-    const [subToggle, setSubToggle] = useState(-1)
-    const [toggle, setToggle] = useState(false)
+    const {onNavClick, nav} = props
 
-    const handleSubToggle = (id) => {
-        if(id === subToggle) setSubToggle(-1)
-        else setSubToggle(id)
-    }
+  
 
     return <>
-        <nav className="sm:flex sm:justify-evenly sm:pb-1 sm:pt-2 relative sm:bg-transparent bg-white w-full ">
-            <img src={process.env.PUBLIC_URL + `/logo194.png`} className="w-12" alt="Welcome"/> 
-            <ul className="xl:space-x-5 space-x-3 px-1">
-                 
-                {menuItems.map((item) => {
-                    return <>
-                        <Link to={item.to}>
-                            <li key={item.id} onClick={() => handleSubToggle(item.id)} className={item.subMenus && 'text-center'}>
-                                <p className="text-lg"> {item.title}{item.subMenus && <span>&#9662;</span> } </p>
-                                <ul className="bg-gray-200 shadow-2xl dropdown rounded-2xl">
-                                    {item.subMenus && item.subMenus.map((subItem, index) => subToggle === item.id && 
-                                        <li key={index} className={` ${global.darkMode ? 'text-white': 'text-black'}`}>
-                                           <Link to={subItem.to} className="min-w-max">{subItem.title}
-                                           </Link>
-                                        </li> 
-                                    )}
-                                </ul>
-                            </li>
-                        </Link>
-                    </> 
-                })}
+        <div className={`sticky w-full h-[120px] flex justify-between items-center shadow-inner `}>
+            <div>
+                <img key="logo194" src={process.env.PUBLIC_URL + `/logo194.png`} className="p-4 " alt="Welcome"/> 
+            </div>
+
+            {/* Desktop */}
+            {<ul className={`hidden md:flex space-x-5 px-4 `}>
+                {menuItems.map((item) =>
+                    <li key={item.id}>
+                        <a href={item.to}>
+                        <div>
+                            <h2 className="text-lg font-semibold sm:text-xl">
+                                {item.title}
+                            </h2>
+                        </div>
+                    </a>
+                </li>)}
+            </ul>}
+            
+            {/* Hamburger Menu */}
+            <div className={`md:hidden z-10 text-3xl px-4 `} onClick={onNavClick}>
+            {!nav ?  <i class="fa-solid fa-bars"></i> :  <i class="fa-solid fa-x"></i>}
+            </div>
+
+            {/* Mobile */}
+            <ul className={!nav ? "hidden" : `absolute top-0  left-0 w-full h-screen flex flex-col justify-center items-center bg-white`} >
+                {menuItems.map((item) =>
+                    <li onClick={onNavClick} key={item.id} >
+                        <a href={item.to}>
+                        <div className="hover:underline hover:italic">
+                            <h2 className="font-semibold text-3xl py-3">
+                                {/* <i className={` ${item.icon} `} ></i> */}
+                                {item.title}
+                            </h2>
+                        </div>
+                    </a>
+                </li>)}
             </ul>
-        </nav>
+
+            {/* Social Media */}
+            <div className=" flex-col top-[35%] left-0 lg:flex hidden space-y-2 px-2 ">
+                <ul className="">
+                    <li className="w-[120px] h-[40px] hover:bg-blue-700  bg-blue-500 text-white font-semibold">
+                        <a 
+                            href="https://www.facebook.com/groups/274133077054225" 
+                            target="_blank"
+                            rel="noreferrer"
+                            className="flex justify-center items-center p-2">
+                                Facebook 
+                        </a>
+                    </li>
+                </ul>
+
+                <ul>
+                    <li className="w-[120px] h-[40px]  bg-gradient-to-br from-blue-800 from-5% via-red-500 via-55% to-yellow-500 to-95% text-white hover:text-slate-300 font-semibold">
+                        <a 
+                            href="https://www.instagram.com/firstclevelandmasjid/" 
+                            target="_blank"
+                            rel="noreferrer"
+                            className="flex justify-center items-center p-2">
+                                Instagram
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>      
+
+        
     </>
 }
 

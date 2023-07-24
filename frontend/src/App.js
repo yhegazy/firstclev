@@ -1,16 +1,14 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import {useEffect, useState} from 'react'
 
-import { Coordinates, CalculationMethod, PrayerTimes, Madhab } from 'adhan';
-
 //Components
 import Navbar from './components/Navbar'
-import UpcomingEvents from './components/UpcomingEvents'
+import UpcomingEvents from './components/Calendar'
 import Edit from './components/Edit'
-import MainPage from './components/MainPage'
-import AboutUs from './components/AboutUs';
+import MainPage from './components/Welcome'
+import AboutUs from './components/About';
 import Contact from './components/Contact'
-import YouTubeArchives from './components/YouTubeArchives'
+import YouTubeArchives from './components/Archives'
 import FirstClevelandPrayerTimes from './components/PrayerTimes'
 import Login from './components/Login'
 import Galleries from './components/Gallery'
@@ -20,58 +18,36 @@ import { storage } from './appwrite/appwriteConfig'
 
 //CSS
 import './css/general.css'
-import './index.css'
 
 function App() {
   const [global, setGlobal] = useState({darkMode:false, loggedIn: false, image: ''})
 
   const handleLoggedIn = (value) => setGlobal({...global, loggedIn: value})
-  
-     
-  useEffect(() => {
-    let currentTime = new Date().getHours();
-    let date = new Date();
-    let coordinates = new Coordinates(41.4932, -81.4609);
-    let params = CalculationMethod.NorthAmerica();
-    params.madhab = Madhab.Shafi;
-    
-    let prayerTimes = new PrayerTimes(coordinates, date, params);
-  
-    if(currentTime <= prayerTimes.fajr.getHours() || currentTime > prayerTimes.maghrib.getHours()) setGlobal({...global, darkMode: true})
-    else setGlobal({...global, darkMode:false})
-  
-  },[]) 
-  
-  const getMainImage = async () => {
-    const mainpage = await storage.getFilePreview("images", "mainpage")
-    setGlobal({...global, image: mainpage})
-  }
 
   useEffect(() => {
-    getMainImage();
-
-    return () => {console.info("This will be logged on unmount")}
-  },[])
-
-  const [flag, setFlag] = useState(false)
-  useEffect(() => {
-    const detectWindow = async() => {
-      if(Math.min(window.screen.width, window.screen.height) < 768 || navigator.userAgent.indexOf("Mobi") > -1) setFlag(true);
+    const getMainImage = async () => {
+      const mainpage = await storage.getFilePreview("images", "mainpage")
+      setGlobal({...global, image: mainpage})
     }
 
-    detectWindow()
+    getMainImage();
 
-    return () => {console.log("this will be logged to the console.", flag)}
-
+    return () => {}
   },[])
 
+
+    
+  //This is necessary, otherwise some component layouts will overlap the menu.
+  const [nav, setNav] = useState(false)
+  const handleNavClick = () => setNav(!nav)
+
   return (
-    <div className={global.darkMode && 'bg-gray-700 text-white'} style={{height: '100vh'}}>
+    <div style={{height: '100vh'}} data-theme={'cmyk'}>
       
       <BrowserRouter>
-        <Navbar global={global} onLoggedIn={handleLoggedIn} id="nav" />   
+        <Navbar global={global} onLoggedIn={handleLoggedIn} onNavClick={handleNavClick} nav={nav} id="nav" />   
         <Routes> 
-          <Route path="/" element={ <MainPage global={global}   onLoggedIn={handleLoggedIn}  id="main"/>} />
+          <Route path="/" element={ <MainPage global={global} flag={nav}   onLoggedIn={handleLoggedIn}  id="main"/>} />
           <Route path="/events" element={ <UpcomingEvents global={global}  onLoggedIn={handleLoggedIn} />} />
           <Route path="/about" element={ <AboutUs />}/>
           <Route path="/contact" element={ <Contact />} />

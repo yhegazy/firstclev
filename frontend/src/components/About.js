@@ -1,6 +1,22 @@
 const AboutUs = () => {
-    return <div className="w-full ml-auto mr-auto p-5 space-y-2 text-xl sm:py-5 pt-24">
-        <h1 className="text-center text-3xl pb-5">About the First Cleveland Masjid</h1>
+    return  <div className="w-full h-screen flex flex-col items-center">
+        <div name="contact" className="w-full h-screen flex justify-center items-center px-4 pt-8 pb-4">
+		<div className="max-w-[1000px] mx-auto p-8 flex flex-col items-center justify-center w-full h-full sm:text-center">
+        <div className="flex flex-col max-w-[600px] w-full">
+				<div className="pb-8">
+					<p className="text-4xl font-semibold inline border-b-4 border-lime-600"> Contact</p>
+					<p className="py-4 text-xl font-semibold"> Assalamualaikum! Thank you for reaching out. We'll try to get back to you within 2 to 3 days.</p>
+				</div>
+				<input className="p-2 bg-gray-300 placeholder:text-black" type="text" placeholder="Name" name="name " />
+				<input className="my-4 p-2 bg-gray-300 placeholder:text-black" type="email" placeholder="Email" name="email" />
+				<textarea className="p-2 bg-gray-300 placeholder:text-black" rows={5}  placeholder="Message" name="message" />
+				<input type="hidden" name="_gotcha" style={{display:'none'}}></input>
+				<button className="border-2 hover:bg-lime-500 hover:border-lime-500 px-4 py-3 my-8 font-semibold mx-auto flex item-center">Contact Us</button>
+			</div>
+    
+			
+			
+        {/* <h1 className="text-center text-3xl pb-5">About the First Cleveland Masjid</h1>
         <hr />
 
         <p>The First Cleveland Masjid is one of the oldest Muslim institutions in the U.S. Founded in 1937 by Al Hajj Imam Wali Akram, an African American. The First Cleveland Masjid remains a testimony of the powerful attraction that Americans have towards the beliefs and culture of Islam.</p>
@@ -20,8 +36,11 @@ const AboutUs = () => {
 
         <p>Imam Abbas Ahmad, the grandson of Imam Wali Akram assumed the leadership of the First Cleveland Masjid in 1989 and is currently leading the congregation of over 200 members. Today, The First Cleveland Masjid actively promotes interfaith dialogue to enhance the understanding of Islam. This celebrated cornerstone continues to encourage a positive image of American Muslims.</p>
         
-            
+             */}
     </div>    
+    </div>
+    </div>
+    
 }
 
 export default AboutUs
