@@ -4,7 +4,7 @@ import { Coordinates, CalculationMethod, PrayerTimes, Madhab } from 'adhan';
 const FirstClevelandPrayerTimes = () => {   
     const [toggle, setToggle] = useState(false)
 
-    let date = new Date();
+    const date = new Date();
     let coordinates = new Coordinates(41.4932, -81.4609);
     let params = CalculationMethod.NorthAmerica();
     params.madhab = Madhab.Shafi;
@@ -42,77 +42,94 @@ const FirstClevelandPrayerTimes = () => {
        
         let day = arr.map((date) => [(date.getMonth() + 1)+ "/" + date.getDate(), new PrayerTimes(coordinates, date, params)])  
 
-        return <div className="border-r-2 border-l-2 border-gray-50">
-            <table className="w-full text-xs text-left text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        return <>
+            <div className="flex justify-center">
+                <button className='text-center bg-blue-600 text-white font-semibold hover:bg-blue-800 p-2 w-full border rounded-md' onClick={() => setToggle(!toggle)}>
+                Close</button>
+            </div>
+            <table className="w-full text-center">
+                <thead>
                     <tr>
-                        <th scope="col" className="py-3 px-6">Day</th>
-                        <th scope="col" className="py-3 px-6">Fajr</th>
-                        <th scope="col" className="py-3 px-6">Dhuhr</th>
-                        <th scope="col" className="py-3 px-6">Asr</th>
-                        <th scope="col" className="py-3 px-6">Maghrib</th>
-                        <th scope="col" className="py-3 px-6">Isha</th>
+                        <th scope="col">Day</th>
+                        <th scope="col" >Fajr</th>
+                        <th scope="col" >Dhuhr</th>
+                        <th scope="col" >Asr</th>
+                        <th scope="col" >Maghrib</th>
+                        <th scope="col">Isha</th>
                     </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody>
                     
                     {day.map((prayer) => <tr>
-                        <td className="px-6 py-1 whitespace-nowrap">{prayer[0]}</td>
+                        <td >{prayer[0]}</td>
                         
-                        <td className="px-6 py-1 whitespace-nowrap">{new Date(prayer[1].fajr).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})} </td>
+                        <td >{new Date(prayer[1].fajr).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})} </td>
                         
-                        <td className="px-6 py-1 whitespace-nowrap">{new Date(prayer[1].dhuhr).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</td>
+                        <td >{new Date(prayer[1].dhuhr).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</td>
                        
-                        <td className="px-6 py-1 whitespace-nowrap"> {new Date(prayer[1].asr).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}
+                        <td > {new Date(prayer[1].asr).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}
                         </td>
                         
-                        <td className="px-6 py-1 whitespace-nowrap"> {new Date(prayer[1].maghrib).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</td>
+                        <td > {new Date(prayer[1].maghrib).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</td>
                         
-                        <td className="px-6 py-1 whitespace-nowrap">{new Date(prayer[1].isha).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</td> 
+                        <td >{new Date(prayer[1].isha).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</td> 
                     </tr>)}
                 </tbody>
             </table> 
-        </div>
+
+            
+        </>
+    
     }
 
+    const data = [
+        {
+            name:'Fajr',
+            time: new Date(prayerTimes.fajr).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})
+        },
+        {
+            name:'Dhuhr',
+            time: new Date(prayerTimes.dhuhr).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})
+        },
+        {
+            name:'Asr',
+            time: new Date(prayerTimes.asr).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})
+        },
+        {
+            name:'Maghreb',
+            time: new Date(prayerTimes.maghrib).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})
+        },
+        {
+            name:'Isha',
+            time: new Date(prayerTimes.isha).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})
+        }
+    ]
+
     return <>
-       <div className="sm:w-1/2 sm:ml-auto sm:mr-auto sm:text-2xl sm:p-5 sm:space-y-2 sm:pt-auto pt-20 ">
-            <h1 className="flex justify-center w-1/2 ml-auto mr-auto text-3xl py-5">Salah Times</h1>
+        <div>
+        {toggle ? <MonthlyCalendar /> : <div className="max-w-[1000px] mx-auto p-8 flex flex-col items-center">
+            <div className="pb-8">
+                <p className="text-4xl font-semibold inline border-b-4 border-lime-600"> Prayer Times</p>
+            </div>
+
             {/* Gregorian & Hijra Calendar */}
-            <div className="flex sm:text-2xl text-base space-x-10 sm:justify-between p-5">
-                <p className=''>{monthName} {prayerTimes.fajr.getDate()}, {prayerTimes.fajr.getFullYear()}</p>
+            <div className='text-xl md:text-2xl'>
+                <p >{monthName} {prayerTimes.fajr.getDate()}, {prayerTimes.fajr.getFullYear()}</p>
                 <p>{hijraYear} {hijraMonth}</p>
             </div>
 
-            {/* Salat Times */}
-            <div className="flex flex-wrap sm:justify-between justify-evenly ">
-                <p>Fajr</p>
-                <p>{new Date(prayerTimes.fajr).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</p>
-            </div>
-            <div className="flex flex-wrap sm:justify-between justify-evenly">
-                <p>Dhuhr</p>
-                <p>{new Date(prayerTimes.dhuhr).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</p>
-            </div>
-            <div className="flex flex-wrap sm:justify-between justify-evenly">
-                <p>Asr</p>
-                <p>{new Date(prayerTimes.asr).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</p>
-            </div>
-            <div className="flex flex-wrap sm:justify-between justify-evenly">
-                <p>Maghrib</p>
-                <p>{new Date(prayerTimes.maghrib).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</p>
-            </div>
-            <div className="flex flex-wrap sm:justify-between justify-evenly">
-                <p>Isha</p>
-                <p>{new Date(prayerTimes.isha).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</p>
-            </div>
+            {/* Salat Times  */}
+            {data.map((item) => {return  <div className="text-xl md:text-2xl w-full grid grid-cols-2 text-center py-4">
+                <p>{item.name}</p>
+                <p>{item.time}</p>
+            </div>})}
+
+            {/* 30 day Calendar */}
+            <button className='text-center bg-blue-500 text-white font-semibold hover:bg-blue-700 p-2 border rounded-md' onClick={() => setToggle(!toggle)}>
+            30 Day Calendar</button>
             
-            <div className={`fixed sm:w-1/2 w-full ml-auto mr-auto ${toggle ? 'bottom-2 top-10 overflow-y-scroll bg-gray-100 pt-1' : 'bottom-0'}`}>
-                <p className='text-center bg-blue-500 text-white font-semibold hover:bg-blue-700 py-2 px-4 border rounded' onClick={() => setToggle(!toggle)}>
-                    30 Day Calendar</p>
-                {toggle && <MonthlyCalendar />}
-            </div>
-        </div>
-        
+        </div>}
+    </div>
     </>
 }
 
