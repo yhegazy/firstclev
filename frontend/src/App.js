@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react'
 
 //Components
 import Navbar from './components/Navbar'
-import UpcomingEvents from './components/Calendar'
+import Calendar from './components/Calendar'
 import Edit from './components/Edit'
 import MainPage from './components/Welcome'
 import AboutUs from './components/About';
@@ -35,7 +35,6 @@ function App() {
     return () => {}
   },[])
 
-
     
   //This is necessary, otherwise some component layouts will overlap the menu.
   const [nav, setNav] = useState(false)
@@ -48,7 +47,7 @@ function App() {
         <Navbar global={global} onLoggedIn={handleLoggedIn} onNavClick={handleNavClick} nav={nav} id="nav" />   
         <Routes> 
           <Route path="/" element={ <MainPage global={global} flag={nav}   onLoggedIn={handleLoggedIn}  id="main"/>} />
-          <Route path="/events" element={ <UpcomingEvents global={global}  onLoggedIn={handleLoggedIn} />} />
+          <Route path="/events" element={ <Calendar global={global}  onLoggedIn={handleLoggedIn} />} />
           <Route path="/about" element={ <AboutUs />}/>
           <Route path="/contact" element={ <Contact />} />
           <Route path="/archives" element={ <YouTubeArchives global={global}  onLoggedIn={handleLoggedIn}/>} />
