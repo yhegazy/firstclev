@@ -27,7 +27,7 @@ const Calendar = (props) => {
         <div className="w-full flex flex-col items-center pb-8">
             <p className="text-4xl font-semibold inline border-b-4 border-lime-600"> Calendar</p>
         </div>
-        <div className="px-4 py-4">
+        {!props.flag ? <div className="px-4 py-4">
             <FullCalendar
                 plugins={[listPlugin  ]}
                 initialView="listMonth"
@@ -35,7 +35,7 @@ const Calendar = (props) => {
                 height={600}
                 
             />
-        </div>
+        </div> : ''}
     </>
 }
 

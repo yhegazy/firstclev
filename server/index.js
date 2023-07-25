@@ -53,7 +53,7 @@ app.post('/email', async() => {
         Messages: [{
           From: { Email: "no-reply@firstcleveland.org", Name: "First Cleveland Masjid"},
           To: [{Email: recipient}],
-          Subject: "First Cleveland Masjid Newsletter ",
+          Subject: "First Cleveland Masjid Monthly Newsletter ",
           HTMLPart: htmlMessage.htmlMessage
         }]
       }
@@ -118,9 +118,6 @@ app.post('/sms', async() => {
   `
 
   const test = `Salaam - This is just a test.`
-
-  console.log(tel)
-
   tel.map((recipient) => {
     mailjet
       .post('send', { version: 'v3.1' })
@@ -129,8 +126,8 @@ app.post('/sms', async() => {
           {
             From: { Email: "no-reply@firstcleveland.org", Name: "First Cleveland Masjid"},
             To: [{Email: recipient}],
-            Subject: option === 'liveStream' ? smsSubject: option === 'eid' ? eidSubject : test,
-            TextPart: option === 'liveStream' ? smsMessage: option === 'eid' ? eidMessage : test
+            Subject: smsSubject, //option === 'liveStream' ? smsSubject: option === 'eid' ? eidSubject : test,
+            TextPart: smsMessage//option === 'liveStream' ? smsMessage: option === 'eid' ? eidMessage : test
           }
         ]
     })

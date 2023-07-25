@@ -47,12 +47,12 @@ function App() {
         <Navbar global={global} onLoggedIn={handleLoggedIn} onNavClick={handleNavClick} nav={nav} id="nav" />   
         <Routes> 
           <Route path="/" element={ <MainPage global={global} flag={nav}   onLoggedIn={handleLoggedIn}  id="main"/>} />
-          <Route path="/events" element={ <Calendar global={global}  onLoggedIn={handleLoggedIn} />} />
+          <Route path="/events" element={ <Calendar global={global} flag={nav}  onLoggedIn={handleLoggedIn} />} />
           <Route path="/about" element={ <AboutUs />}/>
           <Route path="/contact" element={ <Contact />} />
           <Route path="/archives" element={ <YouTubeArchives global={global}  onLoggedIn={handleLoggedIn}/>} />
           <Route path="/salah" element={ <FirstClevelandPrayerTimes global={global} />} />
-          <Route path="/gallery" element={ <Galleries global={global} />} />
+          <Route path="/gallery" element={ <Galleries global={global} flag={nav} />} />
           <Route path="/admin" element={ <Login global={global}  onLoggedIn={handleLoggedIn}/>} />
             <Route path="/edit" element={ <Edit global={global}  onLoggedIn={handleLoggedIn}/>} />
            
