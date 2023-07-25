@@ -91,7 +91,7 @@ const Navbar = (props) => {
     return <>
         <div className={`sticky w-full h-[120px] flex justify-between items-center shadow-inner `}>
             <div>
-                <img key="logo194" src={process.env.PUBLIC_URL + `/logo194.png`} className="p-4 " alt="Welcome"/> 
+                <a href="/"><img key="logo194" src={process.env.PUBLIC_URL + `/logo194.png`} className="p-4 " alt="Welcome"/> </a>
             </div>
 
             {/* Desktop */}

@@ -1,24 +1,21 @@
 const Contact = () => {
+    const endpoint = "https://getform.io/f/69665be7-b019-4a66-af6b-ef22391f5d35"
 
-  return <div className="sm:w-1/2 w-full ml-auto mr-auto sm:p-5 p-10 space-y-2 text-xl sm:pt-auto pt-24">
-        <h1 className="flex justify-center w-1/2 ml-auto mr-auto text-3xl">Contact</h1>
+    return <div className="w-full flex flex-col items-center">
+            <div className="max-w-[1000px] mx-auto p-8 flex flex-col items-center justify-center w-full h-full sm:text-center">
+	            <form action={endpoint}  method="POST" className="flex flex-col max-w-[600px] w-full">
+                    <div className="w-full flex flex-col items-center pb-8">
+                        <p className="text-4xl font-semibold inline border-b-4 border-lime-600"> Contact</p>
+                    </div>
+                    <input className="p-2 bg-gray-300 placeholder:text-black" type="text" placeholder="Name" name="name " />
+                    <input className="my-4 p-2 bg-gray-300 placeholder:text-black" type="email" placeholder="Email" name="email" />
+                    <textarea className="p-2 bg-gray-300 placeholder:text-black" rows={5}  placeholder="Message" name="message" />
+                    <input type="hidden" name="_gotcha" style={{display:'none'}}></input>
+                    <button className="border-2 hover:bg-lime-500 hover:border-lime-500 px-4 py-3 my-8 font-semibold mx-auto flex item-center">Contact Us</button>
+                </form>
 
-        <hr />
-
-        <div className='bg-gray-100 flex flex-wrap justify-between'>
-            <p>Address</p>
-            <p><a href="https://goo.gl/maps/anxPPT6498WTaFE38" target="_blank">Visit Us</a></p>
+          
         </div>
-
-        <div className='bg-gray-100 flex flex-wrap justify-between'>
-            <p>Phone</p>
-            <p><a  href="tel:216-404-8635">Call Us</a></p>
-        </div>
-
-        <div className='bg-gray-100 flex flex-wrap justify-between'>
-            <p>Email</p>
-            <p><a  href="mailto:1stclevelandmosque@gmail.com">Email Us</a></p>
-        </div>  
     </div>
 }
 
