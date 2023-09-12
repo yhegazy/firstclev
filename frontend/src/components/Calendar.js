@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import {db} from '../appwrite/appwriteConfig'
+import {Query} from 'appwrite'
 import FullCalendar from '@fullcalendar/react'
 import listPlugin from '@fullcalendar/list';
 
@@ -9,7 +10,7 @@ const Calendar = (props) => {
 
     const getCalendarData = async() => {
         setIsLoading(true)
-        const getEvents = db.listDocuments("firstClevelandMasjidDB", "upcomingEvents")
+        const getEvents = db.listDocuments("firstClevelandMasjidDB", "upcomingEvents", [Query.limit(100)])
         getEvents.then(
             function(response) {setEvents({...events, event:response.documents})}, function(error) {console.log(error)}
         )
