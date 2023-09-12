@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import {useNavigate} from 'react-router-dom'
 import { db, storage } from '../appwrite/appwriteConfig';
-
+import {Query} from 'appwrite'
 import Carousel from 'nuka-carousel'
 import { Coordinates, CalculationMethod, PrayerTimes, Madhab } from 'adhan';
 
@@ -21,7 +21,7 @@ export default function MainPage(props) {
         const handleGetData = async() => {
             setIsLoading(true)                                                                 
             const video = await db.getDocument("firstClevelandMasjidDB", "youtube-api-link", "63a0c5d9a54a5c33c046")
-            const events = await db.listDocuments("firstClevelandMasjidDB", "upcomingEvents")
+            const events = await db.listDocuments("firstClevelandMasjidDB", "upcomingEvents", [Query.limit(100)])
             const liveStreamOverride = await db.listDocuments("firstClevelandMasjidDB", "settings")
             const getGallery = await storage.listFiles("events")
     
