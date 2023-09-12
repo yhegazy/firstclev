@@ -13,7 +13,6 @@ require('dotenv').config({path: './.env'})
 
 const PORT =  4000;
 
-
 const app = express();
 app.use(express.json())
 app.use(cors());
@@ -23,7 +22,6 @@ app.use(express.static(path.join(__dirname, '../frontend/build')));
 app.get('*', function (req, res) {
   res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 });
-
 
 //MAILJECT API
 const quickyMsg = `Live Stream: https://youtube.com/live/wuNFM6ya1dQ
@@ -40,9 +38,9 @@ app.post('/email', async() => {
 
   let data = []
   let email = []
+
   
   data.push(await db.listDocuments("firstClevelandMasjidDB", "newsletter"))
-  //add ability in frontend to update dataDump
   const htmlMessage = await db.getDocument("firstClevelandMasjidDB", 'dataDump', "htmlMessage")
   if(data.length > 0) data[0].documents.map((person) => email.push(person.email))
   
@@ -72,27 +70,16 @@ app.post('/ddl', async(req) => {
 
 //Created a new table called sms in appwrite.
 app.post('/sms', async() => {
-  const Mailjet = require('node-mailjet');
-  const mailjet = new Mailjet({
-    apiKey: process.env.MJ_APIKEY_PUBLIC,
-    apiSecret: process.env.MJ_APIKEY_PRIVATE
-  });
+  const SERVICE_PLAN_ID = 'SERVICE_PLAN_ID';
+  const API_TOKEN = 'API_TOKEN';
+  const SINCH_NUMBER = 'SINCH_NUMBER';
 
-
-  let data = []
-  let tel = []
-  
-
-  //retrieve live stream link 
+  //retrieve live stream for dynamic insertion to smsMessage
   const video = await db.getDocument("firstClevelandMasjidDB", "youtube-api-link", "63a0c5d9a54a5c33c046")
-  
-  // Filter through notifications to retrieve liveStream Only
-  data.push(await db.listDocuments("firstClevelandMasjidDB", "sms"))
-  if(data.length > 0) data[0].documents.map((person) => tel.push(person.sms))
 
-  //Have frontend choose to send liveStream, Eid, Test messages to community. 
-    //Have test only see my, eppal's numbers
-
+ 
+  //Frontend options messages are liveStream, Eid, Test 
+  const test = `Salaam - This is just a test.`
   const smsSubject = `Assalamualaikum warahmatullahi wabarakatuh! Jummah Live Stream 1:30p ET`
   const smsMessage = `
     Jummah Live Stream:  ${video.vID}
@@ -106,7 +93,7 @@ app.post('/sms', async() => {
   `
 
   const eidSubject = `Assalamualaikum warahmatullahi wabarakatuh! Eid Mubarak!`
-  //eventually have the dates changed from the front end instead of manually updating the backend
+  
   const eidMessage = ` June 28th    Takbir: 8:30a ET     Prayer: 9a ET
     Donate: 
     CashApp - $FirstCleveland
@@ -115,27 +102,41 @@ app.post('/sms', async() => {
     Checks/Cash - 3613 East 131st Cleveland, OH 44120 
     (Make Checks payable to: First Cleveland Mosque)
     Received by mistake? Please text UNSUBSCRIBE to 2168006242
-  `
+  `  
+ 
+  //default query limit is 25, calling [Query.lmit(N)] allows you to customize.
+  const retrieveSMS = async () => {
+    const result = await db.listDocuments("firstClevelandMasjidDB", "sms", [Query.limit(100)])
+    return result
+  }
+  const TO_NUMBER = await (await retrieveSMS()).documents.map((tel) => tel.sms)
+  
+  // SINCH API
+  const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+  const  run = async() => {
+    const resp = await fetch(
+      'https://us.sms.api.sinch.com/xms/v1/' + SERVICE_PLAN_ID + '/batches',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + API_TOKEN
+        },
+        body: JSON.stringify({
+          from: SINCH_NUMBER,
+          to: TO_NUMBER,
+          subject: smsSubject,
+          body: smsMessage
+        })
+      }
+    );
+  }
 
-  const test = `Salaam - This is just a test.`
-  tel.map((recipient) => {
-    mailjet
-      .post('send', { version: 'v3.1' })
-      .request({
-        Messages: [
-          {
-            From: { Email: "no-reply@firstcleveland.org", Name: "First Cleveland Masjid"},
-            To: [{Email: recipient}],
-            Subject: smsSubject, //option === 'liveStream' ? smsSubject: option === 'eid' ? eidSubject : test,
-            TextPart: smsMessage//option === 'liveStream' ? smsMessage: option === 'eid' ? eidMessage : test
-          }
-        ]
-    })
-  })
+  run();
   
 })
 
-
+//LISTEN
 app.listen(PORT, () => {
     console.log(`listening on port ${PORT}`)
    
