@@ -1,11 +1,9 @@
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { account, db, storage } from '../appwrite/appwriteConfig'
 import {v4 as uuidv4} from 'uuid' //to auto-generate unique ids
 
 const TABS = "bg-white hover:bg-gray-100 inline-block border-l border-t border-r rounded-t py-2 px-4 text-red-700 font-semibold shadow"
-const API_KEY = 'AIzaSyD_Ldqg5txrqvQYnRthvpKfkpbGWhLxa0A'
-
 
 const Edit = (props) => {
     const navigate = useNavigate();
@@ -37,23 +35,6 @@ const Edit = (props) => {
         }
     }
 
-    //need to set async as separate function or else we get "destroy is not a function" error
-    useEffect(() => {
-        const fetchYoutubeAPI = async() => {
-            fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UCYYBYUfJwI3YjmQt_qigTmQ&maxResults=${save.results}&order=${save.orderBy}&key=${API_KEY}`)
-                .then((result) => {return result.json()})
-                .then((data) => {
-                    setSave({...save, id: data.items.map((item) => item.id['videoId']), title: data.items.map((item) => item.snippet['title'])
-                })})
-                .catch((error) => console.log(error))
-        } 
-        
-        fetchYoutubeAPI()
-
-        return () => {console.info("This will be logged at unmount.")}
-    
-    }, []); 
-
     //Remove image from gallery
     const handleRemoveButton = (id) => {
         if(id === 1) setGalleryImage(null)
@@ -63,8 +44,15 @@ const Edit = (props) => {
     
 
     const handleSaveButton = async() => {     
-        if(save.subMenu === 'Archives') await db.updateDocument("firstClevelandMasjidDB","youtube-api-link", '63a0c5d9a54a5c33c046', 
-            {vID: save.vID, orderBy: save.orderBy, results: save.results, id: save.id, title: save.title})
+        if(save.subMenu === 'Archives') {
+            return fetch('/edit', {
+                    method: "POST", 
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({vID: save.vID})})
+                .then((data) =>  data.status === 200 && alert('success'))
+                .catch(error => console.error(error))
+                // .finally(() => alert("Updated!"))
+        }
 
         else if(save.subMenu === 'Gallery') {
             if(galleryImage){
