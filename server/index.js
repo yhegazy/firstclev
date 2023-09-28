@@ -22,10 +22,10 @@ const client  = new Client()
 const db = new Databases(client, 'firstClevelandMasjidDB')
 
 //Fetch YouTube last 30 days & Update DB
-const getData = []
 app.post('/edit', async(request, resolve) => {
   let results = 30
   let orderBy = 'date'
+  const getData = []
   
   await fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=${process.env.CHANNEL_ID}&maxResults=${results}&order=${orderBy}&key=${process.env.YOUTUBE_API}`)
   .then((response) => response.json())
