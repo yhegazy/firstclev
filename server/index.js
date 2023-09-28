@@ -1,16 +1,9 @@
-const {Client, Databases} = require('node-appwrite')
-
-const client  = new Client()
-  .setEndpoint('https://appwrite.firstcleveland.org/v1').setProject('fcm-appwrite')
-const db = new Databases(client, 'firstClevelandMasjidDB')
-
-
 //Setup Express Server
 const express = require('express');
 const path = require('path');
 const cors = require('cors')
-require('dotenv').config({path: './.env'})
 
+require('dotenv').config({path: './.env'})
 const PORT =  4000;
 
 const app = express();
@@ -18,10 +11,34 @@ app.use(express.json())
 app.use(cors());
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 
-
 app.get('*', function (req, res) {
   res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 });
+
+
+const {Client, Databases} = require('node-appwrite')
+const client  = new Client()
+  .setEndpoint('https://appwrite.firstcleveland.org/v1').setProject('fcm-appwrite').setKey(process.env.APPWRITE_KEY)
+const db = new Databases(client, 'firstClevelandMasjidDB')
+
+//Fetch YouTube last 30 days & Update DB
+const getData = []
+app.post('/edit', async(request, resolve) => {
+  let results = 30
+  let orderBy = 'date'
+  
+  await fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=${process.env.CHANNEL_ID}&maxResults=${results}&order=${orderBy}&key=${process.env.YOUTUBE_API}`)
+  .then((response) => response.json())
+  .then((data) => data.items.forEach((item) => getData.push([item.id['videoId'], item.snippet['title']]))
+  )
+  .catch((error) => console.log(error))
+  
+ await db.updateDocument("firstClevelandMasjidDB","youtube-api-link", '63a0c5d9a54a5c33c046', {vID: request.body.vID, orderBy, results, id: getData.map((item) => item[0]), title: getData.map((item) => item[1])})
+  
+  return resolve.send("YouTube Archive Data Updated!")
+})
+
+
 
 //MAILJECT API
 const quickyMsg = `Live Stream: https://youtube.com/live/wuNFM6ya1dQ
