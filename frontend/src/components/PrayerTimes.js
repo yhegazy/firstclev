@@ -15,20 +15,16 @@ const FirstClevelandPrayerTimes = () => {
     let hijraYear = new Intl.DateTimeFormat('ar-TN-u-ca-islamic', {year : 'numeric'}).format(Date.now());
 
     const [monthName, setMonthName] = useState(null)
+    const [monthName, setMonthName] = useState(null)
     const handleGregorianMonthName = (number) => {
-        if(number === 1) setMonthName('January') 
-        else if(number === 2) setMonthName('February')
-        else if(number === 3) setMonthName('March')
-        else if(number === 4) setMonthName('April')
-        else if(number === 5) setMonthName('May')
-        else if(number === 6) setMonthName('June')
-        else if(number === 7) setMonthName('July')
-        else if(number === 8) setMonthName('August')
-        else if(number === 9) setMonthName('September')
-        else if(number === 10) setMonthName('October')
-        else if(number === 11) setMonthName('November')
-        else if(number === 12) setMonthName('December')
-    }
+        const months = [
+          'January', 'February', 'March', 'April',
+          'May', 'June', 'July', 'August',
+          'September', 'October', 'November', 'December'
+        ];
+      
+        return setMonthName(months[number - 1] || null);
+      };
     useEffect(() => {
         handleGregorianMonthName(date.getMonth() + 1)
     }, [date])
