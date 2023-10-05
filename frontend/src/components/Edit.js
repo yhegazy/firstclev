@@ -1,10 +1,46 @@
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { account, db, storage } from '../appwrite/appwriteConfig'
 import {v4 as uuidv4} from 'uuid' //to auto-generate unique ids
+import Notifications from './pages/Notifications'
 
 const TABS = "bg-white hover:bg-gray-100 inline-block border-l border-t border-r rounded-t py-2 px-4 text-red-700 font-semibold shadow"
-const API_KEY = 'AIzaSyD_Ldqg5txrqvQYnRthvpKfkpbGWhLxa0A'
+
+const archives = (save) => {
+    return fetch('/edit', {
+        method: "POST", 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({vID: save.vID})
+    })
+    .then((data) =>  data.status === 200 && alert('success'))
+    .catch(error => console.error(error))
+}
+
+const gallery = async(galleryImage) => {
+    // return fetch('/editGallery', {
+    //     method: "POST",
+    //     headers: {'Content-Type': 'application/json'},
+    //     body: JSON.stringify({uuid: uuidv4(), image: galleryImage, name: galleryImage.name, submenu: "gallery"})
+    // })
+    // .then((data) =>  data.status === 200 && alert('success'))
+    // .catch(error => console.error(error))
+
+    await storage.createFile('images', galleryImage.name, galleryImage)
+    await db.createDocument("firstClevelandMasjidDB","gallery", uuidv4(), {imageName: galleryImage.name, submenu: "gallery"})
+
+    return;
+}
+
+const events = async(save) => {
+    //override button
+    return await db.createDocument("firstClevelandMasjidDB","upcomingEvents", uuidv4(), {subMenu: save.subMenu, start: save.start, end: save.end, title: save.title, allDay: save.allDay})
+}
+
+
+const notifications = async(save) => {
+   return await db.updateDocument("firstClevelandMasjidDB","settings", "override", {liveBtnOverride: save.liveBtnOverride, buttonName: save.buttonName})
+        
+}
 
 
 const Edit = (props) => {
@@ -31,53 +67,28 @@ const Edit = (props) => {
             else setSave({...save, allDay: false})
         }
 
-        if(save.subMenu === 'Settings') {
+        if(save.subMenu === 'Archives') {
+            console.log(e.target.value)
             if (e.target.value === 'Yes') setSave({...save, liveBtnOverride: true})
             else (setSave({...save, liveBtnOverride: false}))
         }
     }
 
-    //need to set async as separate function or else we get "destroy is not a function" error
-    useEffect(() => {
-        const fetchYoutubeAPI = async() => {
-            fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UCYYBYUfJwI3YjmQt_qigTmQ&maxResults=${save.results}&order=${save.orderBy}&key=${API_KEY}`)
-                .then((result) => {return result.json()})
-                .then((data) => {
-                    setSave({...save, id: data.items.map((item) => item.id['videoId']), title: data.items.map((item) => item.snippet['title'])
-                })})
-                .catch((error) => console.log(error))
-        } 
-        
-        fetchYoutubeAPI()
-
-        return () => {console.info("This will be logged at unmount.")}
     
-    }, []); 
-
     //Remove image from gallery
     const handleRemoveButton = (id) => {
         if(id === 1) setGalleryImage(null)
         // else if (id === 2) setMPCaraousel(null) //Caraousel.remove
     }
 
-    
-
     const handleSaveButton = async() => {     
-        if(save.subMenu === 'Archives') await db.updateDocument("firstClevelandMasjidDB","youtube-api-link", '63a0c5d9a54a5c33c046', 
-            {vID: save.vID, orderBy: save.orderBy, results: save.results, id: save.id, title: save.title})
-
+        if(save.subMenu === 'Archives') archives(save);
         else if(save.subMenu === 'Gallery') {
-            if(galleryImage){
-                await storage.createFile('images', galleryImage.name, galleryImage)
-                await db.createDocument("firstClevelandMasjidDB","gallery", uuidv4(), {imageName: galleryImage.name, submenu: "gallery"})
-            }
+            return (galleryImage &&  gallery(galleryImage)) ?? alert("error")
         }
-       
-        else if (save.subMenu === 'Events') await db.createDocument("firstClevelandMasjidDB","upcomingEvents", uuidv4(), 
-            {subMenu: save.subMenu, start: save.start, end: save.end, title: save.title, allDay: save.allDay})
-
-        else if (save.subMenu === 'Settings') await db.updateDocument("firstClevelandMasjidDB","settings", "override", 
-        {liveBtnOverride: save.liveBtnOverride, buttonName: save.buttonName})
+        else if (save.subMenu === 'Events') events(save)
+        else if (save.subMenu === 'Notifications') notifications()
+            
 
         alert('Updated!')
 
@@ -86,24 +97,6 @@ const Edit = (props) => {
         setGalleryImage(null)
     } 
 
-    const handleEmailButton = () => {
-        fetch('/email', {method: "POST",})
-            .then(function(res){ console.log(res) })
-    }
-
-    const handleSMSButton = () => {
-        fetch('/sms', {method: "POST"})
-            .then(function(res){console.log(res)})
-    }
-
-    const handleSMSDDL = (e) => {
-        e.value !== 'select' && fetch('/ddl', {
-            method: "POST", 
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({option: e.value})
-        })
-        .then(function(res){console.log(res)})
-    }
 
     const handleGetImage = (e) => {setGalleryImage(e.target.files[0])}
 
@@ -122,7 +115,7 @@ const Edit = (props) => {
                         
                         <button key="cal" onClick={e => setSave({...save, subMenu: e.currentTarget.name})} className={TABS} name="Events">Upcoming Events</button>
 
-                        <button key="set" onClick={e => setSave({...save, subMenu: e.currentTarget.name})} className={TABS} name="Settings">Settings</button>
+                        <button key="set" onClick={e => setSave({...save, subMenu: e.currentTarget.name})} className={TABS} name="Notifications">Notifications</button>
                         
                     </div>
                 </div>
@@ -131,7 +124,26 @@ const Edit = (props) => {
             { global.loggedIn ? 
                 // Archives UI Console
                 save.subMenu === 'Archives' ? 
-                [<div className="flex sm:justify-center justify-between p-4">
+                [
+                    <div className="grid justify-center py-4">
+                        <label className="px-2 font-semibold" htmlFor="liveBtnOverride" >Override Live Stream Button text? </label>
+                        <select className=' border border-black' onChange={e => handleCheckboxOutcome(e)} >
+                            <option>No</option>
+                            <option>Yes</option>
+                        </select>
+                    </div>,
+                    // Is Override enabled? yes, show...no, hide.
+                    save.liveBtnOverride && [<div className="grid justify-center py-4">
+                        <label className="px-2 font-semibold" htmlFor="welcome" >Change To: </label>
+                        <input className="border border-black" id="welcome" type="text" size="20" 
+                            onChange={e => setSave({...save, buttonName: e.target.value})} />
+                    </div>,
+                
+                    <div className="grid justify-center py-4">
+                        <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" 
+                            onClick={notifications}>Save!</button>
+                    </div> ],  
+                <div className="flex sm:justify-center justify-between p-4">
                     <label className="sm:px-2 font-semibold" htmlFor="archive" >YouTube URL : </label>
                     <input className="border border-black" id="youtube" onChange={e => setSave({...save, vID: e.target.value})} />
                 </div>,
@@ -182,46 +194,8 @@ const Edit = (props) => {
                 ]
 
                 // Settings UI Console
-                : save.subMenu === 'Settings' ?
-                    [<div className="grid justify-center py-4">
-                        <label className="px-2 font-semibold" htmlFor="liveBtnOverride" >Override Live Stream Button text? </label>
-                        <select className=' border border-black' onChange={e => handleCheckboxOutcome(e)} >
-                            <option>No</option>
-                            <option>Yes</option>
-                        </select>
-                    </div>,
-                    // Is Override enabled? yes, show...no, hide.
-                    save.liveBtnOverride && [<div className="grid justify-center py-4">
-                        <label className="px-2 font-semibold" htmlFor="welcome" >Change To: </label>
-                        <input className="border border-black" id="welcome" type="text" size="20" 
-                            onChange={e => setSave({...save, buttonName: e.target.value})} />
-                    </div>,
-                
-                    <div className="grid justify-center py-4">
-                        <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" 
-                            onClick={handleSaveButton}>Save!</button>
-                    </div> ],
-
-                    <div className="py-4 grid justify-center">
-                        <label className="px-2 font-semibold" htmlFor="liveBtnOverride" >Send Email to subscribers?</label>
-                        <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" onClick={handleEmailButton}>Submit</button>
-                    </div>,
-
-                    <div className="py-4 grid justify-center">
-                        <label className="px-2 font-semibold" htmlFor="liveBtnOverride" >Send SMS to subscribers?</label>
-                        <select className=' border border-black' onChange={e => handleSMSDDL(e.target)} >
-                            <option>select</option>
-                            <option>liveStream</option>
-                            <option>eid</option>
-                            <option>test</option>
-                        </select>    
-                    </div>,
-                    <div className="py-4 grid justify-center">
-                        <label className="px-2 font-semibold" htmlFor="liveBtnOverride" >Send SMS to subscribers?</label>
-                        <button className="px-4 py-2 font-semibold text-white bg-green-500 rounded shadow hover:bg-green-700" onClick={handleSMSButton}>Submit</button>
-                    </div>
-
-                    ]
+                : save.subMenu === 'Notifications' ? <Notifications/>
+                    
                 : <div className="flex justify-center py-4"><p>Select an option to edit thy page</p></div> 
             : 
                [ <div className="flex justify-center py-4"><p>Login Access Required</p></div>,
