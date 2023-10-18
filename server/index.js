@@ -38,7 +38,7 @@ app.post('/edit', async(request, resolve) => {
   )
   .catch((error) => console.log(error))
   
- await db.updateDocument("firstClevelandMasjidDB","youtube-api-link", '63a0c5d9a54a5c33c046', {vID: request.body.vID, orderBy, results, id: getData.map((item) => item[0]), title: getData.map((item) => item[1])})
+ await db.updateDocument("firstClevelandMasjidDB","youtube-api-link", '63a0c5d9a54a5c33c046', {vID: request.body.vID, orderBy, results, id: getData.map((item) => item[0]), title: getData.map((item) => item[1].substring(0, 100))})
   
   return resolve.send("YouTube Archive Data Updated!")
 })
