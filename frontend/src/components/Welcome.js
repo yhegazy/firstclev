@@ -20,9 +20,10 @@ export default function MainPage(props) {
     useEffect(() => {
         const handleGetData = async() => {
             setIsLoading(true)                                                                 
-            const video = await db.getDocument("firstClevelandMasjidDB", "youtube-api-link", "63a0c5d9a54a5c33c046")
-            const events = await db.listDocuments("firstClevelandMasjidDB", "upcomingEvents", [Query.limit(100)])
-            const liveStreamOverride = await db.listDocuments("firstClevelandMasjidDB", "settings")
+            const video = await db.getDocument("fcmdb", "archives", "6586ad389ff1f7159562")
+            const events = await db.listDocuments("fcmdb", "events", [Query.limit(50)])
+           
+            const liveStreamOverride = await db.listDocuments("fcmdb", "settings")
             const getGallery = await storage.listFiles("events")
     
             setGallery(getGallery.files.map((img) => img.$id))
@@ -36,9 +37,7 @@ export default function MainPage(props) {
         }
 
         handleGetData() 
-
-      return () => {console.info("this will be logged on unmount")}
-    },[])
+    },[data])
 
     const [nextPrayer, setNextPrayer] = useState()
     useEffect(() => {

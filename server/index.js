@@ -19,11 +19,11 @@ app.get('*', function (_req, res) {
 });
 
 
-const {Client, Databases, Query} = require('node-appwrite')
+const {Client, Databases} = require('node-appwrite')
 
 const client  = new Client()
-  .setEndpoint('https://appwrite.firstcleveland.org/v1').setProject('fcm-appwrite').setKey(process.env.APPWRITE_KEY)
-const db = new Databases(client, 'firstClevelandMasjidDB')
+  .setEndpoint('https://cloud.appwrite.io/v1').setProject('6585ce45185a5ef8b25e').setKey(process.env.APPWRITE_KEY)
+const db = new Databases(client, 'fcmdb')
 
 
 //Fetch YouTube last 30 days & Update DB
@@ -37,8 +37,9 @@ app.post('/edit', async(request, resolve) => {
   .then((data) => data.items.forEach((item) => getData.push([item.id['videoId'], item.snippet['title']]))
   )
   .catch((error) => console.log(error))
+
   
- await db.updateDocument("firstClevelandMasjidDB","youtube-api-link", '63a0c5d9a54a5c33c046', {vID: request.body.vID, orderBy, results, id: getData.map((item) => item[0]), title: getData.map((item) => item[1].substring(0, 100))})
+ await db.updateDocument("fcmdb","archives", '6586ad389ff1f7159562', {link: request.body.vID, ytid: getData.map((item) => item[0]), title: getData.map((item) => item[1])})
   
   return resolve.send("YouTube Archive Data Updated!")
 })
@@ -56,38 +57,38 @@ app.post('/editGallery', async(request, resolve) => {
 */
 
 
-//MAILJECT API
-app.post('/email', async() => {
-  const Mailjet = require('node-mailjet');
-  const mailjet = new Mailjet({
-    apiKey: process.env.MJ_APIKEY_PUBLIC,
-    apiSecret: process.env.MJ_APIKEY_PRIVATE
-  });
+// //MAILJECT API
+// app.post('/email', async() => {
+//   const Mailjet = require('node-mailjet');
+//   const mailjet = new Mailjet({
+//     apiKey: process.env.MJ_APIKEY_PUBLIC,
+//     apiSecret: process.env.MJ_APIKEY_PRIVATE
+//   });
 
-  let data = []
-  let email = []
+//   let data = []
+//   let email = []
   
-  //BAD NAME:: class NewsletterSubscribers{}
-  data.push(await db.listDocuments("firstClevelandMasjidDB", "newsletter"))
-  //BAD NAME:: class Newsletter - add ability in frontend to update dataDump
-  const htmlMessage = await db.getDocument("firstClevelandMasjidDB", 'dataDump', "htmlMessage")
-  if(data.length > 0) data[0].documents.map((person) => email.push(person.email))
+//   //BAD NAME:: class NewsletterSubscribers{}
+//   data.push(await db.listDocuments("firstClevelandMasjidDB", "newsletter"))
+//   //BAD NAME:: class Newsletter - add ability in frontend to update dataDump
+//   const htmlMessage = await db.getDocument("firstClevelandMasjidDB", 'dataDump', "htmlMessage")
+//   if(data.length > 0) data[0].documents.map((person) => email.push(person.email))
   
-  email.map((recipient) => {
-    mailjet
-      .post('send', { version: 'v3.1' })
-      .request({
-        Messages: [{
-          From: { Email: "no-reply@firstcleveland.org", Name: "First Cleveland Masjid"},
-          To: [{Email: recipient}],
-          Subject: "First Cleveland Masjid Monthly Newsletter ",
-          HTMLPart: htmlMessage.htmlMessage
-        }]
-      }
-    )
-  })
+//   email.map((recipient) => {
+//     mailjet
+//       .post('send', { version: 'v3.1' })
+//       .request({
+//         Messages: [{
+//           From: { Email: "no-reply@firstcleveland.org", Name: "First Cleveland Masjid"},
+//           To: [{Email: recipient}],
+//           Subject: "First Cleveland Masjid Monthly Newsletter ",
+//           HTMLPart: htmlMessage.htmlMessage
+//         }]
+//       }
+//     )
+//   })
 
-});
+// });
 
 
 //Retrieve data from frontend SMS DDL
@@ -98,52 +99,54 @@ app.post('/ddl', async(req) => {
 })
 
 
-//Pulling from sms table
-app.post('/sms', async(request, response) => {
-  //retrieve live stream for dynamic insertion to smsMessage
-  const video = await db.getDocument("firstClevelandMasjidDB", "youtube-api-link", "63a0c5d9a54a5c33c046")
+
+// //Pulling from sms table
+// app.post('/sms', async(request, response) => {
+//   //retrieve live stream for dynamic insertion to smsMessage
+//   const video = await db.getDocument("firstClevelandMasjidDB", "youtube-api-link", "63a0c5d9a54a5c33c046")
  
-  //Frontend options messages are liveStream, Eid, Test. These msgs will eventually be stored in a db 
-  const quickyMsg = `Live Stream: https://youtube.com/live/wuNFM6ya1dQ
-    Donate at https://firstcleveland.org/
-    Received by mistake? Please text 2168006242 w/UNSUBSCRIBE. 
-  `
-  const test = `Salaam - This is just a test.`
-  const jummahMessage = `
-    Jummah Live Stream 1:30pET :  ${video.vID}
-    Donate: 
-    CashApp - $FirstCleveland
-    PayPal  - https://firstcleveland.org/
-    Zelle   - firstclevelandmosque131@gmail.com
-    Checks/Cash - 3613 East 131st Cleveland, OH 44120 
-    (Make Checks payable to: First Cleveland Mosque)
-    Received by mistake? Please text UNSUBSCRIBE to 2168006242
-  `
-  const eidMessage = ` ${request.body.date}    Takbir: ${request.body.takbir} ET     Prayer: ${request.body.salah} ET
-    Live Stream : ${video.vID}
-    Donate: 
-    CashApp - $FirstCleveland
-    PayPal  - https://firstcleveland.org/
-    Zelle   - firstclevelandmosque131@gmail.com
-    Checks/Cash - 3613 East 131st Cleveland, OH 44120 
-    (Make Checks payable to: First Cleveland Mosque)
-    Received by mistake? Please text UNSUBSCRIBE to 2168006242
-  `  
+//   //Frontend options messages are liveStream, Eid, Test. These msgs will eventually be stored in a db 
+//   const quickyMsg = `Live Stream: https://youtube.com/live/wuNFM6ya1dQ
+//     Donate at https://firstcleveland.org/
+//     Received by mistake? Please text 2168006242 w/UNSUBSCRIBE. 
+//   `
+//   const test = `Salaam - This is just a test.`
+//   const jummahMessage = `
+//     Jummah Live Stream 1:30pET :  ${video.vID}
+//     Donate: 
+//     CashApp - $FirstCleveland
+//     PayPal  - https://firstcleveland.org/
+//     Zelle   - firstclevelandmosque131@gmail.com
+//     Checks/Cash - 3613 East 131st Cleveland, OH 44120 
+//     (Make Checks payable to: First Cleveland Mosque)
+//     Received by mistake? Please text UNSUBSCRIBE to 2168006242
+//   `
+//   const eidMessage = ` ${request.body.date}    Takbir: ${request.body.takbir} ET     Prayer: ${request.body.salah} ET
+//     Live Stream : ${video.vID}
+//     Donate: 
+//     CashApp - $FirstCleveland
+//     PayPal  - https://firstcleveland.org/
+//     Zelle   - firstclevelandmosque131@gmail.com
+//     Checks/Cash - 3613 East 131st Cleveland, OH 44120 
+//     (Make Checks payable to: First Cleveland Mosque)
+//     Received by mistake? Please text UNSUBSCRIBE to 2168006242
+//   `  
 
-  const TWILIO_API = require('twilio')(process.env.TWILIO_ID, process.env.TWILIO_TOKEN)
-  const retrieve = async () => await db.listDocuments("firstClevelandMasjidDB", "sms", [Query.limit(100)])
-  const TO_NUMBER = await (await retrieve()).documents.map((tel) => tel.sms)
+//   const TWILIO_API = require('twilio')(process.env.TWILIO_ID, process.env.TWILIO_TOKEN)
+//   const retrieve = async () => await db.listDocuments("firstClevelandMasjidDB", "sms", [Query.limit(100)])
+//   const TO_NUMBER = await (await retrieve()).documents.map((tel) => tel.sms)
 
-  TWILIO_API.messages
-  .create({
-     body: jummahMessage,
-     from: process.env.TWILIO_NUMBER,
-     to: TO_NUMBER
-   })
-  .then(message => console.log(message.sid));
+//   TWILIO_API.messages
+//   .create({
+//      body: jummahMessage,
+//      from: process.env.TWILIO_NUMBER,
+//      to: TO_NUMBER
+//    })
+//   .then(message => console.log(message.sid));
 
 
-})
+// })
+
 
 
 app.listen(PORT, () => {

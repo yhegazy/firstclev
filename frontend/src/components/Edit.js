@@ -4,6 +4,8 @@ import { account, db, storage } from '../appwrite/appwriteConfig'
 import {v4 as uuidv4} from 'uuid' //to auto-generate unique ids
 import Notifications from './pages/Notifications'
 
+// import { handleLiveStreamBtnOverride } from './hooks/handleLiveStreamBtnOverride'
+
 const TABS = "bg-white hover:bg-gray-100 inline-block border-l border-t border-r rounded-t py-2 px-4 text-red-700 font-semibold shadow"
 
 const archives = (save) => {
@@ -17,22 +19,26 @@ const archives = (save) => {
 }
 
 const gallery = async(galleryImage) => {
+
+    // return fetch('/editGallery', {
+    //     method: "POST",
+    //     headers: {'Content-Type': 'application/json'},
+    //     body: JSON.stringify({uuid: uuidv4(), image: galleryImage, name: galleryImage.name, submenu: "gallery"})
+    // })
+    // .then((data) =>  data.status === 200 && alert('success'))
+    // .catch(error => console.error(error))
+
     await storage.createFile('images', galleryImage.name, galleryImage)
-    await db.createDocument("firstClevelandMasjidDB","gallery", uuidv4(), {imageName: galleryImage.name, submenu: "gallery"})
+    await db.createDocument("fcmdb","gallery", uuidv4(), {imageName: galleryImage.name, submenu: "gallery"})
 
     return;
 }
 
 const events = async(save) => {
     //override button
-    return await db.createDocument("firstClevelandMasjidDB","upcomingEvents", uuidv4(), {subMenu: save.subMenu, start: save.start, end: save.end, title: save.title, allDay: save.allDay})
+    return await db.createDocument("fcmdb","events", uuidv4(), {subMenu: save.subMenu, start: save.start, end: save.end, title: save.title, allDay: save.allDay})
 }
 
-
-const notifications = async(save) => {
-   return await db.updateDocument("firstClevelandMasjidDB","settings", "override", {liveBtnOverride: save.liveBtnOverride, buttonName: save.buttonName})
-        
-}
 
 
 const Edit = (props) => {
@@ -79,8 +85,7 @@ const Edit = (props) => {
             return (galleryImage &&  gallery(galleryImage)) ?? alert("error")
         }
         else if (save.subMenu === 'Events') events(save)
-        else if (save.subMenu === 'Notifications') notifications()
-            
+        // else if (save.subMenu === 'Notifications') handleLiveStreamBtnOverride(save, db)
 
         alert('Updated!')
 
@@ -125,16 +130,20 @@ const Edit = (props) => {
                         </select>
                     </div>,
                     // Is Override enabled? yes, show...no, hide.
-                    save.liveBtnOverride && [<div className="grid justify-center py-4">
-                        <label className="px-2 font-semibold" htmlFor="welcome" >Change To: </label>
-                        <input className="border border-black" id="welcome" type="text" size="20" 
-                            onChange={e => setSave({...save, buttonName: e.target.value})} />
-                    </div>,
-                
-                    <div className="grid justify-center py-4">
-                        <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" 
-                            onClick={notifications}>Save!</button>
-                    </div> ],  
+                    // save.liveBtnOverride && [
+                    //     <div className="grid justify-center py-4">
+                    //         <label className="px-2 font-semibold" htmlFor="welcome" >Change To: </label>
+                    //         <input className="border border-black" id="welcome" type="text" size="20" 
+                    //             onChange={e => setSave({...save, buttonName: e.target.value})} />
+                    //     </div>,
+                    
+                    //     <div className="grid justify-center py-4">
+                    //         <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" 
+                    //             onClick={handleLiveStreamBtnOverride(save, db)}>Save!</button>
+                    //     </div> ,
+                    //     <hr className="border-black"/>
+                    // ],  
+                    
                 <div className="flex sm:justify-center justify-between p-4">
                     <label className="sm:px-2 font-semibold" htmlFor="archive" >YouTube URL : </label>
                     <input className="border border-black" id="youtube" onChange={e => setSave({...save, vID: e.target.value})} />
