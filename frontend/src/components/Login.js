@@ -4,7 +4,7 @@ import {account} from '../appwrite/appwriteConfig'
 
 const Login = (props) => {
     const navigate = useNavigate()
-    const {global, onLoggedIn} = props
+    const {onLoggedIn} = props
     const [user, setUser] = useState({email:"", password:""})
 
     const loginUser = async(e) => {
