@@ -82,6 +82,7 @@ const FirstClevelandPrayerTimes = () => {
 
                 {/* Salat Times  */}
                 {salahTimes.map((item) => {return  <div className="text-xl md:text-2xl w-full grid grid-cols-2 text-center py-4">
+
                     <p>{item.name}</p>
                     <p>{item.time}</p>
                 </div>})}

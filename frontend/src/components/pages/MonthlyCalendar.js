@@ -52,3 +52,4 @@ const MonthlyCalendar = ({prayerTimes, coordinates, params, onToggle, toggle=fal
 }
 
 export default MonthlyCalendar
+
