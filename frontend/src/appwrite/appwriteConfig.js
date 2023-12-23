@@ -8,7 +8,7 @@ export const account = new Account(client)
 
 
 //Database
-export const db = new Databases(client, 'fcmdb')
+export const db = new Databases(client, 'fcmdb') 
 
 //Storage
 export const storage = new Storage(client)
