@@ -37,6 +37,7 @@ app.post('/edit', async(request, resolve) => {
   .then((data) => data.items.forEach((item) => getData.push([item.id['videoId'], item.snippet['title']]))
   )
   .catch((error) => console.log(error))
+
   
  await db.updateDocument("fcmdb","archives", '6586ad389ff1f7159562', {link: request.body.vID, ytid: getData.map((item) => item[0]), title: getData.map((item) => item[1])})
   
@@ -98,6 +99,7 @@ app.post('/ddl', async(req) => {
 })
 
 
+
 // //Pulling from sms table
 // app.post('/sms', async(request, response) => {
 //   //retrieve live stream for dynamic insertion to smsMessage
@@ -144,6 +146,7 @@ app.post('/ddl', async(req) => {
 
 
 // })
+
 
 
 app.listen(PORT, () => {
