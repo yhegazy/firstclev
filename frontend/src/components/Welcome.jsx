@@ -12,14 +12,13 @@ export default function MainPage(props) {
     const navigate = useNavigate();
     const [data, setData] = useState({ytLinks: "", events: [], buttonTitle: ""})
     const [gallery, setGallery] = useState([])
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
 
     const handleClickMoreButton = () => navigate("/events")
 
     
     useEffect(() => {
-        const handleGetData = async() => {
-            setIsLoading(true)                                                                 
+        const handleGetData = async() => {                                        
             const video = await db.getDocument("fcmdb", "archives", "6586ad389ff1f7159562")
             const events = await db.listDocuments("fcmdb", "events", [Query.limit(50)])
            
@@ -28,8 +27,8 @@ export default function MainPage(props) {
     
             setGallery(getGallery.files.map((img) => img.$id))
             
-            setData({...data, 
-                ytLinks: video.vID, 
+            setData({ 
+                ytLinks: video.link, 
                 buttonTitle: liveStreamOverride.documents.map((item) => item.buttonName), 
                 events: events.documents.map((item) => item).reverse(),
             })
@@ -37,7 +36,7 @@ export default function MainPage(props) {
         }
 
         handleGetData() 
-    },[data])
+    },[]) 
 
     const [nextPrayer, setNextPrayer] = useState()
     useEffect(() => {
@@ -95,7 +94,7 @@ export default function MainPage(props) {
             </div>
             <div className="max-w-3xl ">
                 <div className="lg:contents hidden">
-                <h1 className=' underline text-center text-2xl py-4 font-bold text-white'>In the Community</h1>
+                <h1 className=' underline text-center text-2xl py-4 font-bold text-white  '>In the Community</h1>
                 <Carousel adaptiveHeight={false} enableKeyboardControls={true} wrapAround={true} slidesToShow={1}  cellSpacing={250}>
                     {gallery.map((item) =>  <img src={storage.getFilePreview("events", item)} className="" alt="none"/> )}
                 </Carousel>

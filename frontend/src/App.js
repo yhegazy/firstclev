@@ -32,8 +32,7 @@ function App() {
 
     getMainImage();
 
-    return () => {}
-  },[])
+  },[global])
 
     
   //This is necessary, otherwise some component layouts will overlap the menu.
