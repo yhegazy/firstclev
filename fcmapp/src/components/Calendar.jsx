@@ -10,7 +10,7 @@ const Calendar = (props) => {
 
     const getCalendarData = useCallback(async() => {
         setIsLoading(true)
-        const getEvents = db.listDocuments("firstClevelandMasjidDB", "upcomingEvents", [Query.limit(100)])
+        const getEvents = db.listDocuments("fcmdb", "events", [Query.limit(100)])
         getEvents.then(
             function(response) {setEvents({...events, event:response.documents})}, function(error) {console.log(error)}
         )
