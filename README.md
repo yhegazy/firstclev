@@ -18,6 +18,7 @@
 <p><code>nano server/index.js</code> and change the PORT to your choosing. Default is set for 4000</p>
 
 <p>Next, install pm2 and nginx</p>
+ 
  ```bash
  apt install nginx
  npm install pm2
