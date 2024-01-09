@@ -35,6 +35,7 @@ const Calendar = (props) => {
        : !props.flag ? <div className="px-4 py-4">
             <FullCalendar
             plugins={[listPlugin  ]}
+            timeZone='America/Detroit'
             initialView="listMonth"
             events={events.event}
             height={600}
