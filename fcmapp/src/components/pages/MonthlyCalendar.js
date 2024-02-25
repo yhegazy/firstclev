@@ -40,7 +40,7 @@ const MonthlyCalendar = ({prayerTimes, coordinates, params, onToggle, toggle=fal
                     <td>{getNextPrayerTime(prayer[1].fajr)}</td>
                     <td>{getNextPrayerTime(prayer[1].dhuhr)}</td>
                     <td>{getNextPrayerTime(prayer[1].asr)}</td>
-                    <td>{getNextPrayerTime(prayer[1].maghreb)}</td>
+                    <td>{getNextPrayerTime(prayer[1].maghrib)}</td>
                     <td>{getNextPrayerTime(prayer[1].isha)}</td>
                 </tr>)}
             </tbody>
