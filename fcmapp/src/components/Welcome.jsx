@@ -15,7 +15,6 @@ export default function MainPage(props) {
     const [isLoading, setIsLoading] = useState(true)
 
     const handleClickMoreButton = () => navigate("/events")
-
     
     useEffect(() => {
         const handleGetData = async() => {                                        
