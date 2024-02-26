@@ -12,6 +12,7 @@ import YouTubeArchives from './components/Archives'
 import FirstClevelandPrayerTimes from './components/PrayerTimes'
 import Login from './components/Login'
 import Galleries from './components/Gallery'
+import Ramadan from './components/pages/Ramadan/Ramadan'
 
 //DB
 import { storage } from './appwrite/appwriteConfig'
@@ -54,6 +55,8 @@ function App() {
           <Route path="/gallery" element={ <Galleries global={global} flag={nav} />} />
           <Route path="/admin" element={ <Login global={global}  onLoggedIn={handleLoggedIn}/>} />
             <Route path="/edit" element={ <Edit global={global}  onLoggedIn={handleLoggedIn}/>} />
+          
+          <Route path="/ramadan" element={ <Ramadan global={global} />} />
            
         </Routes>
       </BrowserRouter>
