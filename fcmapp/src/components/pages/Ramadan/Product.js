@@ -7,10 +7,8 @@ export default function Product(props) {
   );
   const quantity = productFromCart ? productFromCart.quantity : 0;
 
-  console.log(product)
-
   return (
-    <div className="product">
+    <div className="product my-5">
       <div className="product-image-container">
 
         <Link to={product.src}>
@@ -30,7 +28,7 @@ export default function Product(props) {
         )}
       </div>
       <div className="product-info">
-        <h3>{product.name}</h3>
+        <h3>{(product.id).charAt(0).toUpperCase() + (product.id).slice(1)} Edition</h3>
         <p>{product.description}</p>
       </div>
       <div className="product-checkout">

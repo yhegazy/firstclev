@@ -86,25 +86,29 @@ const Ramadan = () => {
   }
 
   return <>
-    <div className="products-layout">
-      <h1>Ramadan Planners 2024</h1>
-      <p>Take a look at our products</p>
-      <div className="products-grid">
-        {loadingPage && <p>Loading...</p>}
-        {products.map((product) => {
-          return (
-            <Product
-              key={product.id}
-              product={product}
-              cart={cart}
-              onProductAdd={handleProductAdd}
-              onProductDelete={handleProductDelete}
-            />
-          );
-        })}
-      </div>
+  {loadingPage && <p>Loading...</p>}
+  <div className='w-full flex flex-col items-center'>
+    <div className="pb-8">
+      <p className="text-4xl font-semibold inline border-b-4 border-lime-600"> Ramadan Planner 2024 - Purchase Page</p>
     </div>
-    {/* {loadingPage ? <p>Loading...</p> : <ProductsList products={products} />} */}
+    <div className="pb-8">
+      <p className="text-2xl font-normal inline "> Take a look at our products</p>
+    </div>
+    <div>
+      {products.map((product) => {
+        return (
+          <Product
+            key={product.id}
+            product={product}
+            cart={cart}
+            onProductAdd={handleProductAdd}
+            onProductDelete={handleProductDelete}
+          />
+        );
+      })}  
+    </div>   
+ 
+  </div>
   </>
 }
 
