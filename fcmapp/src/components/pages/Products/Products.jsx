@@ -4,7 +4,7 @@ import { db, storage } from '../../../appwrite/appwriteConfig';
 
 import './index.css'
 
-const Ramadan = () => {
+const Products = () => {
   const [products, setProducts] = React.useState([])
   const [loadingPage, setLoadingPage] = React.useState(true) 
 
@@ -91,11 +91,11 @@ const Ramadan = () => {
     <div className="pb-8">
       <p className="text-4xl font-semibold inline border-b-4 border-lime-600"> Ramadan Planner 2024 - Purchase Page</p>
     </div>
-    <div className="pb-8">
-      <p className="text-2xl font-normal inline "> Take a look at our products</p>
-    </div>
+    {products.length > 0 ? [<div className="pb-8">
+      <p className="text-2xl font-normal inline "> Take a look at our merchandise</p>
+    </div>,
     <div>
-      {products.map((product) => {
+       {products.map((product) => {
         return (
           <Product
             key={product.id}
@@ -105,11 +105,16 @@ const Ramadan = () => {
             onProductDelete={handleProductDelete}
           />
         );
-      })}  
-    </div>   
- 
+      })
+      }  
+    </div>,
+    <button className="bg-emerald-600 hover:bg-white hover:text-green-700 text-white font-bold py-2 px-4 border border-green-700 rounded text-xl outline outline-1 outline-black" >
+      Complete your order today!
+    </button>
+    ]
+  : <p>Store is empty.</p>}
   </div>
   </>
 }
 
-export default Ramadan
+export default Products

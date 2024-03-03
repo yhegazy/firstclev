@@ -15,7 +15,7 @@ export default function MainPage(props) {
     const [isLoading, setIsLoading] = useState(true)
 
     const handleClickMoreButton = () => navigate("/events")
-    const handleRamadanPlannerButton = () => navigate('/ramadan')
+    const handleRamadanPlannerButton = () => navigate('/products')
 
     
     useEffect(() => {
