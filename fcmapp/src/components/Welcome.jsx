@@ -15,6 +15,8 @@ export default function MainPage(props) {
     const [isLoading, setIsLoading] = useState(true)
 
     const handleClickMoreButton = () => navigate("/events")
+    const handleRamadanPlannerButton = () => navigate('/products')
+
     
     useEffect(() => {
         const handleGetData = async() => {                                        
@@ -51,7 +53,7 @@ export default function MainPage(props) {
 
     const handleDonateButton = () => {
         //navigate('/donate')
-        return window.open('https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4LH7ELGSGAKYU&source=url')
+        return window.open('https://www.paypal.com/donate/?hosted_button_id=4LH7ELGSGAKYU')
     }
 
     return <>
@@ -71,6 +73,11 @@ export default function MainPage(props) {
 
                     <button className="p-2 my-5 w-1/2 text-white bg-green-500 hover:bg-green-700 rounded" onClick={() => handleDonateButton()} >Donate to First Cleveland Masjid</button>
                 </div>
+
+                {/* Ramadan Planner */}
+                <button className="p-2 my-5 w-full text-white hover:text-black hover:bg-stone-300 bg-yellow-500 rounded text-2xl font-semibold" onClick={handleRamadanPlannerButton} >
+                    Purchase Ramadan Planner 2024
+                </button>
                 
                 {/* Events */}
                 <div className="my-5 w-full text-base text-center px-2 bg-gray-300 shadow-lg">

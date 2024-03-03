@@ -12,6 +12,7 @@ import YouTubeArchives from './components/Archives'
 import FirstClevelandPrayerTimes from './components/PrayerTimes'
 import Login from './components/Login'
 import Galleries from './components/Gallery'
+import Products from './components/pages/Products/Products'
 
 //DB
 import { storage } from './appwrite/appwriteConfig'
@@ -20,9 +21,10 @@ import { storage } from './appwrite/appwriteConfig'
 import './css/general.css'
 
 function App() {
-  const [global, setGlobal] = useState({darkMode:false, loggedIn: false, image: ''})
+  const [global, setGlobal] = useState({darkMode:false, loggedIn: false, image: '', storeClosed: false})
 
   const handleLoggedIn = (value) => setGlobal({...global, loggedIn: value})
+  const handleStoreClosed = (value) => setGlobal({...global, storeClosed: value})
 
   useEffect(() => {
     const getMainImage = async () => {
@@ -54,7 +56,8 @@ function App() {
           <Route path="/gallery" element={ <Galleries global={global} flag={nav} />} />
           <Route path="/admin" element={ <Login global={global}  onLoggedIn={handleLoggedIn}/>} />
             <Route path="/edit" element={ <Edit global={global}  onLoggedIn={handleLoggedIn}/>} />
-           
+          
+          <Route path="/products" element={ <Products global={global} onStoreClosed={handleStoreClosed} />} />
         </Routes>
       </BrowserRouter>
     </div>
