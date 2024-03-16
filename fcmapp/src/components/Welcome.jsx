@@ -6,7 +6,7 @@ import { Coordinates, CalculationMethod, PrayerTimes, Madhab } from 'adhan';
 //Add edit section for main page to easily add/remove "In the Community" images
 
 export default function MainPage(props) { 
-    const {global, flag, listEvents, liveStreamOverride, getGalleryPreview, getVideo} = props
+    const {global, flag, listEvents, liveStreamOverride, getEventsPreview, getVideo} = props
     const navigate = useNavigate();
     const [data, setData] = useState({videoLink: "", events: [], buttonTitle: ""})
     const [isLoading, setIsLoading] = useState(true)
@@ -88,9 +88,9 @@ export default function MainPage(props) {
             </div>
             <div className="max-w-3xl ">
                 <div className="lg:contents hidden">
-                <h1 className=' underline text-center text-2xl py-4 font-bold text-white  '>In the Community</h1>
+                <h1 className=' underline text-center text-2xl py-4 font-bold text-white'>In the Community</h1>
                 <Carousel adaptiveHeight={false} enableKeyboardControls={true} wrapAround={true} slidesToShow={1}  cellSpacing={250}>
-                    {getGalleryPreview().map((item) =>  <img src={item} className="" alt="none"/> )}
+                    {getEventsPreview().map((item) =>  <img src={item} className="" alt="none"/> )}
                 </Carousel>
             </div>
             </div>

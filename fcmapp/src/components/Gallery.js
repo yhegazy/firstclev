@@ -1,8 +1,10 @@
 import {useEffect, useState} from 'react'
-import {storage} from '../appwrite/appwriteConfig'
+import {getGalleryPreview, storage} from '../appwrite/appwriteConfig'
 import { Gallery } from "react-grid-gallery";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+
+//TODO: Fetch DB from backend instead of front end.
 
 const Galleries = (props) => {
     const [gallery, setGallery] = useState({images: []})
@@ -14,8 +16,7 @@ const Galleries = (props) => {
     useEffect(() => {
         const getGallery = async() => {
             setIsLoading(true)
-            const getGallery = await storage.listFiles("images")
-            setGallery({...gallery, images: getGallery.files})
+            setGallery({...gallery, images: props.getGallery.files})
             setIsLoading(false)
         }
         getGallery()
@@ -25,6 +26,7 @@ const Galleries = (props) => {
 
     //set gallery so lightbox and react grid gallery can read it.
     const images = []
+    // getGalleryPreview().map((item) =>  console.log({src: item}) )
     gallery.images.map((item) =>  images.push({src: storage.getFilePreview("images", item.$id)}))
    
     const handleClick = (index) => setIndex((index))
