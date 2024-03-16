@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
-import {db} from '../appwrite/appwriteConfig'
-import {Query} from 'appwrite'
+import {listEvents} from '../appwrite/appwriteConfig'
 import FullCalendar from '@fullcalendar/react'
 import listPlugin from '@fullcalendar/list';
+
 
 const Calendar = (props) => {
     const [events, setEvents] = useState({event: ''})
@@ -10,8 +10,7 @@ const Calendar = (props) => {
 
     const getCalendarData = useCallback(async() => {
         setIsLoading(true)
-        const getEvents = db.listDocuments("fcmdb", "events", [Query.limit(100)])
-        getEvents.then(
+        listEvents(100).then(
             function(response) {setEvents({...events, event:response.documents})}, function(error) {console.log(error)}
         )
 
