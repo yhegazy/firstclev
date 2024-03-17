@@ -1,13 +1,9 @@
 import {useEffect, useState} from 'react'
-import {getVideo} from '../appwrite/appwriteConfig'
-
-
-//TODO: Fetch DB from backend instead of front end.
-
 
 const hrefURL = 'https://www.youtube.com/watch?v='
 
-const YouTubeArchives = () => {
+const YouTubeArchives = (props) => {
+    const {getVideo} = props
     const [title, setTitle] = useState([])
     const [id, setID] = useState([])
     const [isLoading, setIsLoading] = useState(true)

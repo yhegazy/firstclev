@@ -45,7 +45,7 @@ function App() {
           <Route path="/events" element={ <Calendar global={global} flag={nav}  listEvents={listEvents} onLoggedIn={handleLoggedIn} />} />
           <Route path="/about" element={ <AboutUs />}/>
           <Route path="/contact" element={ <Contact />} />
-          <Route path="/archives" element={ <YouTubeArchives global={global}  onLoggedIn={handleLoggedIn}/>} />
+          <Route path="/archives" element={ <YouTubeArchives global={global} getVideo={getVideo}  onLoggedIn={handleLoggedIn}/>} />
           <Route path="/salah" element={ <SalahTimes global={global} />} />
           <Route path="/gallery" element={ <Galleries global={global} flag={nav} listFilesPreview={listFilesPreview}/>} />
           <Route path="/admin" element={ <Login global={global}  onLoggedIn={handleLoggedIn}/>} />

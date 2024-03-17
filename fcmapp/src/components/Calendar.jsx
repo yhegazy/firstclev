@@ -1,37 +1,28 @@
-import { useCallback, useEffect, useState } from 'react'
-import {listEvents} from '../appwrite/appwriteConfig'
+import {useEffect, useState } from 'react'
 import FullCalendar from '@fullcalendar/react'
 import listPlugin from '@fullcalendar/list';
 
 
 const Calendar = (props) => {
+    const {flag, listEvents} = props
     const [events, setEvents] = useState({event: ''})
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
 
-    const getCalendarData = useCallback(async() => {
-        setIsLoading(true)
-        listEvents(100).then(
-            function(response) {setEvents({...events, event:response.documents})}, function(error) {console.log(error)}
-        )
-
-        setIsLoading(false)
-    },[events])
-    
-   
     useEffect(() => {
+        const getCalendarData = async() => {
+            listEvents(100).then((response) => {setEvents({...events, event:response.documents})}, (error) => {console.log(error)})
+            setIsLoading(false)
+        }
         getCalendarData()
 
-        return () => {console.info("This will be logged on unmount")}
     },[])
-
-    console.log(events)
- 
+     
     return <>
         <div className="w-full flex flex-col items-center pb-8">
             <p className="text-4xl font-semibold inline border-b-4 border-lime-600"> Calendar</p>
         </div>
        {isLoading ? <p>Loading...</p> 
-       : !props.flag ? <div className="px-4 py-4">
+       : !flag ? <div className="px-4 py-4">
             <FullCalendar
             plugins={[listPlugin  ]}
             timeZone='America/Detroit'
