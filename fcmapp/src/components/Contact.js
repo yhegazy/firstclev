@@ -1,9 +1,9 @@
 const Contact = () => {
-    const endpoint = "https://getform.io/f/69665be7-b019-4a66-af6b-ef22391f5d35"
+    // const endpoint = "https://getform.io/f/69665be7-b019-4a66-af6b-ef22391f5d35"
 
     return <div className="w-full flex flex-col items-center">
             <div className="max-w-[1000px] mx-auto p-8 flex flex-col items-center justify-center w-full h-full sm:text-center">
-	            <form action={endpoint}  method="POST" className="flex flex-col max-w-[600px] w-full">
+	            <form  method="POST" className="flex flex-col max-w-[600px] w-full">
                     <div className="w-full flex flex-col items-center pb-8">
                         <p className="text-4xl font-semibold inline border-b-4 border-lime-600"> Contact</p>
                     </div>
