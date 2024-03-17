@@ -1,35 +1,26 @@
 import { useEffect, useState } from 'react';
 import {useNavigate} from 'react-router-dom'
-import { db, storage } from '../appwrite/appwriteConfig';
-import {Query} from 'appwrite'
 import Carousel from 'nuka-carousel'
 import { Coordinates, CalculationMethod, PrayerTimes, Madhab } from 'adhan';
 
 //Add edit section for main page to easily add/remove "In the Community" images
 
 export default function MainPage(props) { 
-    const {global, flag} = props
+    const {global, flag, listEvents, liveStreamOverride, getVideo, listFilesPreview} = props
     const navigate = useNavigate();
-    const [data, setData] = useState({ytLinks: "", events: [], buttonTitle: ""})
-    const [gallery, setGallery] = useState([])
+    const [data, setData] = useState({videoLink: "", events: [], buttonTitle: "", preview: []})
     const [isLoading, setIsLoading] = useState(true)
 
     const handleClickMoreButton = () => navigate("/events")
-    
+    const handleRamadanPlannerButton = () => navigate('/products')
+
     useEffect(() => {
         const handleGetData = async() => {                                        
-            const video = await db.getDocument("fcmdb", "archives", "6586ad389ff1f7159562")
-            const events = await db.listDocuments("fcmdb", "events", [Query.limit(50)])
-           
-            const liveStreamOverride = await db.listDocuments("fcmdb", "settings")
-            const getGallery = await storage.listFiles("events")
-    
-            setGallery(getGallery.files.map((img) => img.$id))
-            
             setData({ 
-                ytLinks: video.link, 
+                videoLink: getVideo.link, 
                 buttonTitle: liveStreamOverride.documents.map((item) => item.buttonName), 
-                events: events.documents.map((item) => item).reverse(),
+                events: (await listEvents(50)).documents.map((item) => item).reverse(),
+                preview: (await listFilesPreview("events").then(item => item))
             })
             setIsLoading(false)
         }
@@ -49,10 +40,9 @@ export default function MainPage(props) {
         setNextPrayer(prayerTimes.timeForPrayer(next))
     },[])   
 
-    const handleDonateButton = () => {
-        //navigate('/donate')
-        return window.open('https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4LH7ELGSGAKYU&source=url')
-    }
+    const handleDonateButton = () => window.open('https://www.paypal.com/donate/?hosted_button_id=4LH7ELGSGAKYU')
+
+    const handleLiveStreamButton = () => window.open(data.videoLink)
 
     return <>
         <div className="w-full h-full flex flex-col static" style={{ backgroundImage: `url(${global.image})`, backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed', backgroundSize: 'cover', height: '100%'}}>
@@ -67,10 +57,15 @@ export default function MainPage(props) {
 
                 {/* Donamtion & Live Stream */}
                 <div className='flex justify-evenly w-full text-center sm:text-base text-sm space-x-4'>
-                    <button className="w-1/2 p-2 my-5 text-white bg-blue-500 hover:bg-indigo-700 rounded "><a href={data.ytLinks}  rel="noreferrer" target="_blank">{data.buttonTitle} </a></button>
+                    <button className="w-1/2 p-2 my-5 text-white bg-blue-500 hover:bg-indigo-700 rounded " onClick={()  => handleLiveStreamButton()}>{data.buttonTitle}</button>
 
                     <button className="p-2 my-5 w-1/2 text-white bg-green-500 hover:bg-green-700 rounded" onClick={() => handleDonateButton()} >Donate to First Cleveland Masjid</button>
                 </div>
+
+                {/* Ramadan Planner */}
+                <button className="p-2 my-5 w-full text-white hover:text-black hover:bg-stone-300 bg-yellow-500 rounded text-2xl font-semibold" onClick={handleRamadanPlannerButton} >
+                    Purchase Ramadan Planner 2024
+                </button>
                 
                 {/* Events */}
                 <div className="my-5 w-full text-base text-center px-2 bg-gray-300 shadow-lg">
@@ -93,9 +88,9 @@ export default function MainPage(props) {
             </div>
             <div className="max-w-3xl ">
                 <div className="lg:contents hidden">
-                <h1 className=' underline text-center text-2xl py-4 font-bold text-white  '>In the Community</h1>
+                <h1 className=' underline text-center text-2xl py-4 font-bold text-white'>In the Community</h1>
                 <Carousel adaptiveHeight={false} enableKeyboardControls={true} wrapAround={true} slidesToShow={1}  cellSpacing={250}>
-                    {gallery.map((item) =>  <img src={storage.getFilePreview("events", item)} className="" alt="none"/> )}
+                    {data.preview.map((item) => <img src={item} alt="none"/> )} 
                 </Carousel>
             </div>
             </div>

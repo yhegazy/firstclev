@@ -1,5 +1,6 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import {useEffect, useState} from 'react'
+import { listEvents, listFilesPreview, liveStreamOverride, getVideo } from './appwrite/appwriteConfig';
 
 //Components
 import Navbar from './components/Navbar'
@@ -9,9 +10,10 @@ import MainPage from './components/Welcome'
 import AboutUs from './components/About';
 import Contact from './components/Contact'
 import YouTubeArchives from './components/Archives'
-import FirstClevelandPrayerTimes from './components/PrayerTimes'
+import SalahTimes from './PrayerCalendar/PrayerTimes'
 import Login from './components/Login'
 import Galleries from './components/Gallery'
+
 
 //DB
 import { storage } from './appwrite/appwriteConfig'
@@ -24,6 +26,7 @@ function App() {
 
   const handleLoggedIn = (value) => setGlobal({...global, loggedIn: value})
 
+  //TODO: Retrieve DB from backend through fetch.
   useEffect(() => {
     const getMainImage = async () => {
       const mainpage = await storage.getFilePreview("images", "mainpage")
@@ -45,13 +48,14 @@ function App() {
       <BrowserRouter>
         <Navbar global={global} onLoggedIn={handleLoggedIn} onNavClick={handleNavClick} nav={nav} id="nav" />   
         <Routes> 
-          <Route path="/" element={ <MainPage global={global} flag={nav}   onLoggedIn={handleLoggedIn}  id="main"/>} />
-          <Route path="/events" element={ <Calendar global={global} flag={nav}  onLoggedIn={handleLoggedIn} />} />
+          <Route path="/" element={ <MainPage global={global} flag={nav}  onLoggedIn={handleLoggedIn} listEvents={listEvents} liveStreamOverride={liveStreamOverride} getVideo={getVideo} listFilesPreview={listFilesPreview} id="main"/>} />
+          
+          <Route path="/events" element={ <Calendar global={global} flag={nav}  listEvents={listEvents} onLoggedIn={handleLoggedIn} />} />
           <Route path="/about" element={ <AboutUs />}/>
           <Route path="/contact" element={ <Contact />} />
           <Route path="/archives" element={ <YouTubeArchives global={global}  onLoggedIn={handleLoggedIn}/>} />
-          <Route path="/salah" element={ <FirstClevelandPrayerTimes global={global} />} />
-          <Route path="/gallery" element={ <Galleries global={global} flag={nav} />} />
+          <Route path="/salah" element={ <SalahTimes global={global} />} />
+          <Route path="/gallery" element={ <Galleries global={global} flag={nav} listFilesPreview={listFilesPreview}/>} />
           <Route path="/admin" element={ <Login global={global}  onLoggedIn={handleLoggedIn}/>} />
             <Route path="/edit" element={ <Edit global={global}  onLoggedIn={handleLoggedIn}/>} />
            

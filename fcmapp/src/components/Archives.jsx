@@ -1,5 +1,8 @@
 import {useEffect, useState} from 'react'
-import {db} from '../appwrite/appwriteConfig'
+import {getVideo} from '../appwrite/appwriteConfig'
+
+
+//TODO: Fetch DB from backend instead of front end.
 
 
 const hrefURL = 'https://www.youtube.com/watch?v='
@@ -11,10 +14,8 @@ const YouTubeArchives = () => {
 
     useEffect(() => {  
         const getData = async() => {
-            const video = await db.getDocument("fcmdb", "archives", "6586ad389ff1f7159562")
-               
-            setTitle(video.title)
-            setID(video.ytid)  
+            setTitle(getVideo.title)
+            setID(getVideo.ytid)  
             setIsLoading(false)    
         }
         getData();
