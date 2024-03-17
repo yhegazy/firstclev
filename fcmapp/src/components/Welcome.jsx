@@ -63,9 +63,9 @@ export default function MainPage(props) {
                 </div>
 
                 {/* Ramadan Planner */}
-                <button className="p-2 my-5 w-full text-white hover:text-black hover:bg-stone-300 bg-yellow-500 rounded text-2xl font-semibold" onClick={handleRamadanPlannerButton} >
+                {/* <button className="p-2 my-5 w-full text-white hover:text-black hover:bg-stone-300 bg-yellow-500 rounded text-2xl font-semibold" onClick={handleRamadanPlannerButton} >
                     Purchase Ramadan Planner 2024
-                </button>
+                </button> */}
                 
                 {/* Events */}
                 <div className="my-5 w-full text-base text-center px-2 bg-gray-300 shadow-lg">
