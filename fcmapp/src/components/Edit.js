@@ -2,9 +2,10 @@ import {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { account, db, storage } from '../appwrite/appwriteConfig'
 import {v4 as uuidv4} from 'uuid' //to auto-generate unique ids
-import Notifications from './pages/Notifications'
+import Notifications from '../Notifications/Notifications'
 
 // import { handleLiveStreamBtnOverride } from './hooks/handleLiveStreamBtnOverride'
+//TODO: Build a better layout. Clean this code base up.
 
 const TABS = "bg-white hover:bg-gray-100 inline-block border-l border-t border-r rounded-t py-2 px-4 text-red-700 font-semibold shadow"
 

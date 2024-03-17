@@ -1,8 +1,8 @@
 import {useEffect, useMemo, useState} from 'react'
 import { Coordinates, CalculationMethod, PrayerTimes, Madhab } from 'adhan';
-import MonthlyCalendar from './pages/MonthlyCalendar';
+import MonthlyCalendar from './MonthlyCalendar';
 
-const FirstClevelandPrayerTimes = () => {   
+const SalahTimes = () => {   
     const [toggle, setToggle] = useState(false)
 
     const date = useMemo(() => new Date(), []);
@@ -96,4 +96,4 @@ const FirstClevelandPrayerTimes = () => {
     </>
 }
 
-export default FirstClevelandPrayerTimes
+export default SalahTimes

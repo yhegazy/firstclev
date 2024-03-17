@@ -18,7 +18,7 @@ app.get('/*', function (_req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-
+ //create a fetch request to retrieve appwrite's storeClosed from settings. create a new setting called "Is the Store Closed?" Default value is false. 
 const {Client, Databases} = require('node-appwrite')
 
 const client  = new Client()
