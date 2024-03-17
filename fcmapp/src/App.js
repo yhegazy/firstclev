@@ -1,6 +1,6 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import {useEffect, useState} from 'react'
-import { listEvents, listFilesPreview, liveStreamOverride, getVideo } from './appwrite/appwriteConfig';
+import { listEvents, listFilesPreview, liveStreamOverride, getVideo, getBackgroundImage } from './appwrite/appwriteConfig';
 
 //Components
 import Navbar from './components/Navbar'
@@ -15,9 +15,6 @@ import Login from './components/Login'
 import Galleries from './components/Gallery'
 
 
-//DB
-import { storage } from './appwrite/appwriteConfig'
-
 //CSS
 import './css/general.css'
 
@@ -25,13 +22,8 @@ function App() {
   const [global, setGlobal] = useState({darkMode:false, loggedIn: false, image: ''})
 
   const handleLoggedIn = (value) => setGlobal({...global, loggedIn: value})
-
-  //TODO: Retrieve DB from backend through fetch.
   useEffect(() => {
-    const getMainImage = async () => {
-      const mainpage = await storage.getFilePreview("images", "mainpage")
-      setGlobal({...global, image: mainpage})
-    }
+    const getMainImage = async() => setGlobal({...global, image: await getBackgroundImage("images", "mainpage")})
 
     getMainImage();
 

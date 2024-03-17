@@ -17,11 +17,16 @@ export const listEvents = async(limitor) => await db.listDocuments("fcmdb", "eve
 export const liveStreamOverride = await db.listDocuments("fcmdb", "settings")
 
 
-//Switcher options: events, images
-const listFiles = async(switcher) =>  await storage.listFiles(switcher)
-export const listFilesPreview = async(switcher) => {
-    const file = (await listFiles(switcher)).files.map((img) => img.$id)
-    return file.map((item) => storage.getFilePreview(switcher, item))
+//bucketID options: events, images
+const listFiles = async(bucketID) =>  await storage.listFiles(bucketID)
+export const listFilesPreview = async(bucketID) => {
+    const file = (await listFiles(bucketID)).files.map((img) => img.$id)
+    return file.map((item) => storage.getFilePreview(bucketID, item))
+}
+
+export const getBackgroundImage = async(bucketID, fileID) => {
+    return  storage.getFilePreview(bucketID, fileID)
+
 }
 
 

@@ -12,7 +12,7 @@ export default function MainPage(props) {
     const [isLoading, setIsLoading] = useState(true)
 
     const handleClickMoreButton = () => navigate("/events")
-    const handleRamadanPlannerButton = () => navigate('/products')
+    // const handleRamadanPlannerButton = () => navigate('/products')
 
     useEffect(() => {
         const handleGetData = async() => {                                        
