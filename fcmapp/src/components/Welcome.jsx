@@ -6,21 +6,21 @@ import { Coordinates, CalculationMethod, PrayerTimes, Madhab } from 'adhan';
 //Add edit section for main page to easily add/remove "In the Community" images
 
 export default function MainPage(props) { 
-    const {global, flag, listEvents, liveStreamOverride, getEventsPreview, getVideo} = props
+    const {global, flag, listEvents, liveStreamOverride, getVideo, listFilesPreview} = props
     const navigate = useNavigate();
-    const [data, setData] = useState({videoLink: "", events: [], buttonTitle: ""})
+    const [data, setData] = useState({videoLink: "", events: [], buttonTitle: "", preview: []})
     const [isLoading, setIsLoading] = useState(true)
 
     const handleClickMoreButton = () => navigate("/events")
     const handleRamadanPlannerButton = () => navigate('/products')
 
-    
     useEffect(() => {
         const handleGetData = async() => {                                        
             setData({ 
                 videoLink: getVideo.link, 
                 buttonTitle: liveStreamOverride.documents.map((item) => item.buttonName), 
                 events: (await listEvents(50)).documents.map((item) => item).reverse(),
+                preview: (await listFilesPreview("events").then(item => item))
             })
             setIsLoading(false)
         }
@@ -90,7 +90,7 @@ export default function MainPage(props) {
                 <div className="lg:contents hidden">
                 <h1 className=' underline text-center text-2xl py-4 font-bold text-white'>In the Community</h1>
                 <Carousel adaptiveHeight={false} enableKeyboardControls={true} wrapAround={true} slidesToShow={1}  cellSpacing={250}>
-                    {getEventsPreview().map((item) =>  <img src={item} className="" alt="none"/> )}
+                    {data.preview.map((item) => <img src={item} alt="none"/> )} 
                 </Carousel>
             </div>
             </div>

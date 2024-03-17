@@ -17,19 +17,11 @@ export const listEvents = async(limitor) => await db.listDocuments("fcmdb", "eve
 export const liveStreamOverride = await db.listDocuments("fcmdb", "settings")
 
 
-//These 2 sections are duplicates, find a way to switch between events and images without losing your mind.
-export const getEvents =  await storage.listFiles("events")
-export const getEventsPreview =  ()  => {
-    const gallery = getEvents.files.map((img) => img.$id)
-    return gallery.map((image) => storage.getFilePreview("events", image))
-}
-
-//this doesn't want to work which is stupid.
-export const getGallery =  await storage.listFiles("images")
-export const getGalleryPreview = () => {
-    const gallery = getGallery.files.map((img) => img.$id)
-    return gallery.map((image) => storage.getFilePreview("images", image))
-
+//Switcher options: events, images
+const listFiles = async(switcher) =>  await storage.listFiles(switcher)
+export const listFilesPreview = async(switcher) => {
+    const file = (await listFiles(switcher)).files.map((img) => img.$id)
+    return file.map((item) => storage.getFilePreview(switcher, item))
 }
 
 
