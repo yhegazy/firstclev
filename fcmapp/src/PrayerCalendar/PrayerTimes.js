@@ -13,7 +13,7 @@ const SalahTimes = () => {
     let prayerTimes = new PrayerTimes(coordinates, date, params);
 
     let hijraMonth = new Intl.DateTimeFormat('ar-TN-u-ca-islamic', {day: 'numeric', month: 'long'}).format(Date.now());
-    let hijraYear = new Intl.DateTimeFormat('ar-TN-u-ca-islamic', {year : 'numeric'}).format(Date.now());
+    let hijraYear = new Intl.DateTimeFormat('ar-TN-u-ca-islamic', {year : 'numeric'}).format(Date.now() );
 
     const [monthName, setMonthName] = useState(null)
     const handleGregorianMonthName = (number) => {

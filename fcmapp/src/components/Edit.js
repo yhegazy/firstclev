@@ -99,13 +99,56 @@ const Edit = (props) => {
     const handleGetImage = (e) => {setGalleryImage(e.target.files[0])}
 
     return <>
-        <div className="sm:w-3/4 sm:px-2 sm:py-5 my-10 sm:ml-auto sm:mr-auto space-x-3 sm:space-x-0 pt-24 ">
+        <div className='w-full h-full text-center'>
+            <div className="fixed flex-col top-[35%] left-0 lg:flex hidden">
+                <ul>
+                    <li className="w-[160px] h-[60px] flex justify-between items-center ml-[-100px] hover:ml-[-10px] duration-300 bg-blue-500 text-white">
+                        <p className="flex justify-around items-center w-full">
+                                Archives <i className="fa fa-archive text-3xl"  />
+                        </p>
+                    </li>
+                </ul>
+
+                <ul>
+                    <li className="w-[160px] h-[60px] flex justify-between items-center ml-[-100px] hover:ml-[-10px] duration-300 bg-blue-500 text-white">
+                        <p className="flex justify-around items-center w-full">
+                                Events <i className="fa fa-calendar text-3xl"  />
+                        </p>
+                    </li>
+                </ul>
+
+                <ul>
+                    <li className="w-[160px] h-[60px] flex justify-between items-center ml-[-100px] hover:ml-[-10px] duration-300 bg-blue-500 text-white">
+                        <p className="flex justify-around items-center w-full">
+                                Gallery <i className="fa fa-image text-3xl"  />
+                        </p>
+                    </li>
+                </ul>
+
+                <ul>
+                    <li className="w-[160px] h-[60px] flex justify-between items-center ml-[-100px] hover:ml-[-10px] duration-300 bg-blue-500 text-white">
+                    <p className="flex justify-around items-center w-full">
+                        Settings <i className="fa fa-gears text-3xl"  />
+                    </p>
+                    </li>
+                </ul>
+            </div>
+            <div className="bg-green-400">
+            {!global.loggedIn && 
+                        <div className="flex justify-center py-4"><button className="px-4 py-2 font-semibold text-white 
+                        bg-rose-500 rounded shadow hover:bg-rose-700" onClick={handleLogout}>Logout</button></div>
+            }
+                <p>THIS IS A PLACEHOLDER</p>
+            </div>
+        </div>
+
+        {/* <div className="sm:w-3/4 sm:px-2 sm:py-5 my-10 sm:ml-auto sm:mr-auto space-x-3 sm:space-x-0 pt-24 bg-green-400">
             <div className="flex flex-wrap">
                 <div className="ml-auto mr-auto ">
                     {global.loggedIn && 
                         <div className="flex justify-center py-4"><button className="px-4 py-2 font-semibold text-white 
                         bg-yellow-500 rounded shadow hover:bg-yellow-700" onClick={handleLogout}>Logout</button></div>}
-                    {/* Header Menu */}
+                    {/* Header Menu 
                     <div className="m-2 flex sm:flex-wrap justify-around">
                         <button key="yt" onClick={e => setSave({...save, subMenu: e.currentTarget.name})} className={TABS} name="Archives">Archives</button>
                         
@@ -119,7 +162,7 @@ const Edit = (props) => {
                 </div>
             </div>
 
-            { global.loggedIn ? 
+            { !global.loggedIn ? 
                 // Archives UI Console
                 save.subMenu === 'Archives' ? 
                 [
@@ -207,7 +250,7 @@ const Edit = (props) => {
             }
 
                           
-        </div>
+        </div> */}
     </>
 }
 

@@ -1434,6 +1434,9 @@ html {
 .mr-auto {
   margin-right: auto;
 }
+.ml-\[-100px\] {
+  margin-left: -100px;
+}
 .inline-block {
   display: inline-block;
 }
@@ -1464,6 +1467,9 @@ html {
 .h-screen {
   height: 100vh;
 }
+.h-\[60px\] {
+  height: 60px;
+}
 .w-1\/2 {
   width: 50%;
 }
@@ -1472,6 +1478,9 @@ html {
 }
 .w-full {
   width: 100%;
+}
+.w-\[160px\] {
+  width: 160px;
 }
 .max-w-3xl {
   max-width: 48rem;
@@ -1576,6 +1585,14 @@ html {
   --tw-border-opacity: 1;
   border-color: rgb(101 163 13 / var(--tw-border-opacity));
 }
+.border-gray-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(107 114 128 / var(--tw-border-opacity));
+}
+.bg-blue-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(96 165 250 / var(--tw-bg-opacity));
+}
 .bg-blue-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(59 130 246 / var(--tw-bg-opacity));
@@ -1615,9 +1632,13 @@ html {
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity));
 }
-.bg-emerald-400 {
+.bg-gray-500 {
   --tw-bg-opacity: 1;
-  background-color: rgb(52 211 153 / var(--tw-bg-opacity));
+  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
+}
+.bg-rose-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(244 63 94 / var(--tw-bg-opacity));
 }
 .bg-gradient-to-br {
   background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
@@ -1739,6 +1760,10 @@ html {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
+.text-gray-300 {
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity));
+}
 .underline {
   text-decoration-line: underline;
 }
@@ -1762,9 +1787,15 @@ html {
   --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
+.duration-300 {
+  transition-duration: 300ms;
+}
 .placeholder\:text-black::placeholder {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+.hover\:ml-\[-10px\]:hover {
+  margin-left: -10px;
 }
 .hover\:border-lime-500:hover {
   --tw-border-opacity: 1;
@@ -1805,6 +1836,10 @@ html {
 .hover\:bg-yellow-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(161 98 7 / var(--tw-bg-opacity));
+}
+.hover\:bg-rose-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(190 18 60 / var(--tw-bg-opacity));
 }
 .hover\:italic:hover {
   font-style: italic;

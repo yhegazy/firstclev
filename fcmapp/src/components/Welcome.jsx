@@ -19,7 +19,7 @@ export default function MainPage(props) {
             setData({ 
                 videoLink: getVideo.link, 
                 buttonTitle: liveStreamOverride.documents.map((item) => item.buttonName), 
-                events: (await listEvents(50)).documents.map((item) => item).reverse(),
+                events: (await listEvents(100)).documents.map((item) => item).reverse(),
                 preview: (await listFilesPreview("events").then(item => item))
             })
             setIsLoading(false)
@@ -66,7 +66,6 @@ export default function MainPage(props) {
                 {/* <button className="p-2 my-5 w-full text-white hover:text-black hover:bg-stone-300 bg-yellow-500 rounded text-2xl font-semibold" onClick={handleRamadanPlannerButton} >
                     Purchase Ramadan Planner 2024
                 </button> */}
-                
                 {/* Events */}
                 <div className="my-5 w-full text-base text-center px-2 bg-gray-300 shadow-lg">
                     <p className="text-lg underline ">Calendar</p>
@@ -75,6 +74,7 @@ export default function MainPage(props) {
                         :
                         
                         !flag && data.events.slice(0, 7).reverse().map((item) => [
+                           
                             <ul className=''>
                             <li className='bg-white w-full text-center '>{item.title} - {new Date(item.start).toLocaleDateString()}</li>
                             <hr/>
