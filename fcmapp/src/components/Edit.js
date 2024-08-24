@@ -2,14 +2,12 @@ import {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { account, db, storage } from '../appwrite/appwriteConfig'
 import {v4 as uuidv4} from 'uuid' //to auto-generate unique ids
-import Notifications from '../Notifications/Notifications'
 
 // import { handleLiveStreamBtnOverride } from './hooks/handleLiveStreamBtnOverride'
 //TODO: Build a better layout. Clean this code base up.
 
-const TABS = "bg-white hover:bg-gray-100 inline-block border-l border-t border-r rounded-t py-2 px-4 text-red-700 font-semibold shadow"
-
 const archives = (save) => {
+    // handleLiveStreamBtnOverride(save, db)
     return fetch('/edit', {
         method: "POST", 
         headers: {'Content-Type': 'application/json'},
@@ -17,6 +15,7 @@ const archives = (save) => {
     })
     .then((data) =>  data.status === 200 && alert('success'))
     .catch(error => console.error(error))
+    
 }
 
 const gallery = async(galleryImage) => {
@@ -99,27 +98,106 @@ const Edit = (props) => {
     const handleGetImage = (e) => {setGalleryImage(e.target.files[0])}
 
     return <>
-        <div className="sm:w-3/4 sm:px-2 sm:py-5 my-10 sm:ml-auto sm:mr-auto space-x-3 sm:space-x-0 pt-24 ">
-            <div className="flex flex-wrap">
-                <div className="ml-auto mr-auto ">
-                    {global.loggedIn && 
-                        <div className="flex justify-center py-4"><button className="px-4 py-2 font-semibold text-white 
-                        bg-yellow-500 rounded shadow hover:bg-yellow-700" onClick={handleLogout}>Logout</button></div>}
-                    {/* Header Menu */}
-                    <div className="m-2 flex sm:flex-wrap justify-around">
-                        <button key="yt" onClick={e => setSave({...save, subMenu: e.currentTarget.name})} className={TABS} name="Archives">Archives</button>
-                        
-                        <button key="ga" onClick={e => setSave({...save, subMenu: e.currentTarget.name})} className={TABS} name="Gallery">Gallery</button>
-                        
-                        <button key="cal" onClick={e => setSave({...save, subMenu: e.currentTarget.name})} className={TABS} name="Events">Upcoming Events</button>
+        <div className='w-full h-full text-center'>
+            <div className="fixed flex-col top-[35%] left-0 lg:flex hidden">
+                <ul>
+                    <li className="w-[160px] h-[60px] flex justify-between items-center ml-[-100px] hover:ml-[-10px] duration-300 bg-blue-500 text-white">
+                        <button 
+                            key="yt" 
+                            onClick={e => setSave({...save, subMenu: e.currentTarget.name})} 
+                            className="flex justify-around items-center w-full"
+                            name="Archives">
+                                Archives <i className="fa fa-archive text-3xl"  />
+                        </button>
+                      
+                    </li>
+                </ul>
 
-                        <button key="set" onClick={e => setSave({...save, subMenu: e.currentTarget.name})} className={TABS} name="Notifications">Notifications</button>
-                        
-                    </div>
-                </div>
+                <ul>
+                    <li className="w-[160px] h-[60px] flex justify-between items-center ml-[-100px] hover:ml-[-10px] duration-300 bg-blue-500 text-white">
+
+                    <button key="cal" onClick={e => setSave({...save, subMenu: e.currentTarget.name})} className="flex justify-around items-center w-full" name="Events">Events <i className="fa fa-calendar text-3xl"  /></button>
+
+                       
+                    </li>
+                </ul>
+
+                <ul>
+                    <li className="w-[160px] h-[60px] flex justify-between items-center ml-[-100px] hover:ml-[-10px] duration-300 bg-blue-500 text-white">
+                        <button 
+                            key="ga" 
+                            onClick={e => setSave({...save, subMenu: e.currentTarget.name})} 
+                            className="flex justify-around items-center w-full"
+                            name="Gallery">Gallery <i className="fa fa-image text-3xl"  />
+                        </button>
+                    </li>
+                </ul>
+
+                <ul>
+                    <li className="w-[160px] h-[60px] flex justify-between items-center ml-[-100px] hover:ml-[-10px] duration-300 bg-rose-500 hover:bg-rose-700 text-white">
+
+                    <button key="set" onClick={handleLogout} className="flex justify-around items-center w-full" name="Notifications">Lockout <i className="fa fa-lock text-3xl"></i></button>
+                  
+                    </li> 
+                </ul>
+                
+                {/* Not sure if I want to proceed with the notification settings */}
+                {/* <ul>
+                    <li className="w-[160px] h-[60px] flex justify-between items-center ml-[-100px] hover:ml-[-10px] duration-300 bg-blue-500 text-white">
+
+                    <button key="set" onClick={e => setSave({...save, subMenu: e.currentTarget.name})} className="flex justify-around items-center w-full" name="Notifications">Notify <i className="fa fa-bullhorn"></i></button>
+                  
+                    </li> 
+                </ul>*/}
             </div>
+            <div className="bg-rose-400">
+                
+            {!global.loggedIn && 
+                save.subMenu === 'Archives' && 
+                [
+                    // Archives UI Console
+                    <div className="grid justify-center py-4">
+                        <label className="px-2 font-semibold" htmlFor="liveBtnOverride" >Override Live Stream Button text? </label>
+                        <select className=' border border-black' onChange={e => handleCheckboxOutcome(e)} >
+                            <option>No</option>
+                            <option>Yes</option>
+                        </select>
+                    </div>,
+                    // Is Override enabled? yes, show...no, hide.
+                    save.liveBtnOverride && [
+                        <div className="grid justify-center py-4">
+                            <label className="px-2 font-semibold" htmlFor="welcome" >Change To: </label>
+                            <input className="border border-black" id="welcome" type="text" size="20" 
+                                onChange={e => setSave({...save, buttonName: e.target.value})} />
+                        </div>,
+                    
+                        <div className="grid justify-center py-4">
+                            <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" 
+                                // onClick={handleLiveStreamBtnOverride(save, db)}
+                            >Save!</button>
+                        </div> ,
+                        <hr className="border-black"/>
+                    ],  
+                    
+                <div className="flex sm:justify-center justify-between p-4">
+                    <label className="sm:px-2 font-semibold" htmlFor="archive" >YouTube URL : </label>
+                    <input className="border border-black" id="youtube" onChange={e => setSave({...save, vID: e.target.value})} />
+                </div>,
+                <div className="flex sm:justify-center justify-between p-4">
+                    <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded shadow hover:bg-blue-700" onClick={handleSaveButton}>
+                        Update!
+                    </button>
+                </div> 
+                ]
 
-            { global.loggedIn ? 
+            }
+                <p>THIS IS A PLACEHOLDER</p>
+            </div>
+        </div>
+
+        {/* 
+
+            { !global.loggedIn ? 
                 // Archives UI Console
                 save.subMenu === 'Archives' ? 
                 [
@@ -207,7 +285,7 @@ const Edit = (props) => {
             }
 
                           
-        </div>
+        </div> */}
     </>
 }
 
